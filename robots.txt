@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOURUSERNAME.github.io/bash-snippets/sitemap.xml
+Sitemap: https://anguishe.github.io/bash-snippets/sitemap.xml
