@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://YOURUSERNAME.github.io/bash-snippets/</loc>
+    <lastmod>TODAYS-DATE-YYYY-MM-DD</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://YOURUSERNAME.github.io/bash-snippets/privacy.html</loc>
+    <lastmod>TODAYS-DATE-YYYY-MM-DD</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
