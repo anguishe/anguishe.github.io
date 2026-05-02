@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Delete Old Log Files – Bash Script Guide | Bash Snippets</title>
+  <meta name="description" content="A bash script that automatically deletes log files older than 30 days. Copy-paste ready. Includes safe preview mode, cron scheduling, and multi-folder variations." />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/delete-old-log-files.html" />
+
+  <meta property="og:title" content="Delete Old Log Files – Bash Script Guide | Bash Snippets" />
+  <meta property="og:description" content="Automatically clean up log files older than X days with this beginner bash script. Safe preview mode included." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/delete-old-log-files.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Automatically Delete Old Log Files with Bash",
+    "description": "A bash script using the find command to delete log files older than a set number of days, with safe preview mode.",
+    "step": [
+      { "@type": "HowToStep", "name": "Create the script", "text": "Run nano cleanlog.sh in your terminal and paste the script." },
+      { "@type": "HowToStep", "name": "Set your log directory", "text": "Change LOG_DIR to the folder containing your log files." },
+      { "@type": "HowToStep", "name": "Preview first", "text": "Replace -delete with -print to see which files would be removed before actually deleting them." },
+      { "@type": "HowToStep", "name": "Make executable and schedule", "text": "Run chmod +x cleanlog.sh then add it to cron to run automatically." }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I automatically delete old log files in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the find command with the -mtime flag and -delete action. For example: find /var/log/myapp -name '*.log' -mtime +30 -delete removes all .log files older than 30 days. Schedule this with cron to run automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I safely preview what find -delete will remove?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Replace -delete with -print in your find command. This prints the matching files to the terminal without deleting anything, so you can verify the list before committing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does -mtime +30 mean in the find command?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "-mtime +30 matches files whose modification time is more than 30 days ago. Use -mtime +7 for a week, -mtime +90 for three months. The + means strictly greater than that number of days."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I delete files older than 30 days in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run: find /path/to/folder -type f -mtime +30 -delete. This finds all files (-type f) modified more than 30 days ago (-mtime +30) and deletes them (-delete). Always test with -print first."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6B01TGE8XS');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+      --green:#39d353; --green-dim:#1a4a2e; --amber:#e3b341; --amber-dim:#3d2f0d;
+      --blue:#58a6ff; --blue-dim:#0d2a4a; --text:#e6edf3; --muted:#8b949e;
+      --heading-font:'Syne',sans-serif; --mono-font:'IBM Plex Mono',monospace; --radius:8px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:var(--mono-font); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    nav { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.93); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .nav-logo { font-family:var(--heading-font); font-weight:800; font-size:18px; color:var(--green); letter-spacing:-0.5px; text-decoration:none; }
+    .nav-logo span { color:var(--muted); }
+    .nav-links { display:flex; gap:20px; list-style:none; }
+    .nav-links a { font-size:13px; color:var(--muted); transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); text-decoration:none; }
+    main { max-width:860px; margin:0 auto; padding:60px 24px 80px; }
+    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:32px; }
+    .breadcrumb a { color:var(--muted); }
+    .breadcrumb a:hover { color:var(--text); text-decoration:none; }
+    .breadcrumb span { margin:0 6px; }
+    .page-header { margin-bottom:40px; }
+    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .tag { font-size:11px; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; }
+    .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+    .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
+    .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
+    h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
+    .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; }
+    h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
+    h2::before { content:'// '; color:var(--green); }
+    h3 { font-family:var(--heading-font); font-size:1rem; font-weight:700; margin:28px 0 10px; color:var(--green); }
+    p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
+    ul, ol { padding-left:24px; color:var(--muted); line-height:1.9; margin-bottom:16px; }
+    li { margin-bottom:4px; }
+    strong { color:var(--text); font-weight:600; }
+    .code-block { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:24px 0; }
+    .code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bg3); border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); }
+    .code-header .filename { color:var(--green); font-weight:600; }
+    .copy-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-family:var(--mono-font); font-size:11px; padding:4px 10px; border-radius:4px; cursor:pointer; transition:all 0.2s; }
+    .copy-btn:hover { border-color:var(--green); color:var(--green); }
+    .copy-btn.copied { border-color:var(--green); color:var(--green); }
+    pre { padding:24px; overflow-x:auto; font-family:var(--mono-font); font-size:14px; line-height:1.7; color:var(--text); }
+    .comment { color:var(--muted); }
+    .kw  { color:var(--green); }
+    .var { color:var(--blue); }
+    .str { color:var(--amber); }
+    .num { color:#f78166; }
+    code { background:var(--bg3); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-family:var(--mono-font); font-size:13px; color:var(--green); }
+    .callout { border-left:3px solid var(--green); background:var(--bg2); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:24px 0; }
+    .callout.amber { border-left-color:var(--amber); }
+    .callout.blue  { border-left-color:var(--blue); }
+    .callout-title { font-weight:600; color:var(--text); font-size:13px; margin-bottom:6px; }
+    .callout p { margin-bottom:0; font-size:13px; }
+    .var-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
+    .var-table th { text-align:left; padding:10px 12px; color:var(--muted); border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
+    .var-table td { padding:10px 12px; border-bottom:1px solid var(--bg3); color:var(--muted); vertical-align:top; }
+    .var-table td:first-child { color:var(--green); font-weight:600; }
+    .var-table tr:last-child td { border-bottom:none; }
+    .ad-slot { border:1px dashed var(--border); border-radius:var(--radius); padding:24px; text-align:center; color:var(--muted); font-size:12px; background:var(--bg2); margin:40px 0; }
+    .related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:16px; }
+    .related-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; transition:border-color 0.2s; display:block; text-decoration:none; }
+    .related-card:hover { border-color:var(--green); text-decoration:none; }
+    .related-card-title { font-size:13px; color:var(--text); font-weight:600; margin-bottom:4px; }
+    .related-card-tag { font-size:11px; color:var(--muted); }
+    .affiliate-box { background:var(--bg2); border:1px solid var(--amber); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:40px 0; flex-wrap:wrap; }
+    .affiliate-box-text { font-size:13px; color:var(--muted); }
+    .affiliate-box-text strong { color:var(--text); display:block; margin-bottom:4px; font-size:14px; }
+    .btn-affiliate { background:var(--amber); color:#0d1117; font-family:var(--mono-font); font-weight:600; font-size:13px; padding:10px 20px; border-radius:var(--radius); border:none; cursor:pointer; white-space:nowrap; display:inline-block; transition:opacity 0.2s; text-decoration:none; }
+    .btn-affiliate:hover { opacity:0.85; text-decoration:none; }
+    footer { border-top:1px solid var(--border); padding:28px 24px; text-align:center; font-size:12px; color:var(--muted); display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+    footer a { color:var(--muted); }
+    footer a:hover { color:var(--text); text-decoration:none; }
+    @media (max-width:640px) { .nav-links { display:none; } .affiliate-box { flex-direction:column; align-items:flex-start; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+  <ul class="nav-links">
+    <li><a href="/#snippets">Snippets</a></li>
+    <li><a href="/#builder">Builder</a></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/#snippets">Snippets</a><span>›</span>
+    Delete Old Log Files
+  </div>
+
+  <div class="page-header">
+    <div class="tag-row">
+      <span class="tag tag-amber">intermediate</span>
+      <span class="tag tag-blue">automation</span>
+      <span class="tag tag-blue">cron-ready</span>
+    </div>
+    <h1>Delete Old Log Files with Bash</h1>
+    <p class="page-intro">
+      Log files pile up fast. Left unchecked they fill your disk, slow your server, and cause failures at
+      the worst possible time. This script uses bash's <code>find</code> command to automatically delete
+      log files older than a set number of days — with a safe preview mode so you never delete something
+      you didn't mean to.
+    </p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>The Script</h2>
+  <p>Paste this into a file called <code>cleanlog.sh</code>. Change <code>LOG_DIR</code> and <code>DAYS</code> to match your setup. <strong>Run with <code>-print</code> first</strong> before using <code>-delete</code>.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">cleanlog.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Delete Old Log Files</span>
+<span class="comment"># Finds and deletes .log files older than DAYS days.</span>
+<span class="comment"># SAFE: swap -delete for -print to preview first.</span>
+<span class="comment">#</span>
+<span class="comment"># USAGE: ./cleanlog.sh</span>
+<span class="comment"># REQUIRES: bash, find (pre-installed on all Linux/macOS)</span>
+
+<span class="var">LOG_DIR</span>=<span class="str">"/var/log/myapp"</span>   <span class="comment"># ← your log folder</span>
+<span class="var">DAYS</span>=<span class="num">30</span>                    <span class="comment"># ← delete logs older than this many days</span>
+
+<span class="kw">echo</span> <span class="str">"Cleaning logs older than $DAYS days in $LOG_DIR..."</span>
+
+<span class="kw">find</span> <span class="str">"$LOG_DIR"</span> -type f -name <span class="str">"*.log"</span> \
+  -mtime +<span class="var">$DAYS</span> -delete
+
+<span class="kw">echo</span> <span class="str">"✓ Done. Cleaned logs older than $DAYS days."</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">✓ What this does, line by line</div>
+    <p><code>find "$LOG_DIR"</code> searches your log folder. <code>-type f</code> limits results to files only (skips subdirectories). <code>-name "*.log"</code> matches only log files. <code>-mtime +$DAYS</code> filters to files last modified more than DAYS days ago. <code>-delete</code> removes them. Replace <code>-delete</code> with <code>-print</code> anytime to preview without deleting.</p>
+  </div>
+
+  <h2>Step-by-Step Setup</h2>
+
+  <h3>Step 1 — Create the file</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">nano</span> cleanlog.sh</pre>
+  </div>
+  <p>Paste the script, then <strong>Ctrl+X → Y → Enter</strong> to save.</p>
+
+  <h3>Step 2 — Set your paths and age limit</h3>
+  <table class="var-table">
+    <tr><th>Variable</th><th>Example</th><th>What it means</th></tr>
+    <tr><td>LOG_DIR</td><td>/var/log/nginx</td><td>The folder containing your log files</td></tr>
+    <tr><td>LOG_DIR</td><td>/home/user/app/logs</td><td>A custom app log folder</td></tr>
+    <tr><td>DAYS</td><td>7</td><td>Delete logs older than 1 week</td></tr>
+    <tr><td>DAYS</td><td>30</td><td>Delete logs older than 1 month (default)</td></tr>
+    <tr><td>DAYS</td><td>90</td><td>Delete logs older than 3 months</td></tr>
+  </table>
+
+  <h3>Step 3 — ALWAYS preview before deleting</h3>
+  <p>Before you run the script for the first time, swap <code>-delete</code> for <code>-print</code> to see exactly which files would be removed:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">safe-preview.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Preview mode — shows files that WOULD be deleted, removes nothing</span>
+<span class="kw">find</span> <span class="str">"$LOG_DIR"</span> -type f -name <span class="str">"*.log"</span> -mtime +<span class="var">$DAYS</span> -print</pre>
+  </div>
+  <p>Review the output. If it looks right, switch back to <code>-delete</code> and run for real.</p>
+
+  <h3>Step 4 — Make it executable and run it</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">chmod</span> +x cleanlog.sh
+./<span class="kw">cleanlog.sh</span></pre>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Schedule with Cron</h2>
+  <p>Running this once manually is useful. Running it automatically every week is the goal.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">crontab</span> -e</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">crontab</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Run every Sunday at 3am</span>
+<span class="num">0 3 * * 0</span> /home/user/cleanlog.sh
+
+<span class="comment"># Run every day at midnight</span>
+<span class="num">0 0 * * *</span> /home/user/cleanlog.sh
+
+<span class="comment"># Run on the 1st of every month</span>
+<span class="num">0 0 1 * *</span> /home/user/cleanlog.sh</pre>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">💡 Log output to a file</div>
+    <p>Add <code>&gt;&gt; /var/log/cleanlog.log 2&gt;&amp;1</code> to the end of your cron line so you have a record of every cleanup run and any errors.</p>
+  </div>
+
+  <h2>Variations</h2>
+
+  <h3>Clean multiple file types at once</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">cleanlog-multi.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="var">LOG_DIR</span>=<span class="str">"/var/log/myapp"</span>
+<span class="var">DAYS</span>=<span class="num">30</span>
+
+<span class="comment"># Delete .log AND .gz (compressed log) files older than DAYS</span>
+<span class="kw">find</span> <span class="str">"$LOG_DIR"</span> -type f \( -name <span class="str">"*.log"</span> -o -name <span class="str">"*.gz"</span> \) \
+  -mtime +<span class="var">$DAYS</span> -delete
+
+<span class="kw">echo</span> <span class="str">"✓ Cleaned .log and .gz files older than $DAYS days"</span></pre>
+  </div>
+
+  <h3>Delete logs and report how much space was freed</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">cleanlog-report.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="var">LOG_DIR</span>=<span class="str">"/var/log/myapp"</span>
+<span class="var">DAYS</span>=<span class="num">30</span>
+
+<span class="comment"># Measure disk usage before</span>
+<span class="var">BEFORE</span>=$(<span class="kw">du</span> -sh <span class="str">"$LOG_DIR"</span> | <span class="kw">awk</span> <span class="str">'{print $1}'</span>)
+
+<span class="kw">find</span> <span class="str">"$LOG_DIR"</span> -type f -name <span class="str">"*.log"</span> -mtime +<span class="var">$DAYS</span> -delete
+
+<span class="comment"># Measure disk usage after</span>
+<span class="var">AFTER</span>=$(<span class="kw">du</span> -sh <span class="str">"$LOG_DIR"</span> | <span class="kw">awk</span> <span class="str">'{print $1}'</span>)
+
+<span class="kw">echo</span> <span class="str">"✓ Done. Before: $BEFORE → After: $AFTER"</span></pre>
+  </div>
+
+  <h3>Clean logs across multiple directories</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">cleanlog-dirs.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="var">DAYS</span>=<span class="num">30</span>
+<span class="var">DIRS</span>=(<span class="str">"/var/log/nginx"</span> <span class="str">"/var/log/myapp"</span> <span class="str">"/home/user/app/logs"</span>)
+
+<span class="kw">for</span> <span class="var">dir</span> <span class="kw">in</span> <span class="str">"${DIRS[@]}"</span>; <span class="kw">do</span>
+  [ -d <span class="str">"$dir"</span> ] || <span class="kw">continue</span>  <span class="comment"># skip if folder doesn't exist</span>
+  <span class="kw">echo</span> <span class="str">"Cleaning $dir..."</span>
+  <span class="kw">find</span> <span class="str">"$dir"</span> -type f -name <span class="str">"*.log"</span> -mtime +<span class="var">$DAYS</span> -delete
+<span class="kw">done</span>
+<span class="kw">echo</span> <span class="str">"✓ All directories cleaned."</span></pre>
+  </div>
+
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Stop babysitting your server's disk space</strong>
+      Run your cleanup scripts automatically on a DigitalOcean droplet — from $4/month. New accounts get $200 free credit.
+    </div>
+    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+    <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+</div>
+
+  <h2>Common Mistakes</h2>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Not previewing with -print first</div>
+    <p>The most common mistake. Always run with <code>-print</code> before <code>-delete</code> the first time on any new directory. One wrong path and you could delete the wrong files permanently.</p>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Deleting system logs you shouldn't touch</div>
+    <p>Avoid pointing <code>LOG_DIR</code> at <code>/var/log</code> directly — that includes system logs that your OS needs. Always target a specific subfolder like <code>/var/log/nginx</code> or <code>/var/log/myapp</code>.</p>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ -mtime counts in full 24-hour periods</div>
+    <p><code>-mtime +30</code> means strictly more than 30 full days ago, not "30 days ago today." A file from exactly 30 days ago won't match — it needs to be 31+ days old. Use <code>-mtime +29</code> if you want to catch files from day 30.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Understanding the Commands</h2>
+  <table class="var-table">
+    <tr><th>Command / Flag</th><th>What it does</th></tr>
+    <tr><td>find $LOG_DIR</td><td>Searches recursively through the specified directory</td></tr>
+    <tr><td>-type f</td><td>Matches files only — ignores directories and symlinks</td></tr>
+    <tr><td>-name "*.log"</td><td>Matches files ending in .log — change to *.gz, *.tmp, etc.</td></tr>
+    <tr><td>-mtime +30</td><td>Matches files modified more than 30 full days ago</td></tr>
+    <tr><td>-print</td><td>Prints matching files to the terminal — safe preview mode</td></tr>
+    <tr><td>-delete</td><td>Deletes matching files permanently — always preview first</td></tr>
+  </table>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>How do I automatically delete old log files in Linux?</h3>
+  <p>Use the <code>find</code> command: <code>find /var/log/myapp -name '*.log' -mtime +30 -delete</code>. This removes all <code>.log</code> files older than 30 days. Add it to cron with <code>crontab -e</code> to run it automatically on a schedule.</p>
+
+  <h3>How do I safely preview what find -delete will remove?</h3>
+  <p>Swap <code>-delete</code> for <code>-print</code> in your command. It prints the matching files to your terminal without touching them. Review the list, and when you're confident, switch back to <code>-delete</code>.</p>
+
+  <h3>What does -mtime +30 mean in the find command?</h3>
+  <p><code>-mtime +30</code> matches files whose last modification time was more than 30 full 24-hour periods ago. Use <code>+7</code> for a week, <code>+90</code> for three months. The <code>+</code> means strictly greater than.</p>
+
+  <h3>How do I delete files older than 30 days in Linux?</h3>
+  <p>Run: <code>find /path/to/folder -type f -mtime +30 -delete</code>. This finds all files modified more than 30 days ago and deletes them. Always test with <code>-print</code> before using <code>-delete</code>.</p>
+
+  <h2>Related Snippets</h2>
+  <div class="related-grid">
+    <a class="related-card" href="/snippets/automated-file-backup.html">
+      <div class="related-card-title">Automated File Backup</div>
+      <div class="related-card-tag">beginner · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/disk-space-warning.html">
+      <div class="related-card-title">Disk Space Warning</div>
+      <div class="related-card-tag">beginner · monitor</div>
+    </a>
+    <a class="related-card" href="/#snippets">
+      <div class="related-card-title">← All Snippets</div>
+      <div class="related-card-tag">Browse the full library</div>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <a href="/">← Back to Bash Snippets</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

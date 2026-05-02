@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Quick System Info Report Script – Bash Snippets</title>
+  <meta name="description" content="A bash script that prints a quick system snapshot — hostname, uptime, RAM, disk, and IP — in one command. Copy-paste ready. Alias it to 'syscheck' for instant access." />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/quick-system-info-report.html" />
+
+  <meta property="og:title" content="Quick System Info Report Script – Bash Snippets" />
+  <meta property="og:description" content="One bash command to see your hostname, uptime, RAM, disk usage, and IP. Perfect for servers and VPS. Beginner friendly." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/quick-system-info-report.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Create a Quick System Info Script in Bash",
+    "description": "A bash script that displays key system stats — hostname, uptime, RAM, disk, and IP — in a clean report with one command.",
+    "step": [
+      { "@type": "HowToStep", "name": "Create the script", "text": "Run nano syscheck.sh and paste the script." },
+      { "@type": "HowToStep", "name": "Make it executable", "text": "Run chmod +x syscheck.sh" },
+      { "@type": "HowToStep", "name": "Create a shortcut alias", "text": "Add alias syscheck='~/syscheck.sh' to your ~/.bashrc file, then run source ~/.bashrc." },
+      { "@type": "HowToStep", "name": "Run it anytime", "text": "Type syscheck from anywhere in the terminal to see your system snapshot." }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I check system info in Linux with one command?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Create a bash script that runs hostname, uptime -p, free -h, df -h, and hostname -I together. Save it as syscheck.sh, make it executable with chmod +x, and alias it in your ~/.bashrc so you can type syscheck from anywhere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I check RAM usage in Linux from the terminal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run free -h to see RAM usage in human-readable format. The output shows total, used, free, and available memory. To extract just the used/total line, run: free -h | awk '/Mem/{print $3\"/\"$2}'"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I create a bash alias for a script?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add a line to your ~/.bashrc file: alias syscheck='/home/user/syscheck.sh'. Then run source ~/.bashrc to load it. After that, typing syscheck in any terminal will run the script instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What command shows uptime in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run uptime -p for a clean human-readable output like 'up 3 days, 4 hours, 12 minutes'. Running just uptime gives the raw output with load averages included."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6B01TGE8XS');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+      --green:#39d353; --green-dim:#1a4a2e; --amber:#e3b341; --amber-dim:#3d2f0d;
+      --blue:#58a6ff; --blue-dim:#0d2a4a; --text:#e6edf3; --muted:#8b949e;
+      --heading-font:'Syne',sans-serif; --mono-font:'IBM Plex Mono',monospace; --radius:8px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:var(--mono-font); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    nav { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.93); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .nav-logo { font-family:var(--heading-font); font-weight:800; font-size:18px; color:var(--green); letter-spacing:-0.5px; text-decoration:none; }
+    .nav-logo span { color:var(--muted); }
+    .nav-links { display:flex; gap:20px; list-style:none; }
+    .nav-links a { font-size:13px; color:var(--muted); transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); text-decoration:none; }
+    main { max-width:860px; margin:0 auto; padding:60px 24px 80px; }
+    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:32px; }
+    .breadcrumb a { color:var(--muted); }
+    .breadcrumb a:hover { color:var(--text); text-decoration:none; }
+    .breadcrumb span { margin:0 6px; }
+    .page-header { margin-bottom:40px; }
+    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .tag { font-size:11px; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; }
+    .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+    .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
+    .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
+    h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
+    .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; }
+    h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
+    h2::before { content:'// '; color:var(--green); }
+    h3 { font-family:var(--heading-font); font-size:1rem; font-weight:700; margin:28px 0 10px; color:var(--green); }
+    p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
+    ul, ol { padding-left:24px; color:var(--muted); line-height:1.9; margin-bottom:16px; }
+    li { margin-bottom:4px; }
+    strong { color:var(--text); font-weight:600; }
+    .code-block { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:24px 0; }
+    .code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bg3); border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); }
+    .code-header .filename { color:var(--green); font-weight:600; }
+    .copy-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-family:var(--mono-font); font-size:11px; padding:4px 10px; border-radius:4px; cursor:pointer; transition:all 0.2s; }
+    .copy-btn:hover { border-color:var(--green); color:var(--green); }
+    .copy-btn.copied { border-color:var(--green); color:var(--green); }
+    pre { padding:24px; overflow-x:auto; font-family:var(--mono-font); font-size:14px; line-height:1.7; color:var(--text); }
+    .comment { color:var(--muted); }
+    .kw  { color:var(--green); }
+    .var { color:var(--blue); }
+    .str { color:var(--amber); }
+    .num { color:#f78166; }
+    code { background:var(--bg3); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-family:var(--mono-font); font-size:13px; color:var(--green); }
+    .callout { border-left:3px solid var(--green); background:var(--bg2); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:24px 0; }
+    .callout.amber { border-left-color:var(--amber); }
+    .callout.blue  { border-left-color:var(--blue); }
+    .callout-title { font-weight:600; color:var(--text); font-size:13px; margin-bottom:6px; }
+    .callout p { margin-bottom:0; font-size:13px; }
+    .var-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
+    .var-table th { text-align:left; padding:10px 12px; color:var(--muted); border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
+    .var-table td { padding:10px 12px; border-bottom:1px solid var(--bg3); color:var(--muted); vertical-align:top; }
+    .var-table td:first-child { color:var(--green); font-weight:600; }
+    .var-table tr:last-child td { border-bottom:none; }
+    .ad-slot { border:1px dashed var(--border); border-radius:var(--radius); padding:24px; text-align:center; color:var(--muted); font-size:12px; background:var(--bg2); margin:40px 0; }
+    .related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:16px; }
+    .related-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; transition:border-color 0.2s; display:block; text-decoration:none; }
+    .related-card:hover { border-color:var(--green); text-decoration:none; }
+    .related-card-title { font-size:13px; color:var(--text); font-weight:600; margin-bottom:4px; }
+    .related-card-tag { font-size:11px; color:var(--muted); }
+    .affiliate-box { background:var(--bg2); border:1px solid var(--amber); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:40px 0; flex-wrap:wrap; }
+    .affiliate-box-text { font-size:13px; color:var(--muted); }
+    .affiliate-box-text strong { color:var(--text); display:block; margin-bottom:4px; font-size:14px; }
+    .btn-affiliate { background:var(--amber); color:#0d1117; font-family:var(--mono-font); font-weight:600; font-size:13px; padding:10px 20px; border-radius:var(--radius); border:none; cursor:pointer; white-space:nowrap; display:inline-block; transition:opacity 0.2s; text-decoration:none; }
+    .btn-affiliate:hover { opacity:0.85; text-decoration:none; }
+    footer { border-top:1px solid var(--border); padding:28px 24px; text-align:center; font-size:12px; color:var(--muted); display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+    footer a { color:var(--muted); }
+    footer a:hover { color:var(--text); text-decoration:none; }
+    @media (max-width:640px) { .nav-links { display:none; } .affiliate-box { flex-direction:column; align-items:flex-start; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+  <ul class="nav-links">
+    <li><a href="/#snippets">Snippets</a></li>
+    <li><a href="/#builder">Builder</a></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/#snippets">Snippets</a><span>›</span>
+    Quick System Info Report
+  </div>
+
+  <div class="page-header">
+    <div class="tag-row">
+      <span class="tag tag-green">beginner</span>
+      <span class="tag tag-blue">monitor</span>
+      <span class="tag tag-blue">alias-ready</span>
+    </div>
+    <h1>Quick System Info Report Script</h1>
+    <p class="page-intro">
+      Every time you SSH into a server, you want the same five things: hostname, uptime, RAM, disk, and IP.
+      This script prints them all in one clean shot. Alias it to <code>syscheck</code> in your
+      <code>.bashrc</code> and you'll have it available in every terminal session, on every machine.
+    </p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>The Script</h2>
+  <p>Paste this into <code>syscheck.sh</code>. It runs instantly and requires no additional tools — everything used here is pre-installed on Linux and macOS.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">syscheck.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Quick System Info Report</span>
+<span class="comment"># Prints key stats at a glance.</span>
+<span class="comment"># Alias to 'syscheck' in your .bashrc for fast access.</span>
+<span class="comment">#</span>
+<span class="comment"># USAGE: ./syscheck.sh</span>
+<span class="comment"># REQUIRES: bash, hostname, uptime, free, df (pre-installed everywhere)</span>
+
+<span class="kw">echo</span> <span class="str">"=== Quick System Check ==="</span>
+<span class="kw">echo</span> <span class="str">"Host    : $(hostname)"</span>
+<span class="kw">echo</span> <span class="str">"Uptime  : $(uptime -p)"</span>
+<span class="kw">echo</span> <span class="str">"RAM     : $(free -h | awk '/Mem/{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">"Disk /  : $(df -h / | awk 'NR==2{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">"IP      : $(hostname -I | awk '{print $1}')"</span>
+<span class="kw">echo</span> <span class="str">"========================="</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">✓ Sample output</div>
+    <p>
+      <code>=== Quick System Check ===</code><br>
+      <code>Host    : my-server</code><br>
+      <code>Uptime  : up 3 days, 4 hours</code><br>
+      <code>RAM     : 1.2G/2.0G</code><br>
+      <code>Disk /  : 8.3G/25G</code><br>
+      <code>IP      : 192.168.1.42</code><br>
+      <code>=========================</code>
+    </p>
+  </div>
+
+  <h2>Step-by-Step Setup</h2>
+
+  <h3>Step 1 — Create the file</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">nano</span> syscheck.sh</pre>
+  </div>
+  <p>Paste the script, then <strong>Ctrl+X → Y → Enter</strong> to save.</p>
+
+  <h3>Step 2 — Make it executable</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">chmod</span> +x syscheck.sh</pre>
+  </div>
+
+  <h3>Step 3 — Run it once to confirm it works</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre>./<span class="kw">syscheck.sh</span></pre>
+  </div>
+  <p>You should see your system stats printed cleanly. If <code>uptime -p</code> fails on older systems, see the macOS/compatibility note below.</p>
+
+  <h3>Step 4 — Alias it for instant access anywhere</h3>
+  <p>This is the step that makes it actually useful. Open your <code>.bashrc</code> (or <code>.zshrc</code> if you use zsh):</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">nano</span> ~/.bashrc</pre>
+  </div>
+  <p>Add this line at the bottom:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">~/.bashrc</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">alias</span> <span class="var">syscheck</span>=<span class="str">'/home/user/syscheck.sh'</span>   <span class="comment"># ← use your actual path</span></pre>
+  </div>
+  <p>Save, then reload your shell config:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">source</span> ~/.bashrc</pre>
+  </div>
+  <p>Now you can type <code>syscheck</code> from anywhere in any terminal session and get your system snapshot instantly.</p>
+
+  <div class="callout blue">
+    <div class="callout-title">💡 Using zsh instead of bash?</div>
+    <p>Add the alias to <code>~/.zshrc</code> instead of <code>~/.bashrc</code>, then run <code>source ~/.zshrc</code>. Everything else stays the same.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Variations</h2>
+
+  <h3>Add CPU load average</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">syscheck-cpu.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">echo</span> <span class="str">"=== Quick System Check ==="</span>
+<span class="kw">echo</span> <span class="str">"Host    : $(hostname)"</span>
+<span class="kw">echo</span> <span class="str">"Uptime  : $(uptime -p)"</span>
+<span class="kw">echo</span> <span class="str">"Load    : $(uptime | awk -F'load average:' '{print $2}' | xargs)"</span>
+<span class="kw">echo</span> <span class="str">"RAM     : $(free -h | awk '/Mem/{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">"Disk /  : $(df -h / | awk 'NR==2{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">"IP      : $(hostname -I | awk '{print $1}')"</span>
+<span class="kw">echo</span> <span class="str">"========================="</span></pre>
+  </div>
+
+  <h3>Check multiple disks at once</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">syscheck-disks.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">echo</span> <span class="str">"=== System Check ==="</span>
+<span class="kw">echo</span> <span class="str">"Host    : $(hostname)"</span>
+<span class="kw">echo</span> <span class="str">"Uptime  : $(uptime -p)"</span>
+<span class="kw">echo</span> <span class="str">"RAM     : $(free -h | awk '/Mem/{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">""</span>
+<span class="kw">echo</span> <span class="str">"-- Disk Usage --"</span>
+<span class="kw">df</span> -h --output=target,used,avail,pcent | <span class="kw">grep</span> -v tmpfs | <span class="kw">grep</span> -v udev
+<span class="kw">echo</span> <span class="str">"==================="</span></pre>
+  </div>
+
+  <h3>macOS compatible version</h3>
+  <p>The <code>uptime -p</code> flag and <code>hostname -I</code> aren't available on macOS. Use this version instead:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">syscheck-mac.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">echo</span> <span class="str">"=== Quick System Check ==="</span>
+<span class="kw">echo</span> <span class="str">"Host    : $(hostname)"</span>
+<span class="kw">echo</span> <span class="str">"Uptime  : $(uptime | awk '{print $3, $4}' | tr -d ',')"</span>
+<span class="kw">echo</span> <span class="str">"RAM     : $(vm_stat | awk '/Pages active/{print $3}') pages active"</span>
+<span class="kw">echo</span> <span class="str">"Disk /  : $(df -h / | awk 'NR==2{print $3"/"$2}')"</span>
+<span class="kw">echo</span> <span class="str">"IP      : $(ipconfig getifaddr en0)"</span>
+<span class="kw">echo</span> <span class="str">"========================="</span></pre>
+  </div>
+
+  <affiliate-box class="affiliate-box">
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>SSH into your own cloud server</strong>
+      Run syscheck on a real VPS. DigitalOcean droplets from $4/month — new accounts get $200 free credit.
+    </div>
+    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+    <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+</div>
+
+  <h2>Understanding the Commands</h2>
+  <table class="var-table">
+    <tr><th>Command</th><th>What it outputs</th></tr>
+    <tr><td>hostname</td><td>The machine's hostname — the name it goes by on the network</td></tr>
+    <tr><td>uptime -p</td><td>Human-readable uptime: "up 3 days, 4 hours, 12 minutes"</td></tr>
+    <tr><td>free -h</td><td>RAM stats in human-readable format (GB/MB)</td></tr>
+    <tr><td>awk '/Mem/{print $3"/"$2}'</td><td>Extracts used/total from the Mem row of free output</td></tr>
+    <tr><td>df -h /</td><td>Disk usage for the root partition in human-readable format</td></tr>
+    <tr><td>awk 'NR==2{print $3"/"$2}'</td><td>Extracts used/total from the second row of df output</td></tr>
+    <tr><td>hostname -I</td><td>All IP addresses for the machine (Linux only)</td></tr>
+    <tr><td>awk '{print $1}'</td><td>Grabs just the first IP from hostname -I output</td></tr>
+  </table>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>How do I check system info in Linux with one command?</h3>
+  <p>Create a bash script that runs <code>hostname</code>, <code>uptime -p</code>, <code>free -h</code>, <code>df -h /</code>, and <code>hostname -I</code> together and formats them cleanly. Save it, make it executable with <code>chmod +x</code>, then alias it in <code>~/.bashrc</code> so you can call it from anywhere.</p>
+
+  <h3>How do I check RAM usage in Linux from the terminal?</h3>
+  <p>Run <code>free -h</code> to see total, used, free, and available RAM in human-readable format. To extract just used/total in a script: <code>free -h | awk '/Mem/{print $3"/"$2}'</code></p>
+
+  <h3>How do I create a bash alias for a script?</h3>
+  <p>Add <code>alias syscheck='/home/user/syscheck.sh'</code> to your <code>~/.bashrc</code> file, then run <code>source ~/.bashrc</code> to activate it. After that, typing <code>syscheck</code> in any terminal runs your script instantly.</p>
+
+  <h3>What command shows uptime in Linux?</h3>
+  <p>Run <code>uptime -p</code> for a clean, human-readable result like "up 3 days, 4 hours, 12 minutes." Running plain <code>uptime</code> shows the same info plus load averages in a slightly different format.</p>
+
+  <h2>Related Snippets</h2>
+  <div class="related-grid">
+    <a class="related-card" href="/snippets/disk-space-warning.html">
+      <div class="related-card-title">Disk Space Warning</div>
+      <div class="related-card-tag">beginner · monitor</div>
+    </a>
+    <a class="related-card" href="/snippets/delete-old-log-files.html">
+      <div class="related-card-title">Delete Old Log Files</div>
+      <div class="related-card-tag">intermediate · automation</div>
+    </a>
+    <a class="related-card" href="/#snippets">
+      <div class="related-card-title">← All Snippets</div>
+      <div class="related-card-tag">Browse the full library</div>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <a href="/">← Back to Bash Snippets</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
