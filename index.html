@@ -1,25 +1,93 @@
-<script>
-  if (location.hostname.includes("github.io")) {
-    location.replace("https://bashsnippets.xyz/");
-  }
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+    PAGE TITLE & META — Update if you change the site focus
+    ============================================================ -->
   <title>Bash Snippets – Real Bash Script Examples, Explained Simply</title>
-  <meta name="description" content="I got tired of Googling the same bash commands over and over, so I built this. Copy-paste bash scripts with plain-English explanations. No ads, no fluff, just working code." />
-  <meta name="keywords" content="bash script examples, bash for beginners, linux shell scripts, bash cheat sheet, bash automation scripts, linux command examples, bash scripting tutorial" />
+  <meta name="description" content="I got tired of Googling the same bash commands over and over, so I built this. Copy-paste bash scripts with plain-English explanations. No fluff, just working code." />
+  <meta name="keywords" content="bash script examples, bash for beginners, linux shell scripts, bash cheat sheet, bash automation scripts, linux command examples, bash scripting tutorial, cron job examples, bash one liners" />
+
+  <!-- ============================================================
+    CANONICAL URL — Always points to your custom domain.
+    Never change this back to github.io.
+    ============================================================ -->
   <link rel="canonical" href="https://bashsnippets.xyz/" />
 
-  <!-- Open Graph -->
+  <!-- ============================================================
+    OPEN GRAPH — Controls how your link looks when shared on
+    Reddit, Twitter/X, LinkedIn, Discord, etc.
+    Update og:image once you have a preview image.
+    ============================================================ -->
   <meta property="og:title" content="Bash Snippets – Real Bash Script Examples, Explained Simply" />
-  <meta property="og:description" content="I got tired of Googling the same bash commands over and over, so I built this. Copy-paste scripts with plain-English explanations." />
+  <meta property="og:description" content="Copy-paste bash scripts with plain-English explanations. No signup, no paywall, just working code." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bashsnippets.xyz/" />
+  <!-- <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" /> -->
 
-  <!-- Schema.org: Website -->
+  <!-- ============================================================
+    ██████████████████████████████████████████████████████████
+    GOOGLE SEARCH CONSOLE VERIFICATION
+    ██████████████████████████████████████████████████████████
+    1. Go to https://search.google.com/search-console
+    2. Add property → URL prefix → https://bashsnippets.xyz/
+    3. Choose "HTML tag" verification method
+    4. Copy the <meta> tag Google gives you
+    5. PASTE IT HERE, replacing the commented line below:
+
+    <meta name="google-site-verification" content="PASTE_YOUR_CODE_HERE" />
+
+    ============================================================ -->
+
+
+  <!-- ============================================================
+    ██████████████████████████████████████████████████████████
+    GOOGLE ANALYTICS (GA4)
+    ██████████████████████████████████████████████████████████
+    1. Go to https://analytics.google.com
+    2. Admin → Create Property → Web → get your G-XXXXXXXXXX ID
+    3. Copy the full gtag script block Google provides
+    4. PASTE IT HERE, replacing the block below:
+
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+
+    <!-- To verify it works: open the live site, go to Analytics →
+         Realtime → you should see 1 active user within 30 seconds -->
+    <!-- ============================================================ -->
+
+
+  <!-- ============================================================
+    ██████████████████████████████████████████████████████████
+    GOOGLE ADSENSE — ADD AFTER APPROVAL ONLY
+    ██████████████████████████████████████████████████████████
+    OPTION A (Recommended): Auto Ads
+    1. Go to https://adsense.google.com
+    2. Ads → By site → your site → Edit → Enable Auto ads
+    3. Copy the auto-ads script tag AdSense gives you
+    4. PASTE IT HERE:
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+         crossorigin="anonymous"></script>
+
+    OPTION B: Manual ad units (see ad slot comments in body below)
+    ============================================================ -->
+
+
+  <!-- ============================================================
+    SCHEMA.ORG — WEBSITE
+    Tells Google the site name, URL, and author.
+    Update "name" field below if you ever rename the site.
+    ============================================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -29,12 +97,24 @@
     "description": "Free bash script examples and tutorials for Linux beginners, written by a real person who still looks things up",
     "author": {
       "@type": "Person",
-      "name": "YOUR FIRST NAME HERE"
+      "name": "A",
+      "email": "Anguisheh1@gmail.com"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://bashsnippets.xyz/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
     }
   }
   </script>
 
-  <!-- Schema.org: FAQ (for Google rich results) -->
+  <!-- ============================================================
+    SCHEMA.ORG — FAQ PAGE
+    These entries appear as Google rich results / featured snippets.
+    Every question you add here should ALSO exist in the FAQ
+    section further down the page. Keep them in sync.
+    Add new Q&A pairs in the same format as the existing ones.
+    ============================================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,7 +125,7 @@
         "name": "What is a bash script?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A bash script is just a text file full of Linux commands that run one after another when you execute it. Think of it like a recipe — you write the steps once, then the computer follows them automatically every time. The file usually ends in .sh and the first line is always #!/bin/bash."
+          "text": "A bash script is a text file of Linux commands that run automatically when executed. Like a recipe — write the steps once, the computer follows them every time. Files end in .sh and the first line is always #!/bin/bash."
         }
       },
       {
@@ -53,7 +133,7 @@
         "name": "How do I run a bash script?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Two steps. First, you make it executable (a one-time thing): chmod +x yourscript.sh. Then run it with: ./yourscript.sh. That's it. If you don't want to bother with chmod, you can also just type: bash yourscript.sh and it works the same way."
+          "text": "Two steps: make it executable with chmod +x yourscript.sh, then run it with ./yourscript.sh. Or skip chmod and just type: bash yourscript.sh. Both work the same way."
         }
       },
       {
@@ -61,15 +141,7 @@
         "name": "Do I need to install anything to use bash?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nope. If you're on Linux or macOS, bash is already there. Open your terminal and type bash --version to confirm. On Windows, install Git Bash (free, takes 2 minutes) or enable WSL — both give you a full bash environment."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between sh and bash?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "sh is the old, basic shell — it works everywhere but has fewer features. bash is the upgraded version most Linux systems use by default. If you're writing scripts for your own machine, always use #!/bin/bash at the top. Only use #!/bin/sh if you're writing something that needs to run on very minimal systems like Docker containers or embedded devices."
+          "text": "No. Bash is pre-installed on Linux and macOS. On Windows, install Git Bash (free, 2 minutes) or enable WSL from Windows Settings."
         }
       },
       {
@@ -77,7 +149,31 @@
         "name": "How do I schedule a bash script to run automatically?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use cron — it's Linux's built-in scheduler and it's been around since the 1970s (it just works). Type crontab -e in your terminal, then add a line like: 0 2 * * * /home/you/myscript.sh to run it every day at 2am. The five numbers mean: minute, hour, day, month, weekday. There's a great free tool called crontab.guru that lets you build cron schedules visually."
+          "text": "Use cron — Linux's built-in scheduler. Run crontab -e and add a line like: 0 2 * * * /home/you/script.sh to run daily at 2am. Use crontab.guru to build cron schedules visually for free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I debug a bash script that isn't working?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add set -x right after #!/bin/bash. This enables debug mode and prints every command before it runs so you can see exactly where it breaks. Remove set -x once the script is fixed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does set -euo pipefail do in bash?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "set -e stops the script immediately on any error. set -u treats undefined variables as errors. set -o pipefail catches errors inside pipes. Together as set -euo pipefail they make scripts much safer and easier to debug."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between sh and bash?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "sh is the old minimal POSIX shell that works everywhere but has fewer features. bash is the modern version with arrays, better string handling, and more. For scripts on your own machine always use #!/bin/bash."
         }
       },
       {
@@ -85,35 +181,53 @@
         "name": "How do I pass arguments to a bash script?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Just add them after the filename when you run it: ./script.sh hello world. Inside your script, $1 is the first argument (hello), $2 is the second (world), and so on. $0 is the script's own name. $# tells you how many arguments were passed. Super useful for making scripts flexible instead of hardcoding values."
+          "text": "Add values after the filename when you run it: ./script.sh hello world. Inside the script $1 is hello, $2 is world, and so on. $# gives the total number of arguments passed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "My bash script ran but nothing happened. What went wrong?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common causes: missing #!/bin/bash on the first line, wrong file path, Windows line endings if edited on Windows (fix with sed -i 's/\\r//' script.sh), or a silent error. Add set -x after the shebang to see every command as it runs."
         }
       }
     ]
   }
   </script>
 
+  <!-- ============================================================
+    FONTS — Loaded from Google Fonts CDN.
+    Syne = headings, IBM Plex Mono = body/code
+    ============================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 
   <style>
+    /* ============================================================
+       BASE RESET & CSS VARIABLES
+       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #1c2128;
-      --border: #30363d;
-      --green: #39d353;
-      --green-dim: #1a4a2e;
-      --amber: #e3b341;
-      --amber-dim: #3d2f0d;
-      --blue: #58a6ff;
-      --blue-dim: #0d2a4a;
-      --text: #e6edf3;
-      --muted: #8b949e;
+      --bg:          #0d1117;
+      --bg2:         #161b22;
+      --bg3:         #1c2128;
+      --border:      #30363d;
+      --green:       #39d353;
+      --green-dim:   #1a4a2e;
+      --amber:       #e3b341;
+      --amber-dim:   #3d2f0d;
+      --blue:        #58a6ff;
+      --blue-dim:    #0d2a4a;
+      --purple:      #d2a8ff;
+      --purple-dim:  #2d1f4e;
+      --text:        #e6edf3;
+      --muted:       #8b949e;
       --heading-font: 'Syne', sans-serif;
-      --mono-font: 'IBM Plex Mono', monospace;
-      --radius: 8px;
+      --mono-font:    'IBM Plex Mono', monospace;
+      --radius:       8px;
     }
 
     html { scroll-behavior: smooth; }
@@ -129,12 +243,14 @@
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── NAV ─────────────────────────────── */
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13,17,23,0.92);
+      background: rgba(13,17,23,0.93);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 14px 24px;
@@ -150,23 +266,22 @@
       font-size: 18px;
       color: var(--green);
       letter-spacing: -0.5px;
+      text-decoration: none;
     }
     .nav-logo span { color: var(--muted); }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 20px; list-style: none; }
     .nav-links a {
       font-size: 13px;
       color: var(--muted);
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
 
-    /* ── HERO ────────────────────────────── */
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
     .hero {
       max-width: 860px;
       margin: 0 auto;
@@ -193,14 +308,9 @@
       font-size: clamp(2rem, 5vw, 3.4rem);
       line-height: 1.15;
       letter-spacing: -1px;
-      color: var(--text);
       margin-bottom: 20px;
     }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--green);
-    }
+    .hero h1 em { font-style: normal; color: var(--green); }
 
     .hero p {
       font-size: 17px;
@@ -208,16 +318,13 @@
       max-width: 600px;
       margin: 0 auto 36px;
       line-height: 1.8;
-      font-family: var(--mono-font);
     }
 
-    .hero-cta {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
     .btn-primary {
       background: var(--green);
       color: #0d1117;
@@ -247,7 +354,25 @@
     }
     .btn-secondary:hover { border-color: var(--muted); text-decoration: none; }
 
-    /* ── STATS BAR ───────────────────────── */
+    .btn-affiliate {
+      background: var(--amber);
+      color: #0d1117;
+      font-family: var(--mono-font);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-affiliate:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ============================================================
+       STATS BAR
+       ============================================================ */
     .stats-bar {
       display: flex;
       justify-content: center;
@@ -257,9 +382,7 @@
       border-bottom: 1px solid var(--border);
       flex-wrap: wrap;
     }
-
     .stat { text-align: center; }
-
     .stat-num {
       font-family: var(--heading-font);
       font-size: 26px;
@@ -267,7 +390,6 @@
       color: var(--green);
       display: block;
     }
-
     .stat-label {
       font-size: 12px;
       color: var(--muted);
@@ -275,12 +397,28 @@
       letter-spacing: 0.06em;
     }
 
-    /* ── SECTION LAYOUT ──────────────────── */
-    section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 60px 24px;
+    /* ============================================================
+       AD SLOTS
+       Placeholder shown until AdSense is approved and activated.
+       After approval, replace the inner comment block in each
+       .ad-slot div with your real <ins class="adsbygoogle"> unit.
+       ============================================================ */
+    .ad-slot {
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      background: var(--bg2);
+      margin: 32px 0;
     }
+    .ad-slot small { display: block; margin-top: 4px; opacity: 0.5; }
+
+    /* ============================================================
+       SECTION LAYOUT
+       ============================================================ */
+    section { max-width: 960px; margin: 0 auto; padding: 60px 24px; }
 
     .section-label {
       font-size: 11px;
@@ -289,7 +427,6 @@
       letter-spacing: 0.1em;
       margin-bottom: 8px;
     }
-
     .section-title {
       font-family: var(--heading-font);
       font-size: clamp(1.5rem, 3vw, 2.1rem);
@@ -297,36 +434,16 @@
       letter-spacing: -0.5px;
       margin-bottom: 12px;
     }
-
     .section-desc {
       color: var(--muted);
-      max-width: 580px;
+      max-width: 600px;
       margin-bottom: 40px;
       line-height: 1.8;
     }
 
-    /* ── ABOUT / STORY BOX ───────────────── */
-    .story-box {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--green);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      max-width: 760px;
-    }
-
-    .story-box p {
-      color: var(--muted);
-      line-height: 1.9;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-
-    .story-box p:last-child { margin-bottom: 0; }
-
-    .story-box strong { color: var(--text); font-weight: 600; }
-
-    /* ── SNIPPET CARDS ───────────────────── */
+    /* ============================================================
+       SNIPPET CARDS
+       ============================================================ */
     .snippets-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -338,10 +455,9 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.15s;
     }
-
-    .snippet-card:hover { border-color: var(--green); }
+    .snippet-card:hover { border-color: var(--green); transform: translateY(-2px); }
 
     .snippet-header {
       display: flex;
@@ -351,24 +467,22 @@
       background: var(--bg3);
       border-bottom: 1px solid var(--border);
     }
-
     .snippet-title {
       font-family: var(--heading-font);
       font-weight: 700;
       font-size: 14px;
-      color: var(--text);
     }
-
     .snippet-tag {
       font-size: 11px;
       padding: 2px 8px;
       border-radius: 100px;
       font-family: var(--mono-font);
+      flex-shrink: 0;
     }
-
-    .tag-green { background: var(--green-dim); color: var(--green); }
-    .tag-amber { background: var(--amber-dim); color: var(--amber); }
-    .tag-blue  { background: var(--blue-dim);  color: var(--blue);  }
+    .tag-green  { background: var(--green-dim);  color: var(--green);  }
+    .tag-amber  { background: var(--amber-dim);  color: var(--amber);  }
+    .tag-blue   { background: var(--blue-dim);   color: var(--blue);   }
+    .tag-purple { background: var(--purple-dim); color: var(--purple); }
 
     pre {
       padding: 16px;
@@ -377,9 +491,8 @@
       line-height: 1.65;
       overflow-x: auto;
       color: #c9d1d9;
-      background: transparent;
     }
-
+    /* Syntax highlight classes — applied manually in HTML */
     .comment { color: #6e7681; }
     .kw      { color: #ff7b72; }
     .str     { color: #a5d6ff; }
@@ -394,13 +507,7 @@
       justify-content: space-between;
       gap: 12px;
     }
-
-    .snippet-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
+    .snippet-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
     .snippet-desc em {
       display: block;
       font-style: normal;
@@ -408,7 +515,6 @@
       margin-top: 3px;
       font-size: 11px;
     }
-
     .copy-btn {
       font-family: var(--mono-font);
       font-size: 11px;
@@ -421,40 +527,47 @@
       transition: all 0.15s;
       flex-shrink: 0;
     }
-
     .copy-btn:hover { border-color: var(--green); color: var(--green); }
     .copy-btn.copied { color: var(--green); border-color: var(--green); }
 
-    /* ── TOOL: SCRIPT BUILDER ────────────── */
+    /* ============================================================
+       AFFILIATE BANNER
+       ============================================================ */
+    .affiliate-banner {
+      background: linear-gradient(135deg, #1a2a1a 0%, #1a1f2e 100%);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .affiliate-banner-text p:first-child {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .affiliate-banner-text p:last-child { font-size: 12px; color: var(--muted); }
+    .affiliate-banner-text a { color: var(--amber); }
+
+    /* ============================================================
+       SCRIPT BUILDER TOOL
+       ============================================================ */
     .tool-box {
       background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px;
     }
-
-    .tool-title {
-      font-family: var(--heading-font);
-      font-weight: 800;
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-
-    .tool-subtitle {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 24px;
-      line-height: 1.7;
-    }
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 580px) { .tool-grid { grid-template-columns: 1fr; } }
+    .tool-title { font-family: var(--heading-font); font-weight: 800; font-size: 18px; margin-bottom: 6px; }
+    .tool-subtitle { color: var(--muted); font-size: 13px; margin-bottom: 24px; line-height: 1.7; }
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
 
     label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px; }
 
@@ -470,7 +583,6 @@
       outline: none;
       transition: border-color 0.2s;
     }
-
     select:focus, input:focus { border-color: var(--green); }
 
     .tool-output {
@@ -486,23 +598,66 @@
       overflow-x: auto;
       color: #c9d1d9;
     }
+    .tool-actions { display: flex; gap: 10px; margin-top: 14px; }
 
-    .tool-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
+    /* ============================================================
+       RESOURCE CARDS (Resources + future Guides sections)
+       ============================================================ */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
+    .resource-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .resource-card:hover { border-color: var(--blue); }
+    .resource-card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .resource-card h3 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .resource-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+    .resource-link { font-size: 12px; color: var(--blue); display: inline-flex; align-items: center; gap: 4px; }
 
-    /* ── FAQ ─────────────────────────────── */
+    /* ============================================================
+       TOPIC TAG CLOUD
+       ============================================================ */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .topic-tag {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--bg2);
+      cursor: default;
+      transition: all 0.15s;
+    }
+    .topic-tag:hover { border-color: var(--green); color: var(--green); }
+
+    /* ============================================================
+       FAQ ACCORDION
+       ============================================================ */
     .faq-list { display: flex; flex-direction: column; gap: 12px; }
-
     .faq-item {
       background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
     }
-
     .faq-q {
       width: 100%;
       text-align: left;
@@ -519,9 +674,7 @@
       align-items: center;
       gap: 16px;
     }
-
     .faq-q:hover { color: var(--green); }
-
     .faq-icon {
       flex-shrink: 0;
       width: 20px;
@@ -535,7 +688,6 @@
       color: var(--muted);
       transition: transform 0.2s;
     }
-
     .faq-a {
       display: none;
       padding: 0 20px 18px;
@@ -544,7 +696,6 @@
       line-height: 1.9;
       border-top: 1px solid var(--border);
     }
-
     .faq-a code {
       background: var(--bg3);
       padding: 2px 6px;
@@ -553,46 +704,28 @@
       font-size: 12px;
       color: var(--green);
     }
-
     .faq-a a { color: var(--blue); }
-
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--green); border-color: var(--green); }
 
-    /* ── KEYWORD CLOUD ───────────────────── */
-    .tag-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .topic-tag {
-      font-size: 12px;
-      padding: 5px 12px;
-      border-radius: 100px;
+    /* ============================================================
+       ABOUT / STORY BOX
+       ============================================================ */
+    .story-box {
+      background: var(--bg2);
       border: 1px solid var(--border);
-      color: var(--muted);
-      background: var(--bg2);
-      cursor: default;
-      transition: all 0.15s;
-    }
-
-    .topic-tag:hover { border-color: var(--green); color: var(--green); }
-
-    /* ── AD SLOT ─────────────────────────── */
-    .ad-slot {
-      border: 1px dashed var(--border);
+      border-left: 3px solid var(--green);
       border-radius: var(--radius);
-      padding: 24px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      background: var(--bg2);
-      margin: 32px 0;
+      padding: 28px 32px;
+      max-width: 760px;
     }
-    .ad-slot small { display: block; margin-top: 4px; opacity: 0.5; }
+    .story-box p { color: var(--muted); line-height: 1.9; font-size: 14px; margin-bottom: 14px; }
+    .story-box p:last-child { margin-bottom: 0; }
+    .story-box strong { color: var(--text); font-weight: 600; }
 
-    /* ── FOOTER ──────────────────────────── */
+    /* ============================================================
+       FOOTER
+       ============================================================ */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 24px;
@@ -601,10 +734,8 @@
       font-size: 12px;
       line-height: 2;
     }
-
     footer a { color: var(--muted); }
     footer a:hover { color: var(--text); }
-
     .footer-links {
       display: flex;
       justify-content: center;
@@ -613,101 +744,119 @@
       flex-wrap: wrap;
     }
 
-    /* ── RESPONSIVE ──────────────────────── */
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+       ============================================================ */
     @media (max-width: 640px) {
       .snippets-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .stats-bar { gap: 28px; }
       .story-box { padding: 20px; }
+      .affiliate-banner { flex-direction: column; }
+      .tool-grid { grid-template-columns: 1fr; }
     }
 
-    /* ── SCROLL ANIMATIONS ───────────────── */
+    /* ============================================================
+       SCROLL FADE-IN ANIMATION
+       ============================================================ */
     .fade-in {
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6B01TGE8XS');
-</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 
-<!-- ── NAVIGATION ──────────────────────────────── -->
-<nav>
-  <div class="nav-logo">bash<span>/</span>snippets</div>
+  <!-- ============================================================
+       NAVIGATION
+       Links to all pages. Internal anchor links use #id format.
+       External pages use full relative paths (/about.html etc.)
+       ============================================================ -->
+  <nav>
+    <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+    <ul class="nav-links">
+      <li><a href="#snippets">Snippets</a></li>
+      <li><a href="#builder">Builder</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-  <ul class="nav-links">
-    <li><a href="#snippets">Snippets</a></li>
-    <li><a href="#builder">Builder</a></li>
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="#faq">FAQ</a></li>
-
-    <!-- UPDATED -->
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ── HERO ────────────────────────────────────── -->
-<div class="hero">
-  <div class="hero-badge">free · no login · no fluff</div>
-  <h1>Stop Googling the<br><em>Same Bash Commands</em></h1>
-  <p>I got tired of re-searching the same bash one-liners every time I sat down at a terminal. So I started collecting them. This is that collection — real scripts, explained like a human wrote them.</p>
-  <div class="hero-cta">
-    <a class="btn-primary" href="#snippets">Browse Snippets</a>
-    <a class="btn-secondary" href="#builder">Try the Builder</a>
-  </div>
-</div>
-
-<!-- ── STATS BAR ────────────────────────────────── -->
-<div class="stats-bar">
-  <div class="stat"><span class="stat-num">24+</span><span class="stat-label">Working Scripts</span></div>
-  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Tested on Linux</span></div>
-  <div class="stat"><span class="stat-num">0</span><span class="stat-label">Logins Required</span></div>
-  <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
-</div>
-
-<!-- ── AD SLOT TOP ──────────────────────────────── -->
-<section style="padding-top: 20px; padding-bottom: 0;">
-  <div class="ad-slot">
-    <!-- Google AdSense unit goes here after approval -->
-    <strong>Advertisement</strong>
-    <small>Ads keep this site free and ad-free of paywalls</small>
-  </div>
-</section>
-
-<!-- ── SNIPPETS SECTION ─────────────────────────── -->
-<section id="snippets">
-  <div class="fade-in">
-    <p class="section-label">// the good stuff</p>
-    <h2 class="section-title">Copy-Paste Scripts That Work</h2>
-    <p class="section-desc">Every snippet below runs on Ubuntu, Debian, Fedora, and macOS. I've personally tested each one. The comment above each block tells you exactly what it does before you run it.</p>
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <div class="hero">
+    <div class="hero-badge">free · no login · no fluff</div>
+    <h1>Stop Googling the<br><em>Same Bash Commands</em></h1>
+    <p>I got tired of re-searching the same bash one-liners every time I sat down at a terminal. So I started collecting them. This is that collection — real scripts, explained like a human wrote them.</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#snippets">Browse Snippets</a>
+      <a class="btn-secondary" href="#builder">Try the Builder</a>
+    </div>
   </div>
 
-  <div class="snippets-grid fade-in">
+  <!-- ============================================================
+       STATS BAR
+       Update these numbers as your content grows.
+       ============================================================ -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">12+</span><span class="stat-label">Working Scripts</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Tested on Linux</span></div>
+    <div class="stat"><span class="stat-num">0</span><span class="stat-label">Logins Required</span></div>
+    <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+  </div>
 
-    <!-- Snippet 1 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Automated File Backup</span>
-        <span class="snippet-tag tag-green">beginner</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
+  <!-- ============================================================
+       AD SLOT 1 — TOP OF PAGE
+       Position: Below stats bar, above snippets.
+       Recommended format: 728x90 leaderboard or responsive auto.
+
+       After AdSense approval, replace the inner content with:
+       <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YOUR_SLOT_ID_HERE"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+       ============================================================ -->
+  <section style="padding-top:20px; padding-bottom:0;">
+    <div class="ad-slot" id="ad-top">
+      <strong>Advertisement</strong>
+      <small>Ads keep this site free</small>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SNIPPETS SECTION
+       To add a new snippet: copy one full .snippet-card block,
+       paste it before the closing </div> of .snippets-grid,
+       and update the title, tag color, code, and description.
+       Tag options: tag-green (beginner), tag-amber (intermediate),
+                    tag-blue (monitor/tool), tag-purple (advanced)
+       ============================================================ -->
+  <section id="snippets">
+    <div class="fade-in">
+      <p class="section-label">// the good stuff</p>
+      <h2 class="section-title">Copy-Paste Scripts That Work</h2>
+      <p class="section-desc">Every snippet runs on Ubuntu, Debian, Fedora, and macOS. Tested personally. The comment at the top of each block tells you what it does before you run it.</p>
+    </div>
+
+    <div class="snippets-grid fade-in">
+
+      <!-- SNIPPET 1 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Automated File Backup</span>
+          <span class="snippet-tag tag-green">beginner</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
 <span class="comment"># Copies a folder to /backup with today's timestamp.</span>
-<span class="comment"># Run it manually or schedule with cron — works either way.</span>
+<span class="comment"># Run manually or schedule with cron — works either way.</span>
 
 <span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>
 <span class="var">DEST</span>=<span class="str">"/backup"</span>
@@ -715,105 +864,91 @@
 
 <span class="kw">mkdir</span> -p <span class="str">"$DEST"</span>
 <span class="kw">cp</span> -r <span class="str">"$SOURCE"</span> <span class="str">"$DEST/backup_$DATE"</span>
-<span class="kw">echo</span> <span class="str">"Done. Backup saved to: backup_$DATE"</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          Saves a timestamped copy of any folder.
-          <em>Change SOURCE to your folder path before running.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+<span class="kw">echo</span> <span class="str">"Done. Saved to: backup_$DATE"</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Saves a timestamped copy of any folder.<em>Change SOURCE to your actual folder path.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Snippet 2 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Rename All Files in a Folder</span>
-        <span class="snippet-tag tag-amber">intermediate</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Renames every .txt file in the current folder to .md</span>
-<span class="comment"># Useful after exporting notes, docs, or data dumps.</span>
+      <!-- SNIPPET 2 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Rename All Files in a Folder</span>
+          <span class="snippet-tag tag-amber">intermediate</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Renames every .txt file to .md — useful after</span>
+<span class="comment"># exporting notes, docs, or data dumps.</span>
 
 <span class="kw">for</span> <span class="var">file</span> <span class="kw">in</span> *.txt; <span class="kw">do</span>
-  <span class="comment"># Skip if no .txt files found</span>
   [ -f <span class="str">"$file"</span> ] || <span class="kw">continue</span>
   <span class="var">newname</span>=<span class="str">"${file%.txt}.md"</span>
   <span class="kw">mv</span> <span class="str">"$file"</span> <span class="str">"$newname"</span>
   <span class="kw">echo</span> <span class="str">"Renamed: $file → $newname"</span>
 <span class="kw">done</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          Bulk renames file extensions across a folder.
-          <em>Swap .txt and .md for any extensions you need.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Bulk renames file extensions across a folder.<em>Swap .txt and .md for any extensions you need.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Snippet 3 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Disk Space Warning Script</span>
-        <span class="snippet-tag tag-green">beginner</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Checks disk usage and prints a warning if over 80%.</span>
-<span class="comment"># Great to run daily via cron on a server.</span>
+      <!-- SNIPPET 3 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Disk Space Warning</span>
+          <span class="snippet-tag tag-green">beginner</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Checks disk usage and warns if over 80%.</span>
+<span class="comment"># Great for daily cron on a server or VPS.</span>
 
 <span class="var">THRESHOLD</span>=<span class="num">80</span>
 <span class="var">USAGE</span>=$(<span class="kw">df</span> / | <span class="kw">awk</span> <span class="str">'NR==2{print $5}'</span> | <span class="kw">tr</span> -d <span class="str">'%'</span>)
 
 <span class="kw">if</span> [ <span class="str">"$USAGE"</span> -gt <span class="str">"$THRESHOLD"</span> ]; <span class="kw">then</span>
-  <span class="kw">echo</span> <span class="str">"⚠ Heads up: disk is at ${USAGE}% — time to clean up"</span>
+  <span class="kw">echo</span> <span class="str">"⚠ Disk at ${USAGE}% — time to clean up"</span>
 <span class="kw">else</span>
-  <span class="kw">echo</span> <span class="str">"✓ Disk looks fine: ${USAGE}% used"</span>
+  <span class="kw">echo</span> <span class="str">"✓ Disk OK: ${USAGE}% used"</span>
 <span class="kw">fi</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          Warns you before your disk fills up unexpectedly.
-          <em>Change THRESHOLD=80 to whatever % you prefer.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Warns before your disk fills up unexpectedly.<em>Change THRESHOLD=80 to your preferred %.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Snippet 4 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Auto-Delete Old Log Files</span>
-        <span class="snippet-tag tag-amber">intermediate</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Deletes .log files older than 30 days from a folder.</span>
-<span class="comment"># Run the echo version first to preview — then switch to -delete.</span>
+      <!-- SNIPPET 4 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Delete Old Log Files</span>
+          <span class="snippet-tag tag-amber">intermediate</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Deletes .log files older than 30 days.</span>
+<span class="comment"># Replace -delete with -print to preview first!</span>
 
 <span class="var">LOG_DIR</span>=<span class="str">"/var/log/myapp"</span>
 <span class="var">DAYS</span>=<span class="num">30</span>
 
-<span class="comment"># Safe preview mode (remove 'echo' to actually delete):</span>
 <span class="kw">find</span> <span class="str">"$LOG_DIR"</span> -type f -name <span class="str">"*.log"</span> \
   -mtime +<span class="var">$DAYS</span> -delete
 
-<span class="kw">echo</span> <span class="str">"Cleaned logs older than $DAYS days from $LOG_DIR"</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          Keeps your log folder from eating all your storage.
-          <em>Test it first by replacing -delete with -print to preview.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+<span class="kw">echo</span> <span class="str">"Cleaned logs older than $DAYS days"</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Keeps your log folder under control automatically.<em>Swap -delete for -print to safely preview first.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Snippet 5 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Quick System Info Report</span>
-        <span class="snippet-tag tag-blue">monitor</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Prints the key stats I always want to see at a glance.</span>
-<span class="comment"># Alias this to something like 'syscheck' for fast access.</span>
+      <!-- SNIPPET 5 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Quick System Info Report</span>
+          <span class="snippet-tag tag-blue">monitor</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Prints key stats at a glance. Alias to 'syscheck'</span>
+<span class="comment"># in your .bashrc for fast access.</span>
 
 <span class="kw">echo</span> <span class="str">"=== Quick System Check ==="</span>
 <span class="kw">echo</span> <span class="str">"Host    : $(hostname)"</span>
@@ -822,24 +957,21 @@
 <span class="kw">echo</span> <span class="str">"Disk /  : $(df -h / | awk 'NR==2{print $3"/"$2}')"</span>
 <span class="kw">echo</span> <span class="str">"IP      : $(hostname -I | awk '{print $1}')"</span>
 <span class="kw">echo</span> <span class="str">"========================="</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          One-shot snapshot of your machine's current state.
-          <em>I run this every time I SSH into a new server.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        <div class="snippet-footer">
+          <span class="snippet-desc">One command snapshot of your machine's state.<em>I run this every time I SSH into a new server.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Snippet 6 -->
-    <div class="snippet-card">
-      <div class="snippet-header">
-        <span class="snippet-title">Create a Dated Work Folder</span>
-        <span class="snippet-tag tag-green">beginner</span>
-      </div>
-      <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Creates a folder named with today's date inside ~/work</span>
-<span class="comment"># I use this as my first command every morning.</span>
+      <!-- SNIPPET 6 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Create Dated Work Folder</span>
+          <span class="snippet-tag tag-green">beginner</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Creates a folder named with today's date in ~/work.</span>
+<span class="comment"># I run this as my very first command every morning.</span>
 
 <span class="var">BASE</span>=<span class="str">"$HOME/work"</span>
 <span class="var">TODAY</span>=$(<span class="kw">date</span> +%Y-%m-%d)
@@ -847,367 +979,649 @@
 
 <span class="kw">mkdir</span> -p <span class="str">"$DIR"</span>
 <span class="kw">echo</span> <span class="str">"Ready. Working in: $DIR"</span>
+<span class="comment"># xdg-open "$DIR"  # uncomment to open in file manager</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Auto-organises daily work into timestamped folders.<em>Keeps your home directory from becoming a disaster.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
 
-<span class="comment"># Optional: open it in your file manager</span>
-<span class="comment"># xdg-open "$DIR"</span></pre>
-      <div class="snippet-footer">
-        <span class="snippet-desc">
-          Auto-organises daily work into timestamped folders.
-          <em>Keeps your home directory from becoming a disaster zone.</em>
-        </span>
-        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+      <!-- SNIPPET 7 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Check If a Website Is Up</span>
+          <span class="snippet-tag tag-blue">monitor</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Pings a URL and reports if it's reachable.</span>
+<span class="comment"># Use with cron to alert you when a site goes down.</span>
+
+<span class="var">URL</span>=<span class="str">"https://example.com"</span>
+<span class="var">STATUS</span>=$(<span class="kw">curl</span> -o /dev/null -s -w <span class="str">"%{http_code}"</span> <span class="str">"$URL"</span>)
+
+<span class="kw">if</span> [ <span class="str">"$STATUS"</span> -eq <span class="num">200</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"✓ $URL is up (HTTP $STATUS)"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"✗ $URL returned HTTP $STATUS — check it"</span>
+<span class="kw">fi</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Checks if any URL returns a healthy HTTP 200.<em>Replace URL and run every 5 min via cron.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- SNIPPET 8 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Search Files for Text (grep)</span>
+          <span class="snippet-tag tag-amber">intermediate</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Searches all .txt files in a folder for a keyword.</span>
+<span class="comment"># Shows filename and line number for each match.</span>
+
+<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/documents"</span>
+<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>
+
+<span class="kw">echo</span> <span class="str">"Searching for '$KEYWORD'..."</span>
+<span class="kw">grep</span> -rn <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"*.txt"</span>
+<span class="kw">echo</span> <span class="str">"Done."</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Finds every occurrence of a word across all text files.<em>Change KEYWORD and --include to match your files.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- SNIPPET 9 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Count Lines of Code</span>
+          <span class="snippet-tag tag-green">beginner</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Counts total lines across all .py files in a project.</span>
+<span class="comment"># Quick LOC estimate without installing any extra tools.</span>
+
+<span class="var">PROJECT_DIR</span>=<span class="str">"$HOME/myproject"</span>
+<span class="var">EXT</span>=<span class="str">"py"</span>
+
+<span class="var">TOTAL</span>=$(<span class="kw">find</span> <span class="str">"$PROJECT_DIR"</span> -name <span class="str">"*.$EXT"</span> \
+  | <span class="kw">xargs</span> wc -l 2>/dev/null \
+  | <span class="kw">tail</span> -1 | <span class="kw">awk</span> <span class="str">'{print $1}'</span>)
+
+<span class="kw">echo</span> <span class="str">"Total lines of .$EXT code: $TOTAL"</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Counts all lines across files of a given extension.<em>Change EXT to js, sh, go — whatever you use.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- SNIPPET 10 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Find Duplicate Files</span>
+          <span class="snippet-tag tag-purple">advanced</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Finds files with identical content using MD5 hashes.</span>
+<span class="comment"># Run on Downloads folder to surface duplicates.</span>
+
+<span class="var">TARGET</span>=<span class="str">"$HOME/Downloads"</span>
+
+<span class="kw">echo</span> <span class="str">"Scanning for duplicates in $TARGET..."</span>
+<span class="kw">find</span> <span class="str">"$TARGET"</span> -type f \
+  | <span class="kw">xargs</span> md5sum 2>/dev/null \
+  | <span class="kw">sort</span> \
+  | <span class="kw">awk</span> <span class="str">'seen[$1]++'</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Lists all files that are exact byte-for-byte duplicates.<em>Review output carefully before deleting anything.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- SNIPPET 11 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Compress Folder to .tar.gz</span>
+          <span class="snippet-tag tag-amber">intermediate</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Compresses a folder into a dated .tar.gz archive.</span>
+<span class="comment"># Smaller than .zip and native to every Linux system.</span>
+
+<span class="var">SOURCE</span>=<span class="str">"/home/user/project"</span>
+<span class="var">OUTPUT</span>=<span class="str">"/backup/project_$(date +%Y%m%d).tar.gz"</span>
+
+<span class="kw">tar</span> -czf <span class="str">"$OUTPUT"</span> -C <span class="str">"$(dirname $SOURCE)"</span> \
+    <span class="str">"$(basename $SOURCE)"</span>
+
+<span class="kw">echo</span> <span class="str">"Archive created: $OUTPUT"</span>
+<span class="kw">ls</span> -lh <span class="str">"$OUTPUT"</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Archives any folder into compressed .tar.gz format.<em>Also shows final file size so you know it worked.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- SNIPPET 12 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Safe Bash Script Template</span>
+          <span class="snippet-tag tag-purple">best practice</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Safe bash template — use this as your starting point</span>
+<span class="comment"># for any script you actually care about.</span>
+
+<span class="kw">set</span> -euo pipefail  <span class="comment"># exit on error, unset vars, pipe fails</span>
+<span class="var">IFS</span>=$<span class="str">'\n\t'</span>        <span class="comment"># safer word splitting</span>
+
+<span class="comment"># Your code starts here</span>
+<span class="kw">echo</span> <span class="str">"Script started at $(date)"</span>
+
+<span class="comment"># ... add your logic ...</span>
+
+<span class="kw">echo</span> <span class="str">"Script completed successfully"</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Boilerplate that prevents the 5 most common bash mistakes.<em>Paste this at the top of every script you write.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           ADD NEW SNIPPETS HERE
+           Copy any .snippet-card block above, paste it here,
+           and update the content. Then update the stats bar
+           number at the top of the page to match.
+           ============================================================ -->
+
+    </div><!-- /snippets-grid -->
+  </section>
+
+  <!-- ============================================================
+       AD SLOT 2 — MID PAGE (between snippets and builder)
+       Recommended format: responsive auto.
+
+       After AdSense approval, replace inner content with:
+       <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YOUR_SLOT_ID_HERE"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+       ============================================================ -->
+  <section style="padding-top:0; padding-bottom:0;">
+    <div class="ad-slot" id="ad-mid">
+      <strong>Advertisement</strong>
+      <small>Helps keep everything here free</small>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCRIPT BUILDER TOOL
+       ============================================================ -->
+  <section id="builder">
+    <div class="fade-in">
+      <p class="section-label">// interactive tool</p>
+      <h2 class="section-title">Script Builder</h2>
+      <p class="section-desc">Not sure where to start? Pick what you want to do and this generates a working starter script. No coding required — just change the paths to match your system.</p>
+    </div>
+    <div class="tool-box fade-in">
+      <p class="tool-title">⚡ Generate a Script</p>
+      <p class="tool-subtitle">Choose a task and a script generates instantly. Save as a <code>.sh</code> file, run <code>chmod +x yourscript.sh</code>, then <code>./yourscript.sh</code>.</p>
+      <div class="tool-grid">
+        <div>
+          <label for="task-type">What do you want to do?</label>
+          <select id="task-type" onchange="generateScript()">
+            <option value="backup">Backup a folder automatically</option>
+            <option value="cleanup">Delete old files on a schedule</option>
+            <option value="monitor">Alert me when disk gets full</option>
+            <option value="rename">Rename a bunch of files at once</option>
+            <option value="report">Print a quick system info report</option>
+            <option value="uptime">Check if a website is up</option>
+          </select>
+        </div>
+        <div>
+          <label for="source-path">Your folder path (optional)</label>
+          <input type="text" id="source-path" placeholder="/home/yourname/documents" oninput="generateScript()" />
+        </div>
+        <div>
+          <label for="threshold-val">Days / disk % / URL</label>
+          <input type="text" id="threshold-val" placeholder="30" oninput="generateScript()" />
+        </div>
+        <div>
+          <label for="schedule">Run it automatically?</label>
+          <select id="schedule" onchange="generateScript()">
+            <option value="">No — I'll run it manually</option>
+            <option value="daily">Yes — every day at midnight</option>
+            <option value="weekly">Yes — once a week (Sunday)</option>
+            <option value="hourly">Yes — every hour</option>
+          </select>
+        </div>
+      </div>
+      <div class="tool-output" id="script-output"></div>
+      <div class="tool-actions">
+        <button class="btn-primary" onclick="copyTool()">Copy Script</button>
+        <button class="btn-secondary" onclick="generateScript()">Reset</button>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<!-- ── AD SLOT MID ───────────────────────────────── -->
-<section style="padding-top: 0; padding-bottom: 0;">
-  <div class="ad-slot">
-    <!-- Google AdSense unit goes here after approval -->
-    <strong>Advertisement</strong>
-    <small>Helps keep everything here free</small>
-  </div>
-</section>
-
-<!-- ── SCRIPT BUILDER ───────────────────────────── -->
-<section id="builder">
-  <div class="fade-in">
-    <p class="section-label">// interactive tool</p>
-    <h2 class="section-title">Script Builder</h2>
-    <p class="section-desc">Not sure where to start? Pick what you want to do and this'll generate a working starter script. No coding knowledge needed — just change the paths to match your setup.</p>
-  </div>
-
-  <div class="tool-box fade-in">
-    <p class="tool-title">⚡ Build Your Script</p>
-    <p class="tool-subtitle">Choose a task below and the script generates automatically. Copy it, paste it into a .sh file, make it executable with <code>chmod +x yourscript.sh</code>, and run it.</p>
-
-    <div class="tool-grid">
-      <div>
-        <label for="task-type">What do you want to do?</label>
-        <select id="task-type" onchange="generateScript()">
-          <option value="backup">Backup a folder automatically</option>
-          <option value="cleanup">Delete old files on a schedule</option>
-          <option value="monitor">Alert me when disk gets full</option>
-          <option value="rename">Rename a bunch of files at once</option>
-          <option value="report">Print a quick system info report</option>
-        </select>
-      </div>
-      <div>
-        <label for="source-path">Your folder path (optional — edit later)</label>
-        <input type="text" id="source-path" placeholder="/home/yourname/documents" oninput="generateScript()" />
-      </div>
-      <div>
-        <label for="threshold-val">Days to keep / Disk % threshold</label>
-        <input type="text" id="threshold-val" placeholder="30" oninput="generateScript()" />
-      </div>
-      <div>
-        <label for="schedule">Run it automatically?</label>
-        <select id="schedule" onchange="generateScript()">
-          <option value="">No — I'll run it manually</option>
-          <option value="daily">Yes — every day at midnight</option>
-          <option value="weekly">Yes — once a week (Sunday)</option>
-          <option value="hourly">Yes — every hour</option>
-        </select>
-      </div>
+  <!-- ============================================================
+       RESOURCES / AFFILIATE SECTION
+       ============================================================ -->
+  <section id="resources">
+    <div class="fade-in">
+      <p class="section-label">// go deeper</p>
+      <h2 class="section-title">Want to Go Beyond Copy-Paste?</h2>
+      <p class="section-desc">Resources I'd actually recommend if you want to understand bash properly. All links are free unless noted.</p>
     </div>
 
-    <div class="tool-output" id="script-output"></div>
-
-    <div class="tool-actions">
-      <button class="btn-primary" onclick="copyTool()">Copy Script</button>
-      <button class="btn-secondary" onclick="generateScript()">Reset</button>
+    <!-- ============================================================
+         AFFILIATE BANNER 1 — Free book (no commission, trust builder)
+         ============================================================ -->
+    <div class="affiliate-banner fade-in">
+      <div class="affiliate-banner-text">
+        <p>The Linux Command Line — Best Bash Book for Beginners</p>
+        <p>By William Shotts. Covers everything from file navigation to full scripting. Available completely free at <a href="https://linuxcommand.org/tlcl.php" target="_blank" rel="noopener">linuxcommand.org</a>. The best written bash resource available.</p>
+      </div>
+      <a class="btn-affiliate" href="https://linuxcommand.org/tlcl.php" target="_blank" rel="noopener">Read Free →</a>
     </div>
-  </div>
-</section>
 
-<!-- ── TOPICS ────────────────────────────────────── -->
-<section id="topics">
-  <div class="fade-in">
-    <p class="section-label">// coming up</p>
-    <h2 class="section-title">More Topics on the Way</h2>
-    <p class="section-desc">I'm adding new snippets regularly. These are the topics in the queue — each one will get its own set of examples with explanations.</p>
-  </div>
+    <!-- ============================================================
+         AFFILIATE BANNER 2 — DigitalOcean (REPLACE with your referral link)
+         Sign up at: https://www.digitalocean.com/referral-program
+         Your link will look like: https://m.do.co/c/XXXXXXXXXX
+         Pays $25 cash per qualifying signup.
+         ============================================================ -->
+    <div class="affiliate-banner fade-in">
+      <div class="affiliate-banner-text">
+        <p>Practice on a Real Linux Server — $200 Free Credit</p>
+        <p>The fastest way to get good at bash is having a real Linux server to experiment on. DigitalOcean gives new users $200 in free credit for 60 days. Plenty of time to run every script on this site. <em style="font-size:11px; color:#6e7681;">(Affiliate link — we earn a small commission if you sign up)</em></p>
+      </div>
+      <!-- REPLACE THIS HREF with your DigitalOcean referral link -->
+      <a class="btn-affiliate" href="https://www.digitalocean.com/referral-program" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+    </div>
 
-  <div class="tag-cloud fade-in">
-    <span class="topic-tag">file backup</span>
-    <span class="topic-tag">cron jobs</span>
-    <span class="topic-tag">string manipulation</span>
-    <span class="topic-tag">loops &amp; arrays</span>
-    <span class="topic-tag">error handling</span>
-    <span class="topic-tag">reading user input</span>
-    <span class="topic-tag">grep &amp; awk</span>
-    <span class="topic-tag">file permissions</span>
-    <span class="topic-tag">process management</span>
-    <span class="topic-tag">network checks</span>
-    <span class="topic-tag">disk monitoring</span>
-    <span class="topic-tag">ssh automation</span>
-    <span class="topic-tag">log rotation</span>
-    <span class="topic-tag">environment variables</span>
-    <span class="topic-tag">if/else logic</span>
-    <span class="topic-tag">functions</span>
-    <span class="topic-tag">date &amp; time</span>
-    <span class="topic-tag">regex basics</span>
-    <span class="topic-tag">curl &amp; wget</span>
-    <span class="topic-tag">apt / package mgmt</span>
-  </div>
-</section>
+    <!-- ============================================================
+         AFFILIATE BANNER 3 — Udemy (REPLACE with your affiliate link)
+         Sign up at: https://www.udemy.com/affiliate
+         Find "The Complete Linux Course" and get your tracking link.
+         Pays ~10% commission, 30-day cookie.
+         ============================================================ -->
+    <div class="affiliate-banner fade-in">
+      <div class="affiliate-banner-text">
+        <p>The Complete Linux Course — Most Popular on Udemy</p>
+        <p>Goes from zero to confident sysadmin. Covers bash, networking, permissions, users, and system administration. Usually on sale for under $15. <em style="font-size:11px; color:#6e7681;">(Affiliate link — we earn a small commission at no cost to you)</em></p>
+      </div>
+      <!-- REPLACE THIS HREF with your Udemy affiliate link -->
+      <a class="btn-affiliate" href="https://www.udemy.com/courses/search/?q=linux+command+line" target="_blank" rel="noopener sponsored">View Course →</a>
+    </div>
 
-<!-- ── FAQ ──────────────────────────────────────── -->
-<section id="faq">
-  <div class="fade-in">
-    <p class="section-label">// common questions</p>
-    <h2 class="section-title">Things People Always Ask</h2>
-    <p class="section-desc">These are the questions I see over and over in forums, Discord servers, and comment sections. Answered as plainly as I can manage.</p>
-  </div>
-
-  <div class="faq-list fade-in">
-
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What actually is a bash script? Like in plain English.
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        It's just a text file full of commands. The same commands you'd type in a terminal one by one — but saved in a file so the computer runs them automatically in sequence. Think of it like a recipe: you write the steps once, and the computer follows them whenever you need. The file usually ends in <code>.sh</code> and the very first line is always <code>#!/bin/bash</code> — that's the computer's way of knowing which language to use.
+    <div class="resources-grid fade-in">
+      <div class="resource-card">
+        <p class="resource-card-label">// free tool</p>
+        <h3>Crontab Guru</h3>
+        <p>Visual cron schedule builder. Describe your schedule and it generates the cron syntax. I use it every time — even after years of writing cron jobs.</p>
+        <a class="resource-link" href="https://crontab.guru" target="_blank" rel="noopener">crontab.guru →</a>
+      </div>
+      <div class="resource-card">
+        <p class="resource-card-label">// free tool</p>
+        <h3>ExplainShell</h3>
+        <p>Paste any bash command and it breaks down every flag and argument with man page documentation. Best way to understand commands you found online.</p>
+        <a class="resource-link" href="https://explainshell.com" target="_blank" rel="noopener">explainshell.com →</a>
+      </div>
+      <div class="resource-card">
+        <p class="resource-card-label">// free course</p>
+        <h3>Bash Scripting — freeCodeCamp</h3>
+        <p>Full beginner bash course on YouTube. About 5 hours, covers variables, loops, functions, and real-world examples. Free, no account needed.</p>
+        <a class="resource-link" href="https://www.youtube.com/watch?v=e7BufAVwDiM" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+      <div class="resource-card">
+        <p class="resource-card-label">// free tool</p>
+        <h3>ShellCheck</h3>
+        <p>Paste any bash script and it finds bugs, bad practices, and portability issues. Like a spell-checker for shell scripts. Catches things that are hard to spot yourself.</p>
+        <a class="resource-link" href="https://www.shellcheck.net" target="_blank" rel="noopener">shellcheck.net →</a>
+      </div>
+      <div class="resource-card">
+        <p class="resource-card-label">// community</p>
+        <h3>r/bash on Reddit</h3>
+        <p>Active community from beginners to experts. Good for questions when you're stuck on something specific. Friendlier than Stack Overflow for scripting questions.</p>
+        <a class="resource-link" href="https://reddit.com/r/bash" target="_blank" rel="noopener">reddit.com/r/bash →</a>
+      </div>
+      <div class="resource-card">
+        <p class="resource-card-label">// reference</p>
+        <h3>GNU Bash Manual</h3>
+        <p>The official, complete bash documentation. Dense but definitive — every feature, every edge case. Bookmark it and use Ctrl+F when you need the real answer.</p>
+        <a class="resource-link" href="https://www.gnu.org/software/bash/manual/" target="_blank" rel="noopener">gnu.org/bash →</a>
       </div>
     </div>
+  </section>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        How do I actually run a bash script?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Two steps, and you only have to do step one once per file. First, make it executable: <code>chmod +x yourscript.sh</code>. Then run it: <code>./yourscript.sh</code>. That's it. If you skip the chmod step, you'll get a "Permission denied" error — that's the most common beginner trip-up. Alternatively, skip chmod entirely and just type <code>bash yourscript.sh</code> — works the same way.
-      </div>
+  <!-- ============================================================
+       CLUSTER PAGES / GUIDES SECTION
+       Uncomment each card below as you build the cluster pages.
+       DO NOT link to pages that don't exist yet — broken links
+       hurt SEO. Add cards one at a time as pages go live.
+
+       Pages to build (in priority order):
+         1. /cron-jobs.html        ← build first
+         2. /bash-one-liners.html
+         3. /bash-cheatsheet.html
+         4. /bash-if-else.html
+         5. /bash-loops.html
+         6. /bash-functions.html
+       ============================================================ -->
+  <!--
+  <section id="guides">
+    <div class="fade-in">
+      <p class="section-label">// deep dives</p>
+      <h2 class="section-title">In-Depth Bash Guides</h2>
+      <p class="section-desc">Each guide goes deep on one topic with real working examples and plain-English explanations.</p>
     </div>
+    <div class="resources-grid fade-in">
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Do I need to install anything first?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Nope. If you're on Linux or macOS, bash is already there — it's been installed by default for decades. Open a terminal and type <code>bash --version</code> to confirm. On Windows, install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git Bash</a> (free, takes about 2 minutes) or enable WSL from Settings. Both give you a full bash environment with zero cost.
+      <div class="resource-card">
+        <p class="resource-card-label">// guide</p>
+        <h3>Cron Jobs — Complete Guide</h3>
+        <p>10 real cron examples. Cron syntax explained in plain English. Common mistakes and how to fix them.</p>
+        <a class="resource-link" href="/cron-jobs.html">Read the guide →</a>
       </div>
-    </div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What's the difference between sh and bash? Which do I use?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        <code>sh</code> is the old, minimal shell — it works everywhere but has fewer features. <code>bash</code> is the upgraded version with arrays, better string manipulation, and more modern syntax. For anything you're writing for your own machine, always use <code>#!/bin/bash</code>. Only use <code>#!/bin/sh</code> if you're writing a script for very minimal environments like Docker containers or embedded systems where bash might not be installed.
+      <div class="resource-card">
+        <p class="resource-card-label">// guide</p>
+        <h3>50 Bash One-Liners</h3>
+        <p>The bash one-liners worth bookmarking — file ops, text processing, system monitoring, network, and git.</p>
+        <a class="resource-link" href="/bash-one-liners.html">Read the guide →</a>
       </div>
-    </div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        How do I make a script run automatically on a schedule?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Use <code>cron</code> — it's Linux's built-in scheduler and it's been reliable since the 1970s. Open the cron editor with <code>crontab -e</code>, then add a line like <code>0 2 * * * /home/you/myscript.sh</code> to run every day at 2am. The five numbers mean: minute, hour, day-of-month, month, day-of-week. If that format confuses you, use <a href="https://crontab.guru" target="_blank" rel="noopener">crontab.guru</a> — it's a free visual cron builder that's genuinely useful.
+      <div class="resource-card">
+        <p class="resource-card-label">// reference</p>
+        <h3>Bash Cheat Sheet</h3>
+        <p>Every bash syntax you actually use — variables, loops, conditionals, functions, and special variables.</p>
+        <a class="resource-link" href="/bash-cheatsheet.html">Read the guide →</a>
       </div>
-    </div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        How do I pass values into a script so I don't have to hardcode everything?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Add values after the filename when you run it: <code>./script.sh hello world</code>. Inside your script, <code>$1</code> gets "hello", <code>$2</code> gets "world", and so on. <code>$0</code> is the script's own filename. <code>$#</code> tells you how many arguments were passed. This is how you make scripts flexible — instead of hardcoding a folder path, pass it in as <code>$1</code> and the same script works anywhere.
+      <div class="resource-card">
+        <p class="resource-card-label">// guide</p>
+        <h3>Bash If/Else — Full Examples</h3>
+        <p>10 if/else examples from basic to nested. String and number comparison, file existence checks.</p>
+        <a class="resource-link" href="/bash-if-else.html">Read the guide →</a>
       </div>
-    </div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        My script ran but nothing happened. What went wrong?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        A few common culprits: (1) You forgot <code>#!/bin/bash</code> as the very first line — add it. (2) The path to your file or folder is wrong — double-check with <code>ls /your/path</code> first. (3) You have Windows line endings in your file (CRLF instead of LF) — this happens when editing on Windows. Fix it with: <code>sed -i 's/\r//' yourscript.sh</code>. (4) Add <code>set -x</code> right after the shebang line to enable debug mode — it prints every command before it runs, which usually reveals the problem immediately.
+      <div class="resource-card">
+        <p class="resource-card-label">// guide</p>
+        <h3>Bash Loops — For, While, Until</h3>
+        <p>Every type of bash loop with real examples. Loop through files, arrays, counters, and more.</p>
+        <a class="resource-link" href="/bash-loops.html">Read the guide →</a>
       </div>
+
+      <div class="resource-card">
+        <p class="resource-card-label">// guide</p>
+        <h3>Bash Functions</h3>
+        <p>How to write reusable bash functions. Arguments, return values, local variables, and real-world examples.</p>
+        <a class="resource-link" href="/bash-functions.html">Read the guide →</a>
+      </div>
+
     </div>
+  </section>
+  -->
 
-  </div>
-</section>
+  <!-- ============================================================
+       TOPICS IN THE QUEUE
+       ============================================================ -->
+  <section id="topics" style="padding-top:0;">
+    <div class="fade-in">
+      <p class="section-label">// more coming</p>
+      <h2 class="section-title">Topics in the Queue</h2>
+      <p class="section-desc">Adding new snippets regularly. Each topic gets its own set of working examples with plain-English explanations.</p>
+    </div>
+    <div class="tag-cloud fade-in">
+      <span class="topic-tag">cron jobs deep dive</span>
+      <span class="topic-tag">string manipulation</span>
+      <span class="topic-tag">bash arrays</span>
+      <span class="topic-tag">error handling (set -e)</span>
+      <span class="topic-tag">reading user input</span>
+      <span class="topic-tag">awk one-liners</span>
+      <span class="topic-tag">sed find &amp; replace</span>
+      <span class="topic-tag">file permissions</span>
+      <span class="topic-tag">process management</span>
+      <span class="topic-tag">ssh key automation</span>
+      <span class="topic-tag">log rotation</span>
+      <span class="topic-tag">environment variables</span>
+      <span class="topic-tag">bash functions</span>
+      <span class="topic-tag">regex in bash</span>
+      <span class="topic-tag">curl &amp; wget scripts</span>
+      <span class="topic-tag">apt automation</span>
+      <span class="topic-tag">git automation</span>
+      <span class="topic-tag">Docker + bash</span>
+    </div>
+  </section>
 
-<!-- ── ABOUT SECTION ────────────────────────────── -->
-<section id="about">
-  <div class="fade-in">
-    <p class="section-label">// about this site</p>
-    <h2 class="section-title">Why This Exists</h2>
-  </div>
+  <!-- ============================================================
+       AD SLOT 3 — IN-CONTENT (before FAQ)
+       Recommended format: responsive auto.
 
-  <div class="story-box fade-in">
-    <p>I've been using Linux for a while now, and I still find myself Googling the same bash commands constantly. Not because I forget them — but because I can never remember the exact syntax for the edge case I'm dealing with right now. The <code>find</code> command with <code>-mtime</code>? The <code>awk</code> trick to grab column five? Every. Single. Time.</p>
-    <p>Most of the resources out there are either too basic ("here is what echo does") or way too deep ("here is a 47-step tutorial"). <strong>There's a gap in the middle</strong> — a place for real, working scripts that handle actual everyday tasks, written in a way that a person who isn't a shell scripting wizard can understand and modify.</p>
-    <p>So I built this. Every snippet on this page is something I've used in a real situation. The explanations are written the way I wish someone had explained it to me. Nothing is padded out for SEO. If a script is short, the explanation is short. If something has a gotcha, I call it out.</p>
-    <p>This site is updated regularly. If there's a snippet you keep searching for and can't find here, <a href="mailto:anguisheh1@gmail.com">send me a note</a> — I'll add it.</p>
-  </div>
-</section>
+       After AdSense approval, replace inner content with:
+       <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YOUR_SLOT_ID_HERE"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+       ============================================================ -->
+  <section style="padding-top:0; padding-bottom:0;">
+    <div class="ad-slot" id="ad-infeed">
+      <strong>Advertisement</strong>
+      <small>Keeps the lights on</small>
+    </div>
+  </section>
 
-<!-- ── AD SLOT BOTTOM ───────────────────────────── -->
-<section style="padding-top: 0; padding-bottom: 20px;">
-  <div class="ad-slot">
-    <!-- Google AdSense unit goes here after approval -->
-    <strong>Advertisement</strong>
-    <small>Keeps the lights on</small>
-  </div>
-</section>
+  <!-- ============================================================
+       FAQ SECTION
+       IMPORTANT: Every question here must ALSO be in the
+       FAQPage JSON-LD schema block in the <head> above.
+       Keep both in sync when adding new questions.
+       ============================================================ -->
+  <section id="faq">
+    <div class="fade-in">
+      <p class="section-label">// common questions</p>
+      <h2 class="section-title">Things People Always Ask</h2>
+      <p class="section-desc">Questions I see constantly in forums, Discord servers, and comment sections — answered as plainly as possible.</p>
+    </div>
+    <div class="faq-list fade-in">
 
-<!-- ── FOOTER ───────────────────────────────────── -->
-<footer>
-  <div class="footer-links">
-    <a href="#snippets">Snippets</a>
-    <a href="#builder">Script Builder</a>
-    <a href="#faq">FAQ</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <!-- Affiliate links go here once approved:
-    <a href="https://click.linksynergy.com/..." rel="sponsored noopener">Linux Course (Udemy)</a>
-    -->
-  </div>
-  <p>Built by a Linux user, for Linux users. All scripts tested on Ubuntu 22.04 LTS and macOS Ventura.</p>
-  <p>No tracking. No paywalls. No newsletter popups.</p>
-  <p style="margin-top: 8px;">© <span id="year"></span> BashSnippets &nbsp;·&nbsp; <a href="mailto:anguisheh1@gmail.com">Contact</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
-</footer>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What actually is a bash script? Like in plain English.<span class="faq-icon">+</span></button>
+        <div class="faq-a">It's just a text file full of commands. The same commands you'd type in a terminal one by one — but saved in a file so the computer runs them automatically in sequence. Think of it like a recipe: you write the steps once, and the computer follows them whenever you need. The file usually ends in <code>.sh</code> and the very first line is always <code>#!/bin/bash</code> — that's the computer's way of knowing which language to use.</div>
+      </div>
 
-<!-- ── JAVASCRIPT ────────────────────────────────── -->
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I actually run a bash script?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Two steps, and you only do step one once per file. First, make it executable: <code>chmod +x yourscript.sh</code>. Then run it: <code>./yourscript.sh</code>. If you skip chmod, you get a "Permission denied" error — the most common beginner trip-up. You can also skip chmod entirely and type <code>bash yourscript.sh</code> — same result.</div>
+      </div>
 
-  // Scroll fade-in
-  const observer = new IntersectionObserver(els => {
-    els.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do I need to install anything first?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Nope. Linux and macOS come with bash already installed — it's been there for decades. Open a terminal and type <code>bash --version</code> to confirm. On Windows, install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git Bash</a> (free, 2 minutes) or enable WSL from Windows Settings. Both give you a full bash environment at zero cost.</div>
+      </div>
 
-  // FAQ accordion
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the difference between sh and bash?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><code>sh</code> is the old minimal POSIX shell — works everywhere but has fewer features. <code>bash</code> is the modern version with arrays, better string handling, and more. For scripts on your own machine, always use <code>#!/bin/bash</code>. Only use <code>#!/bin/sh</code> for maximum portability — like scripts inside Docker containers where bash might not exist.</div>
+      </div>
 
-  // Copy snippet button
-  function copyCode(btn) {
-    const pre = btn.closest('.snippet-card').querySelector('pre');
-    navigator.clipboard.writeText(pre.innerText).then(() => {
-      btn.textContent = '✓ copied';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
-    });
-  }
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I schedule a bash script to run automatically?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Use <code>cron</code> — Linux's built-in scheduler, reliable since the 1970s. Run <code>crontab -e</code> to open the editor, add a line like <code>0 2 * * * /home/you/myscript.sh</code> to run daily at 2am. The five fields are: minute, hour, day-of-month, month, day-of-week. Confused? Use <a href="https://crontab.guru" target="_blank" rel="noopener">crontab.guru</a> — free visual cron builder.</div>
+      </div>
 
-  // Script builder templates
-  const templates = {
-    backup: (src, days) => `#!/bin/bash
-# Automated backup script
-# Usage: ./backup.sh  — or schedule with cron
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I pass values into a script instead of hardcoding them?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Add values after the filename when running: <code>./script.sh hello world</code>. Inside the script, <code>$1</code> is "hello", <code>$2</code> is "world", and so on. <code>$0</code> is the script name. <code>$#</code> is the count of arguments passed. Instead of hardcoding a folder path, accept it as <code>$1</code> and the same script becomes reusable anywhere.</div>
+      </div>
 
-SOURCE="${src || '/home/yourname/documents'}"
-DEST="/backup"
-DATE=$(date +%Y-%m-%d_%H-%M)
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">My script ran but nothing happened. What went wrong?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Common culprits: (1) Missing <code>#!/bin/bash</code> as the very first line. (2) Wrong path — verify with <code>ls /your/path</code>. (3) Windows line endings if you edited on Windows — fix with <code>sed -i 's/\r//' yourscript.sh</code>. (4) Add <code>set -x</code> right after the shebang — it prints every command before it runs so you see exactly where it breaks.</div>
+      </div>
 
-# Create the backup folder if it doesn't exist yet
-mkdir -p "$DEST"
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I make my script stop immediately if something fails?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Add <code>set -e</code> near the top of your script. It tells bash to exit the moment any command fails. Add <code>set -u</code> to catch undefined variables, and <code>set -o pipefail</code> to catch errors inside pipes. All three together: <code>set -euo pipefail</code>. This is the single best habit for writing reliable scripts.</div>
+      </div>
 
-# Copy the folder with a timestamped name
-cp -r "$SOURCE" "$DEST/backup_$DATE"
-echo "Done. Saved to: $DEST/backup_$DATE"`,
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the best way to learn bash scripting from scratch?<span class="faq-icon">+</span></button>
+        <div class="faq-a">The fastest method: steal and modify. Start with scripts from this page, understand each line, change one thing at a time. For structured learning, <a href="https://linuxcommand.org/tlcl.php" target="_blank" rel="noopener">The Linux Command Line</a> by William Shotts is free online and the best written resource available. For video, the freeCodeCamp bash course on YouTube is solid and completely free.</div>
+      </div>
 
-    cleanup: (src, days) => `#!/bin/bash
-# Auto-delete log files older than ${days || 30} days
-# TIP: Replace -delete with -print first to preview what would be removed
+      <!-- ============================================================
+           ADD NEW FAQ ITEMS HERE
+           Copy a .faq-item block, paste it here, update the question
+           and answer. Then add the same Q&A to the FAQPage JSON-LD
+           schema block in the <head> section at the top of this file.
+           ============================================================ -->
 
-TARGET_DIR="${src || '/var/log/myapp'}"
-DAYS=${days || 30}
+    </div>
+  </section>
 
-echo "Scanning $TARGET_DIR for files older than $DAYS days..."
-find "$TARGET_DIR" -type f -name "*.log" -mtime +$DAYS -delete
-echo "Done. Old logs removed."`,
+  <!-- ============================================================
+       ABOUT SECTION (summary — full version at /about.html)
+       ============================================================ -->
+  <section id="about">
+    <div class="fade-in">
+      <p class="section-label">// about this site</p>
+      <h2 class="section-title">Why This Exists</h2>
+    </div>
+    <div class="story-box fade-in">
+      <p>I've been using Linux for a while now, and I still find myself Googling the same bash commands constantly. Not because I forget them — but because I can never remember the exact syntax for the edge case I'm dealing with right now. The <code>find</code> command with <code>-mtime</code>? The <code>awk</code> trick to grab column five? Every. Single. Time.</p>
+      <p>Most resources out there are either too basic ("here is what echo does") or way too deep ("here is a 47-step tutorial"). <strong>There's a gap in the middle</strong> — a place for real, working scripts that handle actual everyday tasks, written in a way that someone who isn't a shell wizard can understand and modify.</p>
+      <p>So I built this. Every snippet here is something I've used in a real situation. Explanations are written how I wish someone had explained it to me. Nothing padded out for SEO. If a script is short, the explanation is short. If something has a gotcha, I call it out.</p>
+      <p>This site is updated regularly. If there's something you keep searching for and can't find here, <a href="/contact.html">send a note</a> — I'll add it. For the full story, visit the <a href="/about.html">About page</a>.</p>
+    </div>
+  </section>
 
-    monitor: (src, days) => `#!/bin/bash
-# Disk space monitor — warns when usage crosses threshold
-# Add to cron for regular checks: 0 * * * * /path/to/monitor.sh
+  <!-- ============================================================
+       AD SLOT 4 — BOTTOM OF PAGE
+       Recommended format: responsive auto.
 
-THRESHOLD=${days || 80}
-USAGE=$(df / | awk 'NR==2{print $5}' | tr -d '%')
+       After AdSense approval, replace inner content with:
+       <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YOUR_SLOT_ID_HERE"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+       ============================================================ -->
+  <section style="padding-top:0; padding-bottom:20px;">
+    <div class="ad-slot" id="ad-bottom">
+      <strong>Advertisement</strong>
+      <small>Keeps the lights on</small>
+    </div>
+  </section>
 
-if [ "$USAGE" -gt "$THRESHOLD" ]; then
-  echo "Warning: disk is at ${USAGE}% (threshold: ${THRESHOLD}%)"
-  # To send an email alert, uncomment this line and edit the address:
-  # echo "Disk at ${USAGE}%" | mail -s "Disk Space Warning" you@example.com
-else
-  echo "All clear — disk is at ${USAGE}% used"
-fi`,
+  <!-- ============================================================
+       FOOTER
+       Keep all pages linked here. Add new cluster pages to this
+       list as they go live.
+       ============================================================ -->
+  <footer>
+    <div class="footer-links">
+      <a href="#snippets">Snippets</a>
+      <a href="#builder">Builder</a>
+      <a href="#resources">Resources</a>
+      <a href="#faq">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <!-- Add cluster page links here as they go live:
+      <a href="/cron-jobs.html">Cron Jobs</a>
+      <a href="/bash-one-liners.html">One-Liners</a>
+      <a href="/bash-cheatsheet.html">Cheat Sheet</a>
+      -->
+    </div>
+    <p>Built by a Linux user, for Linux users. All scripts tested on Ubuntu 22.04 LTS and macOS Ventura.</p>
+    <p>No tracking. No paywalls. No newsletter popups.</p>
+    <p style="margin-top:8px;">
+      © <span id="year"></span> BashSnippets
+      &nbsp;·&nbsp; <a href="mailto:Anguisheh1@gmail.com">Anguisheh1@gmail.com</a>
+      &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a>
+    </p>
+  </footer>
 
-    rename: (src, days) => `#!/bin/bash
-# Bulk rename files — changes .txt extension to .md
-# Edit the extensions on lines 8 and 10 to match your files
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // Auto-update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-TARGET_DIR="${src || '.'}"
+    // Scroll fade-in observer
+    const observer = new IntersectionObserver(els => {
+      els.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-for file in "$TARGET_DIR"/*.txt; do
-  [ -f "$file" ] || continue
-  newname="\${file%.txt}.md"
-  mv "$file" "$newname"
-  echo "Renamed: $(basename $file) -> $(basename $newname)"
-done
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
 
-echo "All done."`,
+    // Copy snippet button
+    function copyCode(btn) {
+      const pre = btn.closest('.snippet-card').querySelector('pre');
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        btn.textContent = '✓ copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
 
-    report: (src, days) => `#!/bin/bash
-# Quick system snapshot — useful on login or after SSH-ing in
-# Tip: Add this to your ~/.bashrc to run on every terminal open
+    // Script builder templates
+    const templates = {
+      backup: (s, v) => `#!/bin/bash\n# Automated backup script\nSOURCE="${s || '/home/yourname/documents'}"\nDEST="/backup"\nDATE=$(date +%Y-%m-%d_%H-%M)\nmkdir -p "$DEST"\ncp -r "$SOURCE" "$DEST/backup_$DATE"\necho "Done. Saved to: $DEST/backup_$DATE"`,
+      cleanup: (s, v) => `#!/bin/bash\n# Delete files older than ${v || 30} days\nTARGET_DIR="${s || '/var/log/myapp'}"\nDAYS=${v || 30}\necho "Scanning for files older than $DAYS days..."\nfind "$TARGET_DIR" -type f -name "*.log" -mtime +$DAYS -delete\necho "Done."`,
+      monitor: (s, v) => `#!/bin/bash\n# Disk space monitor\nTHRESHOLD=${v || 80}\nUSAGE=$(df / | awk 'NR==2{print $5}' | tr -d '%')\nif [ "$USAGE" -gt "$THRESHOLD" ]; then\n  echo "Warning: disk at ${v || 80}% threshold hit"\nelse\n  echo "All clear — disk at $USAGE%"\nfi`,
+      rename: (s, v) => `#!/bin/bash\n# Bulk rename .txt to .md\nTARGET_DIR="${s || '.'}"\nfor file in "$TARGET_DIR"/*.txt; do\n  [ -f "$file" ] || continue\n  newname="\${file%.txt}.md"\n  mv "$file" "$newname"\n  echo "Renamed: $(basename $file) -> $(basename $newname)"\ndone\necho "All done."`,
+      report: (s, v) => `#!/bin/bash\n# Quick system snapshot\necho "================================"\necho "  System Check — $(date '+%a %b %d %H:%M')"\necho "================================"\necho "Host    : $(hostname)"\necho "OS      : $(uname -o) $(uname -r)"\necho "Uptime  : $(uptime -p)"\necho "CPU     : $(nproc) cores"\necho "RAM     : $(free -h | awk '/Mem/{print $3\"/\"$2}')"\necho "Disk /  : $(df -h / | awk 'NR==2{print $3\"/\"$2\" (\"$5\")\"}')"\necho "IP      : $(hostname -I | awk '{print $1}')"\necho "================================"`,
+      uptime: (s, v) => `#!/bin/bash\n# Website uptime checker\nURL="${v || s || 'https://example.com'}"\nSTATUS=$(curl -o /dev/null -s -w "%{http_code}" "$URL")\nif [ "$STATUS" -eq 200 ]; then\n  echo "$(date): $URL is UP (HTTP $STATUS)"\nelse\n  echo "$(date): $URL returned HTTP $STATUS — check it"\nfi`,
+    };
 
-echo "================================"
-echo "  System Check — $(date '+%a %b %d %H:%M')"
-echo "================================"
-echo "Host    : $(hostname)"
-echo "OS      : $(uname -o) $(uname -r)"
-echo "Uptime  : $(uptime -p)"
-echo "CPU     : $(nproc) cores"
-echo "RAM     : $(free -h | awk '/Mem/{print $3"/"$2}')"
-echo "Disk /  : $(df -h / | awk 'NR==2{print $3"/"$2" ("$5")"}')"
-echo "IP      : $(hostname -I | awk '{print $1}')"
-echo "================================"`,
-  };
+    const cronLines = {
+      daily:  '# Cron: daily at midnight — run: crontab -e\n# 0 0 * * * /full/path/to/script.sh\n\n',
+      weekly: '# Cron: every Sunday at midnight — run: crontab -e\n# 0 0 * * 0 /full/path/to/script.sh\n\n',
+      hourly: '# Cron: every hour — run: crontab -e\n# 0 * * * * /full/path/to/script.sh\n\n',
+    };
 
-  const cronLines = {
-    daily:  '# Run this daily at midnight — add to crontab with: crontab -e\n# 0 0 * * * /full/path/to/this_script.sh\n\n',
-    weekly: '# Run this every Sunday at midnight — add to crontab with: crontab -e\n# 0 0 * * 0 /full/path/to/this_script.sh\n\n',
-    hourly: '# Run this every hour — add to crontab with: crontab -e\n# 0 * * * * /full/path/to/this_script.sh\n\n',
-  };
+    function generateScript() {
+      const task  = document.getElementById('task-type').value;
+      const src   = document.getElementById('source-path').value;
+      const val   = document.getElementById('threshold-val').value;
+      const sched = document.getElementById('schedule').value;
+      let script  = templates[task](src, val);
+      if (sched && cronLines[sched]) script = cronLines[sched] + script;
+      document.getElementById('script-output').textContent = script;
+    }
 
-  function generateScript() {
-    const task  = document.getElementById('task-type').value;
-    const src   = document.getElementById('source-path').value;
-    const days  = document.getElementById('threshold-val').value;
-    const sched = document.getElementById('schedule').value;
-    let script  = templates[task](src, days);
-    if (sched && cronLines[sched]) script = cronLines[sched] + script;
-    document.getElementById('script-output').textContent = script;
-  }
+    function copyTool() {
+      const out = document.getElementById('script-output').textContent;
+      navigator.clipboard.writeText(out).then(() => {
+        const btn = document.querySelector('.tool-actions .btn-primary');
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => { btn.textContent = 'Copy Script'; }, 2000);
+      });
+    }
 
-  function copyTool() {
-    const out = document.getElementById('script-output').textContent;
-    navigator.clipboard.writeText(out).then(() => {
-      const btn = document.querySelector('.tool-actions .btn-primary');
-      btn.textContent = '✓ Copied!';
-      setTimeout(() => { btn.textContent = 'Copy Script'; }, 2000);
-    });
-  }
-
-  generateScript();
-</script>
+    // Init builder on load
+    generateScript();
+  </script>
 
 </body>
 </html>
