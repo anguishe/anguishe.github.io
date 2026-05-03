@@ -756,6 +756,38 @@
       .affiliate-banner { flex-direction: column; }
       .tool-grid { grid-template-columns: 1fr; }
     }
+        .nav-mobile-menu {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 18px;
+      padding: 4px 10px;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+    @media (max-width: 640px) {
+      .nav-mobile-menu { display: block; }
+    }
+    .nav-mobile-drawer {
+      display: none;
+      flex-direction: column;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      gap: 4px;
+    }
+    .nav-mobile-drawer.open { display: flex; }
+    .nav-mobile-drawer a {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .nav-mobile-drawer a:last-child { border-bottom: none; }
+    .nav-mobile-drawer a:hover { color: var(--text); }
+
 
     /* ============================================================
        SCROLL FADE-IN ANIMATION
@@ -775,17 +807,15 @@
        Links to all pages. Internal anchor links use #id format.
        External pages use full relative paths (/about.html etc.)
        ============================================================ -->
-  <nav>
-    <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
-    <ul class="nav-links">
-      <li><a href="#snippets">Snippets</a></li>
-      <li><a href="#builder">Builder</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/contact.html">Contact</a></li>
-    </ul>
-  </nav>
+      <!-- Browse All Snippets CTA -->
+    <div style="margin-top:32px;padding:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:var(--heading-font);font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">More scripts in the library →</div>
+        <div style="font-size:13px;color:var(--muted);">Check if your website is up · Bash error handling · Create dated folders · and more</div>
+      </div>
+      <a href="/snippets/" style="background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 20px;border-radius:var(--radius);text-decoration:none;white-space:nowrap;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Browse All Scripts →</a>
+    </div>
+
 
   <!-- ============================================================
        HERO
@@ -1528,6 +1558,15 @@
       <strong>Advertisement</strong>
       <small>Keeps the lights on</small>
     </div>
+        <!-- Browse All Snippets CTA -->
+    <div style="margin-top:32px;padding:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:var(--heading-font);font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">More scripts in the library →</div>
+        <div style="font-size:13px;color:var(--muted);">Check if your website is up · Bash error handling · Create dated folders · and more</div>
+      </div>
+      <a href="/snippets/" style="background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 20px;border-radius:var(--radius);text-decoration:none;white-space:nowrap;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Browse All Scripts →</a>
+    </div>
+
   </section>
 
   <!-- ============================================================
@@ -1536,14 +1575,21 @@
        list as they go live.
        ============================================================ -->
   <footer>
-    <div class="footer-links">
+        <div class="footer-links">
       <a href="#snippets">Snippets</a>
       <a href="#builder">Builder</a>
       <a href="#resources">Resources</a>
       <a href="#faq">FAQ</a>
+      <a href="/snippets/">All Scripts</a>
+      <a href="/snippets/automated-file-backup.html">File Backup</a>
+      <a href="/snippets/disk-space-warning.html">Disk Warning</a>
+      <a href="/snippets/delete-old-log-files.html">Log Cleanup</a>
+      <a href="/snippets/check-if-website-is-up.html">Uptime Check</a>
+      <a href="/snippets/bash-error-handling.html">Error Handling</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
       <a href="/privacy.html">Privacy Policy</a>
+
       <!-- Add cluster page links here as they go live:
       <a href="/cron-jobs.html">Cron Jobs</a>
       <a href="/bash-one-liners.html">One-Liners</a>
@@ -1563,6 +1609,13 @@
        JAVASCRIPT
        ============================================================ -->
   <script>
+        function toggleMobileMenu() {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+    }
+
     // Auto-update copyright year
     document.getElementById('year').textContent = new Date().getFullYear();
 

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Create a Dated Folder with Bash – Timestamp Directories | Bash Snippets</title>
+  <meta name="description" content="A bash one-liner that creates a folder with today's date in the name. Never lose track of project folders again. Works on Linux and macOS." />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/create-dated-folder.html" />
+
+  <meta property="og:title" content="Create a Dated Folder with Bash | Bash Snippets" />
+  <meta property="og:description" content="One bash command that creates a timestamped folder. Beginner friendly. Works on Linux and macOS." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/create-dated-folder.html" />
+  <meta property="og:image" content="https://bashsnippets.xyz/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I create a folder with today's date in bash?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run: mkdir \"$(date +%Y-%m-%d)_project\" — this creates a folder named something like 2026-05-03_project. The date command with +%Y-%m-%d formats the date as year-month-day, which sorts correctly in file managers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add a timestamp to a folder name in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use command substitution: mkdir \"folder_$(date +%Y-%m-%d_%H-%M)\" — the $() syntax runs the date command and inserts its output directly into the folder name. This gives you both date and time in the name."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What date format is best for folder names?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use ISO 8601 format: YYYY-MM-DD (year-month-day). This sorts correctly in every file manager because the year comes first. Formats like MM-DD-YYYY sort incorrectly by month instead of year."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6B01TGE8XS');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+      --green:#39d353; --green-dim:#1a4a2e; --amber:#e3b341; --amber-dim:#3d2f0d;
+      --blue:#58a6ff; --blue-dim:#0d2a4a; --text:#e6edf3; --muted:#8b949e;
+      --heading-font:'Syne',sans-serif; --mono-font:'IBM Plex Mono',monospace; --radius:8px;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--mono-font); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    nav { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.93); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .nav-logo { font-family:var(--heading-font); font-weight:800; font-size:18px; color:var(--green); letter-spacing:-0.5px; text-decoration:none; }
+    .nav-logo span { color:var(--muted); }
+    .nav-links { display:flex; gap:20px; list-style:none; align-items:center; }
+    .nav-links a { font-size:13px; color:var(--muted); transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); text-decoration:none; }
+    .nav-snippets-btn { background:var(--green-dim); color:var(--green); border:1px solid var(--green); padding:4px 12px; border-radius:100px; font-size:12px; font-weight:600; }
+    .nav-snippets-btn:hover { background:var(--green); color:#0d1117; text-decoration:none; }
+    main { max-width:860px; margin:0 auto; padding:60px 24px 80px; }
+    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:32px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    .breadcrumb a { color:var(--muted); }
+    .breadcrumb a:hover { color:var(--text); text-decoration:none; }
+    .breadcrumb-sep { color:var(--border); }
+    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .tag { font-size:11px; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; }
+    .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+    .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
+    h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
+    .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; margin-bottom:0; }
+    h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
+    h2::before { content:'// '; color:var(--green); }
+    h3 { font-family:var(--heading-font); font-size:1rem; font-weight:700; margin:28px 0 10px; color:var(--green); }
+    p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
+    ul, ol { padding-left:24px; color:var(--muted); line-height:1.9; margin-bottom:16px; }
+    li { margin-bottom:4px; }
+    strong { color:var(--text); font-weight:600; }
+    .code-block { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:24px 0; }
+    .code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bg3); border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); }
+    .code-header .filename { color:var(--green); font-weight:600; }
+    .copy-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-family:var(--mono-font); font-size:11px; padding:4px 10px; border-radius:4px; cursor:pointer; transition:all 0.2s; }
+    .copy-btn:hover { border-color:var(--green); color:var(--green); }
+    .copy-btn.copied { border-color:var(--green); color:var(--green); }
+    pre { padding:24px; overflow-x:auto; font-family:var(--mono-font); font-size:14px; line-height:1.7; color:var(--text); }
+    .comment { color:var(--muted); }
+    .kw  { color:var(--green); }
+    .var { color:var(--blue); }
+    .str { color:var(--amber); }
+    code { background:var(--bg3); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-family:var(--mono-font); font-size:13px; color:var(--green); }
+    .callout { border-left:3px solid var(--green); background:var(--bg2); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:24px 0; }
+    .callout.amber { border-left-color:var(--amber); }
+    .callout.blue  { border-left-color:var(--blue); }
+    .callout-title { font-weight:600; color:var(--text); font-size:13px; margin-bottom:6px; }
+    .callout p { margin-bottom:0; font-size:13px; }
+    .format-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:20px 0; }
+    .format-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+    .format-code { font-family:var(--mono-font); font-size:13px; color:var(--green); margin-bottom:6px; }
+    .format-output { font-family:var(--mono-font); font-size:12px; color:var(--amber); margin-bottom:6px; }
+    .format-note { font-size:11px; color:var(--muted); }
+    .var-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
+    .var-table th { text-align:left; padding:10px 12px; color:var(--muted); border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
+    .var-table td { padding:10px 12px; border-bottom:1px solid var(--bg3); color:var(--muted); vertical-align:top; }
+    .var-table td:first-child { color:var(--green); font-weight:600; }
+    .var-table tr:last-child td { border-bottom:none; }
+    .ad-slot { border:1px dashed var(--border); border-radius:var(--radius); padding:24px; text-align:center; color:var(--muted); font-size:12px; background:var(--bg2); margin:40px 0; }
+    .related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:16px; }
+    .related-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; transition:border-color 0.2s; display:block; text-decoration:none; }
+    .related-card:hover { border-color:var(--green); text-decoration:none; }
+    .related-card-title { font-size:13px; color:var(--text); font-weight:600; margin-bottom:4px; }
+    .related-card-tag { font-size:11px; color:var(--muted); }
+    .affiliate-box { background:var(--bg2); border:1px solid var(--amber); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:40px 0; flex-wrap:wrap; }
+    .affiliate-box-text strong { color:var(--text); display:block; margin-bottom:4px; font-size:14px; }
+    .affiliate-box-text { font-size:13px; color:var(--muted); }
+    .btn-affiliate { background:var(--amber); color:#0d1117; font-family:var(--mono-font); font-weight:600; font-size:13px; padding:10px 20px; border-radius:var(--radius); border:none; cursor:pointer; white-space:nowrap; display:inline-block; transition:opacity 0.2s; text-decoration:none; }
+    .btn-affiliate:hover { opacity:0.85; text-decoration:none; }
+    footer { border-top:1px solid var(--border); padding:28px 24px; text-align:center; font-size:12px; color:var(--muted); display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+    footer a { color:var(--muted); }
+    footer a:hover { color:var(--text); text-decoration:none; }
+    @media(max-width:640px) { .nav-links { display:none; } .affiliate-box { flex-direction:column; align-items:flex-start; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+  <ul class="nav-links">
+    <li><a href="/#snippets">Snippets</a></li>
+    <li><a href="/#builder">Builder</a></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+    <li><a href="/snippets/" class="nav-snippets-btn">All Scripts →</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="breadcrumb-sep">›</span>
+    <a href="/snippets/">Snippets</a><span class="breadcrumb-sep">›</span>
+    Create Dated Folder
+  </div>
+
+  <div class="tag-row">
+    <span class="tag tag-green">beginner</span>
+    <span class="tag tag-blue">one-liner</span>
+    <span class="tag tag-blue">productivity</span>
+  </div>
+  <h1>Create a Dated Folder with Bash</h1>
+  <p class="page-intro">
+    One command that creates a folder stamped with today's date. No more
+    folders called "project-final-v3-REAL". Your filesystem stays sorted,
+    your backups stay organized, and you always know exactly when you made it.
+  </p>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>The One-Liner</h2>
+  <p>Run this directly in your terminal — no script file needed.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">mkdir</span> <span class="str">"$(date +%Y-%m-%d)_project"</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">✓ What this creates</div>
+    <p>Running this today creates a folder called <code>2026-05-03_project</code>. The <code>$()</code> syntax runs the <code>date</code> command and drops the result directly into the folder name. The <code>+%Y-%m-%d</code> format gives you year-month-day — which sorts correctly in every file manager.</p>
+  </div>
+
+  <h2>Date Format Options</h2>
+  <div class="format-grid">
+    <div class="format-card">
+      <div class="format-code">date +%Y-%m-%d</div>
+      <div class="format-output">2026-05-03</div>
+      <div class="format-note">Best for general use — sorts correctly</div>
+    </div>
+    <div class="format-card">
+      <div class="format-code">date +%Y-%m-%d_%H-%M</div>
+      <div class="format-output">2026-05-03_14-32</div>
+      <div class="format-note">Includes time — good for multiple per day</div>
+    </div>
+    <div class="format-card">
+      <div class="format-code">date +%Y%m%d</div>
+      <div class="format-output">20260503</div>
+      <div class="format-note">Compact — good for short names</div>
+    </div>
+    <div class="format-card">
+      <div class="format-code">date +%b-%d-%Y</div>
+      <div class="format-output">May-03-2026</div>
+      <div class="format-note">Human readable — does not sort well</div>
+    </div>
+  </div>
+
+  <h2>Variations</h2>
+
+  <h3>Create and immediately cd into it</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="var">DIR</span>=<span class="str">"$(date +%Y-%m-%d)_project"</span>
+<span class="kw">mkdir</span> <span class="str">"$DIR"</span> && <span class="kw">cd</span> <span class="str">"$DIR"</span></pre>
+  </div>
+
+  <h3>Create with a custom name after the date</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">mkdir</span> <span class="str">"$(date +%Y-%m-%d)_client-meeting"</span>
+<span class="kw">mkdir</span> <span class="str">"$(date +%Y-%m-%d)_deployment"</span>
+<span class="kw">mkdir</span> <span class="str">"$(date +%Y-%m-%d)_backup"</span></pre>
+  </div>
+
+  <h3>Create a dated folder inside a target directory</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">mkdir</span> -p ~/projects/<span class="str">"$(date +%Y-%m-%d)_new-feature"</span></pre>
+  </div>
+  <p>The <code>-p</code> flag creates any missing parent directories. If <code>~/projects/</code> doesn't exist yet, it gets created automatically.</p>
+
+  <h3>Script version — reusable with a custom name argument</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">mkdate.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Create a dated folder with an optional name</span>
+<span class="comment"># USAGE: ./mkdate.sh [optional-name]</span>
+<span class="comment"># EXAMPLE: ./mkdate.sh deployment → creates 2026-05-03_deployment</span>
+
+<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d)
+<span class="var">NAME</span>=<span class="str">"${1:-folder}"</span>       <span class="comment"># ← uses "folder" if no argument given</span>
+<span class="var">FULL</span>=<span class="str">"${DATE}_${NAME}"</span>
+
+<span class="kw">mkdir</span> -p <span class="str">"$FULL"</span>
+<span class="kw">echo</span> <span class="str">"✓ Created: $FULL"</span>
+<span class="kw">cd</span> <span class="str">"$FULL"</span></pre>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">💡 Add it as an alias</div>
+    <p>Add this to your <code>~/.bashrc</code> to create dated folders from anywhere with one command:<br>
+    <code>alias mkdate='mkdir "$(date +%Y-%m-%d)_project" && cd "$(date +%Y-%m-%d)_project"'</code><br>
+    Then run <code>source ~/.bashrc</code> and type <code>mkdate</code> whenever you need a new timestamped working folder.</p>
+  </div>
+
+  <h3>Organize daily backups automatically</h3>
+  <p>Combine dated folders with your backup script to organize every backup into its own timestamped directory:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">backup-dated.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>
+<span class="var">BACKUP_ROOT</span>=<span class="str">"/backup"</span>
+<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d_%H-%M)
+<span class="var">DEST</span>=<span class="str">"$BACKUP_ROOT/$DATE"</span>
+
+<span class="kw">mkdir</span> -p <span class="str">"$DEST"</span>
+<span class="kw">cp</span> -r <span class="str">"$SOURCE"</span> <span class="str">"$DEST"</span>
+<span class="kw">echo</span> <span class="str">"✓ Backed up to: $DEST"</span></pre>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Understanding the date Command</h2>
+  <table class="var-table">
+    <tr><th>Format code</th><th>What it produces</th><th>Example</th></tr>
+    <tr><td>%Y</td><td>4-digit year</td><td>2026</td></tr>
+    <tr><td>%m</td><td>2-digit month (01–12)</td><td>05</td></tr>
+    <tr><td>%d</td><td>2-digit day (01–31)</td><td>03</td></tr>
+    <tr><td>%H</td><td>Hour in 24h format (00–23)</td><td>14</td></tr>
+    <tr><td>%M</td><td>Minutes (00–59)</td><td>32</td></tr>
+    <tr><td>%S</td><td>Seconds (00–59)</td><td>07</td></tr>
+    <tr><td>%b</td><td>Abbreviated month name</td><td>May</td></tr>
+    <tr><td>%A</td><td>Full weekday name</td><td>Sunday</td></tr>
+  </table>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Always quote your folder names</div>
+    <p>Always wrap dated folder names in quotes: <code>mkdir "$(date +%Y-%m-%d)_my project"</code>. Without quotes, spaces in the name break the command into multiple arguments. The <code>"$()"</code> pattern handles this correctly.</p>
+  </div>
+
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Organize your server projects the same way</strong>
+      DigitalOcean droplets from $4/month — deploy bash scripts and keep your remote projects organized with the same techniques. New accounts get $200 free credit.
+    </div>
+    <a class="btn-affiliate" href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>How do I create a folder with today's date in bash?</h3>
+  <p>Run: <code>mkdir "$(date +%Y-%m-%d)_project"</code> — this creates a folder like <code>2026-05-03_project</code>. The <code>$(date +%Y-%m-%d)</code> part runs the date command and inserts the result directly into the folder name.</p>
+
+  <h3>How do I add a timestamp to a folder name in Linux?</h3>
+  <p>Use <code>date +%Y-%m-%d_%H-%M</code> inside <code>$()</code>: <code>mkdir "folder_$(date +%Y-%m-%d_%H-%M)"</code>. This gives you both the date and time in the name, useful when creating multiple folders on the same day.</p>
+
+  <h3>What date format is best for folder names?</h3>
+  <p>Use ISO 8601 format: <code>YYYY-MM-DD</code>. This sorts correctly in every file manager because the most significant unit (year) comes first. Formats like <code>MM-DD-YYYY</code> sort incorrectly by month rather than year.</p>
+
+  <h2>Related Snippets</h2>
+  <div class="related-grid">
+    <a class="related-card" href="/snippets/automated-file-backup.html">
+      <div class="related-card-title">Automated File Backup</div>
+      <div class="related-card-tag">beginner · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/delete-old-log-files.html">
+      <div class="related-card-title">Delete Old Log Files</div>
+      <div class="related-card-tag">intermediate · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/search-files-for-text-grep.html">
+      <div class="related-card-title">Search Files for Text</div>
+      <div class="related-card-tag">intermediate · search</div>
+    </a>
+    <a class="related-card" href="/snippets/">
+      <div class="related-card-title">← All Snippets</div>
+      <div class="related-card-tag">Browse the full library</div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/snippets/">All Snippets</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

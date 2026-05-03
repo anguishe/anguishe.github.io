@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Bash Error Handling: set -euo pipefail Explained | Bash Snippets</title>
+  <meta name="description" content="Learn what set -euo pipefail does in bash and why every production script needs it. With copy-paste examples, common pitfalls, and a safe script template." />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/bash-error-handling.html" />
+
+  <meta property="og:title" content="Bash Error Handling: set -euo pipefail Explained | Bash Snippets" />
+  <meta property="og:description" content="The three bash flags that stop your script from silently destroying things. Explained simply with working examples." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/bash-error-handling.html" />
+  <meta property="og:image" content="https://bashsnippets.xyz/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Bash Error Handling: set -euo pipefail Explained",
+    "description": "What set -euo pipefail does in bash and why every production script needs it — with working examples.",
+    "url": "https://bashsnippets.xyz/snippets/bash-error-handling.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does set -euo pipefail do in bash?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "set -e stops the script immediately if any command fails. set -u treats any undefined variable as an error instead of silently using an empty string. set -o pipefail makes a pipeline fail if any command in it fails, not just the last one. Together they make bash scripts behave safely and predictably."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do bash scripts keep running after an error?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "By default, bash ignores errors and keeps executing. If a command fails, bash moves on to the next line as if nothing happened. This can cause catastrophic chain failures — for example, a failed cd command followed by rm -rf * would delete files in the wrong directory. Adding set -e at the top stops the script the moment anything fails."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between set -e and set -o errexit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They are identical — set -e is shorthand for set -o errexit. Both cause the script to exit immediately when a command exits with a non-zero status. The short form set -e is more common in scripts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I handle errors in a bash script properly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start every script with set -euo pipefail right after the shebang line. Add a trap 'echo Error on line $LINENO' ERR to print which line failed. For commands that are allowed to fail, either wrap them in if statements or append || true to suppress the error."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6B01TGE8XS');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+      --green:#39d353; --green-dim:#1a4a2e; --amber:#e3b341; --amber-dim:#3d2f0d;
+      --blue:#58a6ff; --blue-dim:#0d2a4a; --text:#e6edf3; --muted:#8b949e;
+      --heading-font:'Syne',sans-serif; --mono-font:'IBM Plex Mono',monospace; --radius:8px;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--mono-font); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    nav { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.93); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .nav-logo { font-family:var(--heading-font); font-weight:800; font-size:18px; color:var(--green); letter-spacing:-0.5px; text-decoration:none; }
+    .nav-logo span { color:var(--muted); }
+    .nav-links { display:flex; gap:20px; list-style:none; align-items:center; }
+    .nav-links a { font-size:13px; color:var(--muted); transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); text-decoration:none; }
+    .nav-snippets-btn { background:var(--green-dim); color:var(--green); border:1px solid var(--green); padding:4px 12px; border-radius:100px; font-size:12px; font-weight:600; }
+    .nav-snippets-btn:hover { background:var(--green); color:#0d1117; text-decoration:none; }
+    main { max-width:860px; margin:0 auto; padding:60px 24px 80px; }
+    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:32px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    .breadcrumb a { color:var(--muted); }
+    .breadcrumb a:hover { color:var(--text); text-decoration:none; }
+    .breadcrumb-sep { color:var(--border); }
+    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .tag { font-size:11px; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; }
+    .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+    .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
+    .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
+    .tag-red   { background:#3d0d0d; color:#f78166; border:1px solid #f78166; }
+    h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
+    .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; }
+    h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
+    h2::before { content:'// '; color:var(--green); }
+    h3 { font-family:var(--heading-font); font-size:1rem; font-weight:700; margin:28px 0 10px; color:var(--green); }
+    p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
+    ul, ol { padding-left:24px; color:var(--muted); line-height:1.9; margin-bottom:16px; }
+    li { margin-bottom:4px; }
+    strong { color:var(--text); font-weight:600; }
+    .code-block { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:24px 0; }
+    .code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bg3); border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); }
+    .code-header .filename { color:var(--green); font-weight:600; }
+    .copy-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-family:var(--mono-font); font-size:11px; padding:4px 10px; border-radius:4px; cursor:pointer; transition:all 0.2s; }
+    .copy-btn:hover { border-color:var(--green); color:var(--green); }
+    .copy-btn.copied { border-color:var(--green); color:var(--green); }
+    pre { padding:24px; overflow-x:auto; font-family:var(--mono-font); font-size:14px; line-height:1.7; color:var(--text); }
+    .comment { color:var(--muted); }
+    .kw  { color:var(--green); }
+    .var { color:var(--blue); }
+    .str { color:var(--amber); }
+    .num { color:#f78166; }
+    code { background:var(--bg3); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-family:var(--mono-font); font-size:13px; color:var(--green); }
+    .callout { border-left:3px solid var(--green); background:var(--bg2); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:24px 0; }
+    .callout.amber { border-left-color:var(--amber); }
+    .callout.blue  { border-left-color:var(--blue); }
+    .callout.red   { border-left-color:#f78166; }
+    .callout-title { font-weight:600; color:var(--text); font-size:13px; margin-bottom:6px; }
+    .callout p { margin-bottom:0; font-size:13px; }
+    .flag-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin:24px 0; }
+    .flag-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+    .flag-name { font-family:var(--mono-font); font-size:18px; font-weight:600; color:var(--green); margin-bottom:8px; }
+    .flag-full { font-size:11px; color:var(--muted); margin-bottom:10px; }
+    .flag-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+    .var-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
+    .var-table th { text-align:left; padding:10px 12px; color:var(--muted); border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
+    .var-table td { padding:10px 12px; border-bottom:1px solid var(--bg3); color:var(--muted); vertical-align:top; }
+    .var-table td:first-child { color:var(--green); font-weight:600; }
+    .var-table tr:last-child td { border-bottom:none; }
+    .ad-slot { border:1px dashed var(--border); border-radius:var(--radius); padding:24px; text-align:center; color:var(--muted); font-size:12px; background:var(--bg2); margin:40px 0; }
+    .related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:16px; }
+    .related-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; transition:border-color 0.2s; display:block; text-decoration:none; }
+    .related-card:hover { border-color:var(--green); text-decoration:none; }
+    .related-card-title { font-size:13px; color:var(--text); font-weight:600; margin-bottom:4px; }
+    .related-card-tag { font-size:11px; color:var(--muted); }
+    .affiliate-box { background:var(--bg2); border:1px solid var(--amber); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:40px 0; flex-wrap:wrap; }
+    .affiliate-box-text strong { color:var(--text); display:block; margin-bottom:4px; font-size:14px; }
+    .affiliate-box-text { font-size:13px; color:var(--muted); }
+    .btn-affiliate { background:var(--amber); color:#0d1117; font-family:var(--mono-font); font-weight:600; font-size:13px; padding:10px 20px; border-radius:var(--radius); border:none; cursor:pointer; white-space:nowrap; display:inline-block; transition:opacity 0.2s; text-decoration:none; }
+    .btn-affiliate:hover { opacity:0.85; text-decoration:none; }
+    footer { border-top:1px solid var(--border); padding:28px 24px; text-align:center; font-size:12px; color:var(--muted); display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+    footer a { color:var(--muted); }
+    footer a:hover { color:var(--text); text-decoration:none; }
+    @media(max-width:640px) { .nav-links { display:none; } .affiliate-box { flex-direction:column; align-items:flex-start; } .flag-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+  <ul class="nav-links">
+    <li><a href="/#snippets">Snippets</a></li>
+    <li><a href="/#builder">Builder</a></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+    <li><a href="/snippets/" class="nav-snippets-btn">All Scripts →</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span class="breadcrumb-sep">›</span>
+    <a href="/snippets/">Snippets</a><span class="breadcrumb-sep">›</span>
+    Bash Error Handling
+  </div>
+
+  <div class="tag-row">
+    <span class="tag tag-amber">intermediate</span>
+    <span class="tag tag-red">safety</span>
+    <span class="tag tag-blue">best practice</span>
+  </div>
+  <h1>Bash Error Handling:<br>set -euo pipefail</h1>
+  <p class="page-intro">
+    By default, bash keeps running after an error. A failed command, an empty variable,
+    a broken pipe — none of it stops the script. This is how bash scripts silently
+    destroy things. Three flags fix all of it. Here's exactly what they do and why
+    every script you write needs them.
+  </p>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>The Template — Add This to Every Script</h2>
+  <p>This is the safest way to start any bash script. Copy this header and build from here.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">safe-script-template.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+
+<span class="comment"># Print an error message and the line number when something fails</span>
+<span class="kw">trap</span> <span class="str">'echo "Error on line $LINENO — script stopped." >&2'</span> ERR
+
+<span class="comment"># Your script starts here</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">✓ What you just added</div>
+    <p><code>set -euo pipefail</code> combines three safety flags into one line. <code>trap ... ERR</code> tells bash what to print when something fails, including the exact line number. Without these, bash will happily run 50 more lines after an error as if nothing happened.</p>
+  </div>
+
+  <h2>What Each Flag Does</h2>
+
+  <div class="flag-grid">
+    <div class="flag-card">
+      <div class="flag-name">-e</div>
+      <div class="flag-full">set -o errexit</div>
+      <div class="flag-desc">Stop the script immediately if any command exits with a non-zero status. Without this, bash ignores failures and keeps running.</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-name">-u</div>
+      <div class="flag-full">set -o nounset</div>
+      <div class="flag-desc">Treat any unset or undefined variable as an error. Without this, <code>$UNDEFINED_VAR</code> silently becomes an empty string — which can cause catastrophic path errors.</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-name">-o pipefail</div>
+      <div class="flag-full">pipeline failure mode</div>
+      <div class="flag-desc">Make a pipeline fail if ANY command in it fails, not just the last one. Without this, <code>false | true</code> succeeds because only the last command (true) is checked.</div>
+    </div>
+  </div>
+
+  <h2>Why This Actually Matters — Real Examples</h2>
+
+  <h3>The dangerous default (no flags)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">dangerous-default.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># No safety flags — this is dangerous</span>
+
+<span class="kw">cd</span> /nonexistent/folder    <span class="comment"># This FAILS silently</span>
+<span class="kw">rm</span> -rf *                  <span class="comment"># This runs in the WRONG directory</span>
+<span class="kw">echo</span> <span class="str">"Done"</span>               <span class="comment"># Script reports success</span></pre>
+  </div>
+  <div class="callout red">
+    <div class="callout-title">⛔ What happens without -e</div>
+    <p>The <code>cd</code> fails. Bash ignores it and stays in the current directory. <code>rm -rf *</code> then runs in whatever directory you were already in — potentially deleting everything there. The script prints "Done." You have no idea anything went wrong.</p>
+  </div>
+
+  <h3>With set -e (safe version)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">safe-version.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+<span class="kw">trap</span> <span class="str">'echo "Error on line $LINENO" >&2'</span> ERR
+
+<span class="kw">cd</span> /nonexistent/folder    <span class="comment"># This FAILS → script stops here</span>
+<span class="kw">rm</span> -rf *                  <span class="comment"># This NEVER runs</span></pre>
+  </div>
+  <div class="callout">
+    <div class="callout-title">✓ What happens with -e</div>
+    <p>The <code>cd</code> fails. The trap fires and prints "Error on line 5." The script stops completely. <code>rm -rf *</code> never runs. Your files are safe.</p>
+  </div>
+
+  <h3>The undefined variable trap (why -u matters)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">undefined-var.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Without -u, this is a disaster waiting to happen</span>
+
+<span class="var">TARGET_DIR</span>=<span class="str">"/home/user/backups"</span>
+<span class="comment"># Typo: TARGER_DIR instead of TARGET_DIR</span>
+<span class="kw">rm</span> -rf <span class="str">"$TARGER_DIR/"</span>*      <span class="comment"># Expands to: rm -rf /*</span></pre>
+  </div>
+  <div class="callout red">
+    <div class="callout-title">⛔ Without -u, a typo can delete your entire system</div>
+    <p><code>$TARGER_DIR</code> is undefined so bash replaces it with an empty string. The command becomes <code>rm -rf /*</code> — which attempts to delete everything from the root of your filesystem. With <code>set -u</code>, bash would immediately error: "TARGER_DIR: unbound variable" and stop.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <h2>Allowing Commands to Fail Intentionally</h2>
+  <p>Sometimes you want a command to fail without stopping the script. There are two clean ways to do this:</p>
+
+  <h3>Method 1 — Append || true</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">allow-failure.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+
+<span class="comment"># These are allowed to fail — the || true catches the error</span>
+<span class="kw">mkdir</span> /tmp/myfolder || true          <span class="comment"># OK if folder already exists</span>
+<span class="kw">rm</span> /tmp/oldfile.log || true          <span class="comment"># OK if file doesn't exist</span>
+<span class="kw">grep</span> <span class="str">"keyword"</span> file.txt || true     <span class="comment"># OK if no match found</span></pre>
+  </div>
+
+  <h3>Method 2 — Use an if statement</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">conditional-failure.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+
+<span class="comment"># if/then handles the failure explicitly</span>
+<span class="kw">if</span> ! <span class="kw">mkdir</span> /tmp/myfolder; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"Folder already exists — continuing"</span>
+<span class="kw">fi</span></pre>
+  </div>
+
+  <h2>The trap Command — Know Exactly What Line Failed</h2>
+  <p>Adding <code>trap</code> gives you a stack trace when things go wrong. Here are the most useful versions:</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="filename">trap-examples.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="kw">set</span> -euo pipefail
+
+<span class="comment"># Basic — prints which line failed</span>
+<span class="kw">trap</span> <span class="str">'echo "Error on line $LINENO" >&2'</span> ERR
+
+<span class="comment"># Verbose — prints line number AND the command that failed</span>
+<span class="kw">trap</span> <span class="str">'echo "Failed at line $LINENO: $BASH_COMMAND" >&2'</span> ERR
+
+<span class="comment"># Cleanup on exit — runs whether the script succeeds or fails</span>
+<span class="kw">trap</span> <span class="str">'rm -f /tmp/lockfile.pid'</span> EXIT</pre>
+  </div>
+
+  <h2>Quick Reference — All Flags</h2>
+  <table class="var-table">
+    <tr><th>Flag</th><th>Long form</th><th>What it does</th></tr>
+    <tr><td>set -e</td><td>set -o errexit</td><td>Exit immediately on any error</td></tr>
+    <tr><td>set -u</td><td>set -o nounset</td><td>Error on undefined variables</td></tr>
+    <tr><td>set -o pipefail</td><td>—</td><td>Pipeline fails if any stage fails</td></tr>
+    <tr><td>set -x</td><td>set -o xtrace</td><td>Print every command before running it (debug mode)</td></tr>
+    <tr><td>set +e</td><td>—</td><td>Turn off -e temporarily for a block</td></tr>
+    <tr><td>set +x</td><td>—</td><td>Turn off debug mode</td></tr>
+  </table>
+
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Test your scripts on a real Linux server</strong>
+      DigitalOcean droplets give you a clean Ubuntu environment to run scripts safely — from $4/month. New accounts get $200 free credit.
+    </div>
+    <a class="btn-affiliate" href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>What does set -euo pipefail do in bash?</h3>
+  <p><code>set -e</code> exits on any error. <code>set -u</code> treats undefined variables as errors instead of silently using empty strings. <code>set -o pipefail</code> makes pipelines fail if any stage fails rather than only checking the last command. Together they make bash scripts safe and predictable.</p>
+
+  <h3>Why do bash scripts keep running after an error?</h3>
+  <p>By default, bash ignores non-zero exit codes and continues executing. This is a design decision for interactive use — a typo in a shell session shouldn't kill your terminal. But in scripts it's dangerous. <code>set -e</code> changes this behavior so scripts stop on the first failure.</p>
+
+  <h3>What is the difference between set -e and set -o errexit?</h3>
+  <p>They are identical. <code>set -e</code> is shorthand for <code>set -o errexit</code>. Both cause immediate exit on command failure. The short form is more common in scripts.</p>
+
+  <h3>How do I handle errors in a bash script properly?</h3>
+  <p>Add <code>set -euo pipefail</code> right after <code>#!/bin/bash</code>. Add <code>trap 'echo Error on line $LINENO' ERR</code> for visibility. For commands that are allowed to fail, append <code>|| true</code> or wrap them in <code>if</code> statements.</p>
+
+  <h2>Related Snippets</h2>
+  <div class="related-grid">
+    <a class="related-card" href="/snippets/automated-file-backup.html">
+      <div class="related-card-title">Automated File Backup</div>
+      <div class="related-card-tag">beginner · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/delete-old-log-files.html">
+      <div class="related-card-title">Delete Old Log Files</div>
+      <div class="related-card-tag">intermediate · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/check-if-website-is-up.html">
+      <div class="related-card-title">Check If Website Is Up</div>
+      <div class="related-card-tag">beginner · monitor</div>
+    </a>
+    <a class="related-card" href="/snippets/">
+      <div class="related-card-title">← All Snippets</div>
+      <div class="related-card-tag">Browse the full library</div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/snippets/">All Snippets</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy</a>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
