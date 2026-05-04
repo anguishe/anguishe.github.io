@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Search Files for Text with grep – Bash Script Guide | Bash Snippets</title>
-  <meta name="description" content="A beginner bash script that uses grep to search all files in a folder for a keyword. Shows filename and line number for every match. Copy-paste ready with practical variations." />
+ 
+  <title>Search Files for Text with grep – Bash Snippets</title>
+  <meta name="description" content="grep is the fastest way to search files in Linux. Find any text across hundreds of files in seconds. Copy-paste ready with real examples and common flags explained." />
   <link rel="canonical" href="https://bashsnippets.xyz/snippets/search-files-for-text-grep.html" />
-
+ 
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+ 
+  <!-- Open Graph -->
   <meta property="og:title" content="Search Files for Text with grep – Bash Snippets" />
-  <meta property="og:description" content="Use grep in a bash script to search files recursively for any keyword. Beginner friendly with practical real-world variations." />
+  <meta property="og:description" content="grep searched 200 files for a string and found it in under a second. Here's the exact command — with the flags you'll actually use." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://bashsnippets.xyz/snippets/search-files-for-text-grep.html" />
   <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
@@ -18,22 +24,40 @@
   <meta property="og:image:alt" content="BashSnippets — copy-paste bash scripts for linux and devs" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
-
+ 
+  <!-- Schema: HowTo -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Search Files for Text Using grep in Bash",
-    "description": "A bash script that uses grep -rn to recursively search files in a directory for a keyword, showing filename and line number for every match.",
+    "name": "How to Search Files for Text with grep in Linux",
+    "description": "Use grep to search for any string across files and directories in Linux. Covers basic search, recursive search, case-insensitive search, and showing line numbers.",
     "step": [
-      { "@type": "HowToStep", "name": "Create the script", "text": "Run nano search.sh and paste the script." },
-      { "@type": "HowToStep", "name": "Set your search directory and keyword", "text": "Change SEARCH_DIR to your folder and KEYWORD to what you want to find." },
-      { "@type": "HowToStep", "name": "Set the file type to search", "text": "Change --include='*.txt' to match your file type, e.g. *.py, *.sh, *.js." },
-      { "@type": "HowToStep", "name": "Make it executable and run", "text": "Run chmod +x search.sh then ./search.sh" }
+      {
+        "@type": "HowToStep",
+        "name": "Basic search in a single file",
+        "text": "Run: grep 'search term' filename.txt — this prints every line in the file that contains your search term."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Search recursively across all files in a folder",
+        "text": "Run: grep -r 'search term' /path/to/folder — searches every file in the folder and all subfolders."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add line numbers and filename to output",
+        "text": "Run: grep -rn 'search term' /path/to/folder — -n adds the line number so you can jump straight to it."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Filter by file type",
+        "text": "Add --include='*.log' to search only specific file types: grep -rn 'ERROR' /var/log --include='*.log'"
+      }
     ]
   }
   </script>
-
+ 
+  <!-- Schema: FAQPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,26 +65,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do I search all files in a folder for a word in Linux?",
+        "name": "How do I search for text inside files in Linux?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use grep -r 'keyword' /path/to/folder to search recursively through all files. Add -n to show line numbers and -l to show only filenames without the matching lines. For example: grep -rn 'TODO' ~/documents"
+          "text": "Use grep. The basic command is: grep 'search term' filename. To search recursively through all files in a folder, use: grep -r 'search term' /path/to/folder. Add -n to show line numbers and -l to show only filenames."
         }
       },
       {
         "@type": "Question",
-        "name": "What does grep -rn do?",
+        "name": "How do I search multiple files with grep?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "-r makes grep search recursively through all subdirectories. -n adds the line number to each match so you know exactly where in the file it appears. Together, grep -rn searches every file in a folder tree and shows you the filename, line number, and matching line."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I search only specific file types with grep?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Add the --include flag followed by a pattern. For example: grep -rn 'keyword' /folder --include='*.py' searches only Python files. Use --include='*.sh' for shell scripts, --include='*.js' for JavaScript, and so on."
+          "text": "Use the -r flag for recursive search: grep -r 'search term' /folder. This searches every file in the folder and all subdirectories. Add --include='*.txt' to limit results to a specific file type."
         }
       },
       {
@@ -68,20 +84,26 @@
         "name": "How do I make grep case insensitive?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Add the -i flag: grep -rni 'keyword' /folder will match 'keyword', 'Keyword', 'KEYWORD', and any other capitalisation. This is useful when you're not sure how a term was written across different files."
+          "text": "Add the -i flag: grep -i 'error' logfile.txt. This matches ERROR, error, Error, and any other capitalisation variant."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I search for a word that appears in a specific file type?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use --include with a glob pattern: grep -rn 'TODO' /project --include='*.py' searches only Python files. You can combine multiple patterns: --include='*.py' --include='*.js'"
         }
       }
     ]
   }
   </script>
-<!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
-
+ 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -89,88 +111,131 @@
     gtag('js', new Date());
     gtag('config', 'G-6B01TGE8XS');
   </script>
+ 
+  <!-- AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
-
+ 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
     :root {
-      --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
-      --green:#39d353; --green-dim:#1a4a2e; --amber:#e3b341; --amber-dim:#3d2f0d;
-      --blue:#58a6ff; --blue-dim:#0d2a4a; --text:#e6edf3; --muted:#8b949e;
-      --heading-font:'Syne',sans-serif; --mono-font:'IBM Plex Mono',monospace; --radius:8px;
+      --bg:          #0d1117;
+      --bg2:         #161b22;
+      --bg3:         #1c2128;
+      --border:      #30363d;
+      --green:       #39d353;
+      --green-dim:   #1a4a2e;
+      --amber:       #e3b341;
+      --amber-dim:   #3d2f0d;
+      --blue:        #58a6ff;
+      --blue-dim:    #0d2a4a;
+      --red:         #f78166;
+      --text:        #e6edf3;
+      --muted:       #8b949e;
+      --heading-font: 'Syne', sans-serif;
+      --mono-font:    'IBM Plex Mono', monospace;
+      --radius:       8px;
     }
+ 
     html { scroll-behavior: smooth; }
-    body { font-family:var(--mono-font); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
-    a { color:var(--blue); text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    nav { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.93); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .nav-logo { font-family:var(--heading-font); font-weight:800; font-size:18px; color:var(--green); letter-spacing:-0.5px; text-decoration:none; }
-    .nav-logo span { color:var(--muted); }
-    .nav-links { display:flex; gap:20px; list-style:none; }
-    .nav-links a { font-size:13px; color:var(--muted); transition:color 0.2s; }
-    .nav-links a:hover { color:var(--text); text-decoration:none; }
-    main { max-width:860px; margin:0 auto; padding:60px 24px 80px; }
-    .breadcrumb { font-size:12px; color:var(--muted); margin-bottom:32px; }
-    .breadcrumb a { color:var(--muted); }
-    .breadcrumb a:hover { color:var(--text); text-decoration:none; }
-    .breadcrumb span { margin:0 6px; }
-    .page-header { margin-bottom:40px; }
-    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
-    .tag { font-size:11px; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; }
-    .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
-    .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
-    .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
-    h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
-    .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; }
-    h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
-    h2::before { content:'// '; color:var(--green); }
-    h3 { font-family:var(--heading-font); font-size:1rem; font-weight:700; margin:28px 0 10px; color:var(--green); }
-    p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
-    ul, ol { padding-left:24px; color:var(--muted); line-height:1.9; margin-bottom:16px; }
-    li { margin-bottom:4px; }
-    strong { color:var(--text); font-weight:600; }
-    .code-block { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin:24px 0; }
-    .code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:var(--bg3); border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); }
-    .code-header .filename { color:var(--green); font-weight:600; }
-    .copy-btn { background:transparent; border:1px solid var(--border); color:var(--muted); font-family:var(--mono-font); font-size:11px; padding:4px 10px; border-radius:4px; cursor:pointer; transition:all 0.2s; }
-    .copy-btn:hover { border-color:var(--green); color:var(--green); }
-    .copy-btn.copied { border-color:var(--green); color:var(--green); }
-    pre { padding:24px; overflow-x:auto; font-family:var(--mono-font); font-size:14px; line-height:1.7; color:var(--text); }
-    .comment { color:var(--muted); }
-    .kw  { color:var(--green); }
-    .var { color:var(--blue); }
-    .str { color:var(--amber); }
-    .num { color:#f78166; }
-    code { background:var(--bg3); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-family:var(--mono-font); font-size:13px; color:var(--green); }
-    .callout { border-left:3px solid var(--green); background:var(--bg2); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:24px 0; }
-    .callout.amber { border-left-color:var(--amber); }
-    .callout.blue  { border-left-color:var(--blue); }
-    .callout-title { font-weight:600; color:var(--text); font-size:13px; margin-bottom:6px; }
-    .callout p { margin-bottom:0; font-size:13px; }
-    .var-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:13px; }
-    .var-table th { text-align:left; padding:10px 12px; color:var(--muted); border-bottom:1px solid var(--border); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; }
-    .var-table td { padding:10px 12px; border-bottom:1px solid var(--bg3); color:var(--muted); vertical-align:top; }
-    .var-table td:first-child { color:var(--green); font-weight:600; }
-    .var-table tr:last-child td { border-bottom:none; }
-    .ad-slot { border:1px dashed var(--border); border-radius:var(--radius); padding:24px; text-align:center; color:var(--muted); font-size:12px; background:var(--bg2); margin:40px 0; }
-    .related-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:16px; }
-    .related-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:16px; transition:border-color 0.2s; display:block; text-decoration:none; }
-    .related-card:hover { border-color:var(--green); text-decoration:none; }
-    .related-card-title { font-size:13px; color:var(--text); font-weight:600; margin-bottom:4px; }
-    .related-card-tag { font-size:11px; color:var(--muted); }
-    .affiliate-box { background:var(--bg2); border:1px solid var(--amber); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:40px 0; flex-wrap:wrap; }
-    .affiliate-box-text { font-size:13px; color:var(--muted); }
-    .affiliate-box-text strong { color:var(--text); display:block; margin-bottom:4px; font-size:14px; }
-    .btn-affiliate { background:var(--amber); color:#0d1117; font-family:var(--mono-font); font-weight:600; font-size:13px; padding:10px 20px; border-radius:var(--radius); border:none; cursor:pointer; white-space:nowrap; display:inline-block; transition:opacity 0.2s; text-decoration:none; }
-    .btn-affiliate:hover { opacity:0.85; text-decoration:none; }
-    footer { border-top:1px solid var(--border); padding:28px 24px; text-align:center; font-size:12px; color:var(--muted); display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
-    footer a { color:var(--muted); }
-    footer a:hover { color:var(--text); text-decoration:none; }
-    @media (max-width:640px) { .nav-links { display:none; } .affiliate-box { flex-direction:column; align-items:flex-start; } }
+    body { font-family: var(--mono-font); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+ 
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav-logo { font-family: var(--heading-font); font-weight: 800; font-size: 18px; color: var(--green); letter-spacing: -0.5px; text-decoration: none; }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+ 
+    main { max-width: 860px; margin: 0 auto; padding: 60px 24px 80px; }
+ 
+    .breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 32px; }
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--text); text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; }
+ 
+    .page-header { margin-bottom: 40px; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+    .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+    .tag-blue  { background: var(--blue-dim);  color: var(--blue);  border: 1px solid var(--blue); }
+    .tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
+ 
+    h1 { font-family: var(--heading-font); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .page-intro { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 680px; }
+ 
+    h2 { font-family: var(--heading-font); font-size: 1.3rem; font-weight: 700; margin: 48px 0 16px; color: var(--text); }
+    h2::before { content: '// '; color: var(--green); }
+    h3 { font-family: var(--heading-font); font-size: 1rem; font-weight: 700; margin: 28px 0 10px; color: var(--green); }
+ 
+    p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    ul, ol { padding-left: 24px; color: var(--muted); line-height: 1.9; margin-bottom: 16px; }
+    li { margin-bottom: 4px; }
+    strong { color: var(--text); font-weight: 600; }
+ 
+    .code-block { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .code-header .filename { color: var(--green); font-weight: 600; }
+    .copy-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono-font); font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { border-color: var(--green); color: var(--green); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+ 
+    pre { padding: 24px; overflow-x: auto; font-family: var(--mono-font); font-size: 14px; line-height: 1.7; color: var(--text); }
+    .comment { color: var(--muted); }
+    .kw  { color: var(--green); }
+    .var { color: var(--blue); }
+    .str { color: var(--amber); }
+    .num { color: #f78166; }
+ 
+    code { background: var(--bg3); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; font-family: var(--mono-font); font-size: 13px; color: var(--green); }
+ 
+    .callout { border-left: 3px solid var(--green); background: var(--bg2); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 24px 0; }
+    .callout.amber { border-left-color: var(--amber); }
+    .callout.blue  { border-left-color: var(--blue); }
+    .callout-title { font-weight: 600; color: var(--text); font-size: 13px; margin-bottom: 6px; }
+    .callout p { margin-bottom: 0; font-size: 13px; }
+ 
+    .var-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    .var-table th { text-align: left; padding: 10px 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .var-table td { padding: 10px 12px; border-bottom: 1px solid var(--bg3); color: var(--muted); vertical-align: top; }
+    .var-table td:first-child { color: var(--green); font-weight: 600; white-space: nowrap; }
+    .var-table tr:last-child td { border-bottom: none; }
+ 
+    .ad-slot { border: 1px dashed var(--border); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--muted); font-size: 12px; background: var(--bg2); margin: 40px 0; }
+ 
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
+    .related-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s; display: block; text-decoration: none; }
+    .related-card:hover { border-color: var(--green); text-decoration: none; }
+    .related-card-title { font-size: 13px; color: var(--text); font-weight: 600; margin-bottom: 4px; }
+    .related-card-tag { font-size: 11px; color: var(--muted); }
+ 
+    .affiliate-box { background: var(--bg2); border: 1px solid var(--amber); border-radius: var(--radius); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 40px 0; flex-wrap: wrap; }
+    .affiliate-box-text { font-size: 13px; color: var(--muted); }
+    .affiliate-box-text strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 14px; }
+    .btn-affiliate { background: var(--amber); color: #0d1117; font-family: var(--mono-font); font-weight: 600; font-size: 13px; padding: 10px 20px; border-radius: var(--radius); border: none; cursor: pointer; white-space: nowrap; display: inline-block; transition: opacity 0.2s; text-decoration: none; }
+    .btn-affiliate:hover { opacity: 0.85; text-decoration: none; }
+ 
+    footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; font-size: 12px; color: var(--muted); display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); text-decoration: none; }
+ 
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .affiliate-box { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
-
+ 
 <nav>
   <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
   <ul class="nav-links">
@@ -182,267 +247,291 @@
     <li><a href="/contact.html">Contact</a></li>
   </ul>
 </nav>
-
+ 
 <main>
-
+ 
   <div class="breadcrumb">
     <a href="/">Home</a><span>›</span>
-    <a href="/#snippets">Snippets</a><span>›</span>
+    <a href="/snippets/">Snippets</a><span>›</span>
     Search Files for Text (grep)
   </div>
-
+ 
   <div class="page-header">
     <div class="tag-row">
-      <span class="tag tag-amber">intermediate</span>
-      <span class="tag tag-blue">grep</span>
+      <span class="tag tag-green">beginner</span>
       <span class="tag tag-blue">search</span>
+      <span class="tag tag-amber">essential</span>
     </div>
     <h1>Search Files for Text with grep</h1>
     <p class="page-intro">
-      <code>grep</code> is one of the most useful commands in Linux — and most people only know 10% of what it can do.
-      This script searches every file in a folder for a keyword and shows you the exact filename and line number
-      for every match. Perfect for hunting down TODOs, finding config values, or searching your own project files.
+      grep searched 200 files for a string and found every match in under a second.
+      It's already installed on every Linux and macOS system — no setup, no downloads.
+      Whether you're hunting a bug, scanning logs, or auditing configs,
+      grep is the command you'll reach for every single day.
     </p>
   </div>
-
-  <div class="ad-slot">Advertisement</div>
-
+ 
+  <!-- AD SLOT TOP -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+ 
   <h2>The Script</h2>
-  <p>Paste this into <code>search.sh</code>. Change <code>SEARCH_DIR</code>, <code>KEYWORD</code>, and the <code>--include</code> file type to match what you're looking for.</p>
-
+  <p>This covers the most useful grep patterns. Paste the one you need and change the search term and path.</p>
+ 
   <div class="code-block">
-    <div class="code-header"><span class="filename">search.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="comment"># Search Files for Text (grep)</span>
-<span class="comment"># Searches all .txt files in a folder for a keyword.</span>
-<span class="comment"># Shows filename and line number for each match.</span>
-<span class="comment">#</span>
-<span class="comment"># USAGE: ./search.sh</span>
-<span class="comment"># REQUIRES: bash, grep (pre-installed on all Linux/macOS)</span>
-
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/documents"</span>   <span class="comment"># ← folder to search inside</span>
-<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>                <span class="comment"># ← word or phrase to find</span>
-<span class="var">FILE_TYPE</span>=<span class="str">"*.txt"</span>             <span class="comment"># ← file extension to search</span>
-
-<span class="kw">echo</span> <span class="str">"Searching for '$KEYWORD' in $SEARCH_DIR..."</span>
-<span class="kw">echo</span> <span class="str">"---"</span>
-
-<span class="kw">grep</span> -rn <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"$FILE_TYPE"</span>
-
-<span class="kw">echo</span> <span class="str">"---"</span>
-<span class="kw">echo</span> <span class="str">"✓ Done."</span></pre>
-  </div>
-
-  <div class="callout">
-    <div class="callout-title">✓ What this does, line by line</div>
-    <p><code>grep -rn</code> searches recursively through all subfolders (<code>-r</code>) and includes line numbers in results (<code>-n</code>). <code>"$KEYWORD"</code> is the word or phrase to find. <code>"$SEARCH_DIR"</code> is the folder to search inside. <code>--include="$FILE_TYPE"</code> limits the search to files matching that pattern — without it, grep searches every file including binaries.</p>
-  </div>
-
-  <h2>Step-by-Step Setup</h2>
-
-  <h3>Step 1 — Create the file</h3>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="kw">nano</span> search.sh</pre>
-  </div>
-  <p>Paste the script, then <strong>Ctrl+X → Y → Enter</strong> to save.</p>
-
-  <h3>Step 2 — Set your variables</h3>
-  <table class="var-table">
-    <tr><th>Variable</th><th>Example</th><th>What it means</th></tr>
-    <tr><td>SEARCH_DIR</td><td>$HOME/documents</td><td>The folder (and all subfolders) to search inside</td></tr>
-    <tr><td>SEARCH_DIR</td><td>/var/www/html</td><td>A web project directory</td></tr>
-    <tr><td>KEYWORD</td><td>TODO</td><td>Finds every line containing the word TODO</td></tr>
-    <tr><td>KEYWORD</td><td>api_key</td><td>Hunts for hardcoded secrets across your project</td></tr>
-    <tr><td>FILE_TYPE</td><td>*.txt</td><td>Search only plain text files</td></tr>
-    <tr><td>FILE_TYPE</td><td>*.py</td><td>Search only Python files</td></tr>
-    <tr><td>FILE_TYPE</td><td>*.sh</td><td>Search only bash scripts</td></tr>
-    <tr><td>FILE_TYPE</td><td>*.js</td><td>Search only JavaScript files</td></tr>
-  </table>
-
-  <h3>Step 3 — Make it executable and run</h3>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="kw">chmod</span> +x search.sh
-./<span class="kw">search.sh</span></pre>
-  </div>
-
-  <div class="callout">
-    <div class="callout-title">✓ Sample output</div>
-    <p>
-      <code>Searching for 'TODO' in /home/user/documents...</code><br>
-      <code>---</code><br>
-      <code>/home/user/documents/notes.txt:14: TODO: fix the login bug</code><br>
-      <code>/home/user/documents/project.txt:3: TODO: add error handling</code><br>
-      <code>---</code><br>
-      <code>✓ Done.</code>
-    </p>
-  </div>
-
-  <div class="ad-slot">Advertisement</div>
-
-  <h2>Variations</h2>
-
-  <h3>Run it as a one-liner without a script</h3>
-  <p>For quick one-off searches you don't need a script at all. Just run directly in the terminal:</p>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment"># Search all .sh files for the word "error"</span>
-<span class="kw">grep</span> -rn <span class="str">"error"</span> ~/scripts --include=<span class="str">"*.sh"</span>
-
-<span class="comment"># Search ALL file types (no filter)</span>
-<span class="kw">grep</span> -rn <span class="str">"TODO"</span> ~/myproject</pre>
-  </div>
-
-  <h3>Case-insensitive search</h3>
-  <p>Add <code>-i</code> to match regardless of capitalisation — finds TODO, todo, Todo all at once:</p>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">search-nocase.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/documents"</span>
-<span class="var">KEYWORD</span>=<span class="str">"todo"</span>
-
-<span class="kw">grep</span> -rni <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"*.txt"</span></pre>
-  </div>
-
-  <h3>Show only filenames, not the matching lines</h3>
-  <p>Add <code>-l</code> to get just a list of files that contain the keyword — useful when you have many matches:</p>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">search-files-only.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/documents"</span>
-<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>
-
-<span class="comment"># -l = show only filenames, not the matching lines</span>
-<span class="kw">grep</span> -rl <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"*.txt"</span></pre>
-  </div>
-
-  <h3>Count how many matches are in each file</h3>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">search-count.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/myproject"</span>
-<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>
-
-<span class="comment"># -c = count of matches per file</span>
-<span class="kw">grep</span> -rc <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"*.py"</span> \
-  | <span class="kw">grep</span> -v <span class="str">":0"</span>   <span class="comment"># hide files with zero matches</span></pre>
-  </div>
-
-  <h3>Search for multiple keywords at once</h3>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">search-multi.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/myproject"</span>
-
-<span class="comment"># -e lets you pass multiple patterns</span>
-<span class="kw">grep</span> -rn -e <span class="str">"TODO"</span> -e <span class="str">"FIXME"</span> -e <span class="str">"HACK"</span> <span class="str">"$SEARCH_DIR"</span> \
-  --include=<span class="str">"*.py"</span></pre>
-  </div>
-
-  <h3>Search and save results to a file</h3>
-  <div class="code-block">
-    <div class="code-header"><span class="filename">search-save.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME/myproject"</span>
-<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>
-<span class="var">OUTPUT</span>=<span class="str">"$HOME/todo-list.txt"</span>
-
-<span class="kw">grep</span> -rn <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> --include=<span class="str">"*.py"</span> > <span class="str">"$OUTPUT"</span>
-<span class="kw">echo</span> <span class="str">"✓ Results saved to $OUTPUT"</span></pre>
-  </div>
-
-  <div class="affiliate-box">
-    <div class="affiliate-box-text">
-      <strong>Search across your entire cloud server in seconds</strong>
-      DigitalOcean droplets give you a full Linux environment to script against — from $4/month. New accounts get $200 free credit.
+    <div class="code-header">
+      <span class="filename">grep-search.sh</span>
+      <button class="copy-btn" onclick="copyCode(this)">copy</button>
     </div>
-    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
-    <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>  
-</div>
-
-  <h2>Common Mistakes</h2>
-
-  <div class="callout amber">
-    <div class="callout-title">⚠ Forgetting --include and searching binary files</div>
-    <p>Without <code>--include</code>, grep searches every file including compiled binaries and image files. This produces garbage output and slows things down. Always specify a file type unless you intentionally want to search everything.</p>
+    <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Search files for text — grep reference</span>
+<span class="comment"># Replace KEYWORD and SEARCH_DIR with your values</span>
+<span class="comment">#</span>
+<span class="comment"># USAGE: ./grep-search.sh</span>
+<span class="comment"># REQUIRES: grep (pre-installed on Linux/macOS)</span>
+ 
+<span class="var">KEYWORD</span>=<span class="str">"TODO"</span>          <span class="comment"># ← what to search for</span>
+<span class="var">SEARCH_DIR</span>=<span class="str">"$HOME"</span>    <span class="comment"># ← where to search</span>
+<span class="var">FILE_TYPE</span>=<span class="str">"*.txt"</span>     <span class="comment"># ← file types to include</span>
+ 
+<span class="kw">echo</span> <span class="str">"Searching for '$KEYWORD' in $SEARCH_DIR..."</span>
+<span class="kw">echo</span> <span class="str">"────────────────────────────────────────"</span>
+ 
+<span class="kw">grep</span> -rn <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> \
+  --include=<span class="str">"$FILE_TYPE"</span> \
+  --color=auto
+ 
+<span class="var">COUNT</span>=$(<span class="kw">grep</span> -rc <span class="str">"$KEYWORD"</span> <span class="str">"$SEARCH_DIR"</span> \
+  --include=<span class="str">"$FILE_TYPE"</span> 2>/dev/null \
+  | <span class="kw">grep</span> -v <span class="str">":0$"</span> | <span class="kw">wc</span> -l)
+ 
+<span class="kw">echo</span> <span class="str">"────────────────────────────────────────"</span>
+<span class="kw">echo</span> <span class="str">"Found in $COUNT file(s)"</span></pre>
   </div>
-
-  <div class="callout amber">
-    <div class="callout-title">⚠ Special characters in your keyword</div>
-    <p>If your keyword contains characters like <code>.</code>, <code>*</code>, <code>[</code>, or <code>(</code>, grep treats them as regex. To search for them literally, add <code>-F</code> (fixed string mode): <code>grep -rn -F "error()" ~/project</code></p>
+ 
+  <div class="callout">
+    <div class="callout-title">✓ What this does</div>
+    <p><code>grep -rn</code> searches recursively (<code>-r</code>) through all subdirectories and shows line numbers (<code>-n</code>) for each match. <code>--include</code> filters to a specific file type. <code>--color=auto</code> highlights your keyword in the output so it's easy to scan.</p>
   </div>
-
-  <div class="callout amber">
-    <div class="callout-title">⚠ Too many results with no context</div>
-    <p>If grep returns hundreds of matches, add <code>-l</code> to see just the filenames first, then open the specific file. Or use <code>-m 5</code> to limit output to the first 5 matches per file.</p>
+ 
+  <h2>Step-by-Step: The Commands You'll Use Daily</h2>
+ 
+  <h3>Step 1 — Search a single file</h3>
+  <p>The simplest form: search one file for one term.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">grep</span> <span class="str">"ERROR"</span> /var/log/app.log</pre>
   </div>
-
-  <div class="ad-slot">Advertisement</div>
-
-  <h2>grep Flag Cheat Sheet</h2>
+  <p>Every line containing "ERROR" prints to your terminal. Nothing else. Fast.</p>
+ 
+  <h3>Step 2 — Add line numbers (-n)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">grep</span> -n <span class="str">"ERROR"</span> /var/log/app.log
+ 
+<span class="comment"># Output:</span>
+<span class="comment"># 42: ERROR: connection refused</span>
+<span class="comment"># 87: ERROR: disk write failed</span></pre>
+  </div>
+  <p>Now you know exactly which line to jump to in your editor.</p>
+ 
+  <h3>Step 3 — Search recursively across a whole folder (-r)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">grep</span> -rn <span class="str">"TODO"</span> ~/projects/
+ 
+<span class="comment"># Output includes filename, line number, and the matching line:</span>
+<span class="comment"># ~/projects/api/routes.py:14:  # TODO: add auth check</span>
+<span class="comment"># ~/projects/api/models.py:88:  # TODO: validate input</span></pre>
+  </div>
+ 
+  <div class="callout">
+    <div class="callout-title">✓ -rn is your default combination</div>
+    <p>You'll type <code>grep -rn "keyword" /path</code> more than almost any other command. The <code>r</code> searches all subdirectories, the <code>n</code> gives you line numbers. Memorise this one first.</p>
+  </div>
+ 
+  <!-- AD SLOT MID -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+ 
+  <h3>Step 4 — Filter by file type (--include)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Search only .log files</span>
+<span class="kw">grep</span> -rn <span class="str">"CRITICAL"</span> /var/log --include=<span class="str">"*.log"</span>
+ 
+<span class="comment"># Search only Python files</span>
+<span class="kw">grep</span> -rn <span class="str">"import os"</span> ~/projects --include=<span class="str">"*.py"</span>
+ 
+<span class="comment"># Search multiple file types</span>
+<span class="kw">grep</span> -rn <span class="str">"api_key"</span> . --include=<span class="str">"*.py"</span> --include=<span class="str">"*.env"</span></pre>
+  </div>
+ 
+  <h3>Step 5 — Case insensitive search (-i)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Matches: error, ERROR, Error, eRrOr</span>
+<span class="kw">grep</span> -rni <span class="str">"error"</span> /var/log --include=<span class="str">"*.log"</span></pre>
+  </div>
+ 
+  <h2>grep Flags Reference</h2>
+ 
   <table class="var-table">
     <tr><th>Flag</th><th>What it does</th><th>Example</th></tr>
-    <tr><td>-r</td><td>Search recursively through subfolders</td><td>grep -r "word" ~/folder</td></tr>
-    <tr><td>-n</td><td>Show line number with each match</td><td>grep -n "word" file.txt</td></tr>
-    <tr><td>-i</td><td>Case-insensitive matching</td><td>grep -ri "word" ~/folder</td></tr>
-    <tr><td>-l</td><td>Show filenames only, not the matching lines</td><td>grep -rl "word" ~/folder</td></tr>
-    <tr><td>-c</td><td>Count matches per file</td><td>grep -rc "word" ~/folder</td></tr>
-    <tr><td>-v</td><td>Invert — show lines that do NOT match</td><td>grep -v "word" file.txt</td></tr>
-    <tr><td>-F</td><td>Treat keyword as plain string, not regex</td><td>grep -rF "error()" ~/folder</td></tr>
-    <tr><td>-m 5</td><td>Stop after 5 matches per file</td><td>grep -rn -m 5 "word" ~/folder</td></tr>
-    <tr><td>--include</td><td>Limit to files matching a pattern</td><td>grep -rn "word" ~/folder --include="*.py"</td></tr>
-    <tr><td>--exclude</td><td>Skip files matching a pattern</td><td>grep -rn "word" ~/folder --exclude="*.log"</td></tr>
+    <tr><td>-r</td><td>Recursive — search all subdirectories</td><td>grep -r "term" /folder</td></tr>
+    <tr><td>-n</td><td>Show line numbers in output</td><td>grep -n "term" file.txt</td></tr>
+    <tr><td>-i</td><td>Case insensitive match</td><td>grep -i "error" file.log</td></tr>
+    <tr><td>-l</td><td>Show only filenames, not the matching lines</td><td>grep -rl "TODO" ~/projects</td></tr>
+    <tr><td>-c</td><td>Count of matching lines per file</td><td>grep -rc "error" /var/log</td></tr>
+    <tr><td>-v</td><td>Invert — show lines that do NOT match</td><td>grep -v "DEBUG" app.log</td></tr>
+    <tr><td>-w</td><td>Match whole words only</td><td>grep -w "log" file.txt</td></tr>
+    <tr><td>-A 3</td><td>Show 3 lines after each match (context)</td><td>grep -A 3 "ERROR" app.log</td></tr>
+    <tr><td>-B 3</td><td>Show 3 lines before each match</td><td>grep -B 3 "ERROR" app.log</td></tr>
+    <tr><td>--include</td><td>Limit search to matching filenames</td><td>grep -r "term" . --include="*.py"</td></tr>
+    <tr><td>--exclude</td><td>Skip files matching pattern</td><td>grep -r "term" . --exclude="*.min.js"</td></tr>
   </table>
-
+ 
+  <h2>Real-World Examples</h2>
+ 
+  <h3>Find all TODO comments across a codebase</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">grep</span> -rn <span class="str">"TODO\|FIXME\|HACK"</span> ~/projects --include=<span class="str">"*.py"</span></pre>
+  </div>
+ 
+  <h3>Scan logs for errors in the last hour</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Find ERROR lines and show 2 lines of context around each</span>
+<span class="kw">grep</span> -n -A <span class="num">2</span> -B <span class="num">2</span> <span class="str">"ERROR"</span> /var/log/app.log</pre>
+  </div>
+ 
+  <h3>Check if a config file contains a specific setting</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Returns the line if found, nothing if not</span>
+<span class="kw">grep</span> <span class="str">"PermitRootLogin"</span> /etc/ssh/sshd_config</pre>
+  </div>
+ 
+  <h3>Count how many files in a project contain a term</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># -l lists filenames only, wc -l counts them</span>
+<span class="kw">grep</span> -rl <span class="str">"api_key"</span> . | <span class="kw">wc</span> -l</pre>
+  </div>
+ 
+  <h3>Search and exclude a directory (e.g. node_modules)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">grep</span> -rn <span class="str">"password"</span> . \
+  --include=<span class="str">"*.js"</span> \
+  --exclude-dir=<span class="str">"node_modules"</span> \
+  --exclude-dir=<span class="str">".git"</span></pre>
+  </div>
+ 
+  <div class="callout amber">
+    <div class="callout-title">⚠ Always exclude node_modules and .git</div>
+    <p>Searching a project without excluding <code>node_modules</code> or <code>.git</code> will flood your results with thousands of irrelevant matches and run significantly slower. Add <code>--exclude-dir=node_modules --exclude-dir=.git</code> to every recursive grep on a project folder.</p>
+  </div>
+ 
+  <!-- AFFILIATE BOX — angle: searching logs on a real server -->
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Grepping logs on a real Linux server?</strong>
+      DigitalOcean Droplets give you a full Linux environment from $4/month. Everything on this page works exactly the same way on a Droplet as it does locally — get $200 free credit to try it.
+    </div>
+    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+  </div>
+  <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+ 
+  <h2>Common Mistakes</h2>
+ 
+  <div class="callout amber">
+    <div class="callout-title">⚠ Forgetting -r on a folder</div>
+    <p>Running <code>grep "term" /var/log</code> without <code>-r</code> will error with "Is a directory." You need <code>grep -r "term" /var/log</code> to search inside a folder recursively.</p>
+  </div>
+ 
+  <div class="callout amber">
+    <div class="callout-title">⚠ Special characters in your search term</div>
+    <p>Characters like <code>.</code>, <code>*</code>, <code>[</code>, and <code>(</code> are regex special characters. If you're searching for them literally, either escape them with a backslash (<code>\.</code>) or use <code>grep -F</code> (fixed string mode) to treat the term as plain text, not a regex pattern.</p>
+  </div>
+ 
+  <!-- AD SLOT BOTTOM -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+ 
+  <h2>Understanding the Commands</h2>
+ 
+  <table class="var-table">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td>grep "term" file</td><td>Prints every line in file containing "term"</td></tr>
+    <tr><td>grep -r "term" dir</td><td>Recursively searches all files in dir and subdirectories</td></tr>
+    <tr><td>grep -n "term" file</td><td>Adds line numbers to each matching line in output</td></tr>
+    <tr><td>grep -l "term" dir</td><td>Lists only filenames that contain a match — no line content</td></tr>
+    <tr><td>grep -c "term" file</td><td>Counts the number of matching lines in file</td></tr>
+    <tr><td>grep -v "term" file</td><td>Prints every line that does NOT contain "term" (invert match)</td></tr>
+    <tr><td>--include="*.ext"</td><td>Restricts search to files matching the glob pattern</td></tr>
+    <tr><td>--exclude-dir=name</td><td>Skips a directory entirely during recursive search</td></tr>
+  </table>
+ 
   <h2>Frequently Asked Questions</h2>
-
-  <h3>How do I search all files in a folder for a word in Linux?</h3>
-  <p>Use <code>grep -rn 'keyword' /path/to/folder</code> to search recursively. Add <code>--include='*.txt'</code> to limit the search to specific file types. The <code>-n</code> flag shows the line number alongside each match.</p>
-
-  <h3>What does grep -rn do?</h3>
-  <p><code>-r</code> makes grep search recursively through all subfolders. <code>-n</code> includes the line number in every result. Together they give you: filename, line number, and the matching line — everything you need to find and act on a match fast.</p>
-
-  <h3>How do I search only specific file types with grep?</h3>
-  <p>Add the <code>--include</code> flag: <code>grep -rn 'keyword' /folder --include='*.py'</code> searches only Python files. Use <code>*.sh</code> for shell scripts, <code>*.js</code> for JavaScript, and so on.</p>
-
+ 
+  <h3>How do I search for text inside files in Linux?</h3>
+  <p>Use <code>grep "search term" filename</code> for a single file, or <code>grep -rn "search term" /folder</code> to search every file in a folder recursively. The <code>-n</code> flag adds line numbers so you can jump straight to each match.</p>
+ 
+  <h3>How do I search multiple files with grep?</h3>
+  <p>Use <code>grep -r "term" /folder</code> — the <code>-r</code> flag makes grep recurse into all subdirectories automatically. Add <code>--include="*.py"</code> to restrict results to a specific file type.</p>
+ 
   <h3>How do I make grep case insensitive?</h3>
-  <p>Add <code>-i</code>: <code>grep -rni 'keyword' /folder</code> matches any capitalisation of the keyword. Useful when you're not sure how a term appears across different files.</p>
-
+  <p>Add the <code>-i</code> flag: <code>grep -i "error" logfile.txt</code>. This matches ERROR, error, Error, and any mixed-case variant.</p>
+ 
+  <h3>How do I search for a word in a specific file type?</h3>
+  <p>Use <code>grep -rn "term" /folder --include="*.py"</code>. You can stack multiple <code>--include</code> flags to search several file types at once.</p>
+ 
   <h2>Related Snippets</h2>
   <div class="related-grid">
-    <a class="related-card" href="/snippets/automated-file-backup.html">
-      <div class="related-card-title">Automated File Backup</div>
-      <div class="related-card-tag">beginner · automation</div>
+    <a class="related-card" href="/snippets/kill-a-process.html">
+      <div class="related-card-title">Kill a Process (pkill / pgrep)</div>
+      <div class="related-card-tag">intermediate · process management</div>
     </a>
     <a class="related-card" href="/snippets/delete-old-log-files.html">
       <div class="related-card-title">Delete Old Log Files</div>
       <div class="related-card-tag">intermediate · automation</div>
     </a>
-    <a class="related-card" href="/#snippets">
+    <a class="related-card" href="/snippets/bash-error-handling.html">
+      <div class="related-card-title">Bash Error Handling</div>
+      <div class="related-card-tag">intermediate · best practice</div>
+    </a>
+    <a class="related-card" href="/snippets/">
       <div class="related-card-title">← All Snippets</div>
       <div class="related-card-tag">Browse the full library</div>
     </a>
   </div>
-
+ 
 </main>
-
+ 
 <footer>
   <a href="/">← Back to Bash Snippets</a>
+  <a href="/snippets/">All Snippets</a>
   <a href="/about.html">About</a>
   <a href="/contact.html">Contact</a>
   <a href="/privacy.html">Privacy Policy</a>
 </footer>
-
+ 
 <script>
   function copyCode(btn) {
     const pre = btn.closest('.code-block').querySelector('pre');
-    navigator.clipboard.writeText(pre.innerText).then(() => {
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'copied!';
       btn.classList.add('copied');
       setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
     });
   }
 </script>
+ 
 </body>
 </html>

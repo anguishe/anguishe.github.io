@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Kill a Process with pkill and pgrep – Bash Snippets</title>
+  <meta name="description" content="Stop using ps aux | grep | kill. pkill lets you kill any Linux process by name in one command. Copy-paste ready with pgrep safety check included." />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/kill-a-process.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kill a Process with pkill and pgrep – Bash Snippets" />
+  <meta property="og:description" content="Stop using ps aux | grep | kill. pkill kills any Linux process by name in one command. pgrep previews first so you never kill the wrong thing." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/kill-a-process.html" />
+  <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="BashSnippets — copy-paste bash scripts for linux and devs" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
+
+  <!-- Schema: HowTo -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Kill a Linux Process by Name with pkill",
+    "description": "Use pgrep to find a process by name, then pkill to terminate it — no PIDs, no grep, one command.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Preview with pgrep first",
+        "text": "Run: pgrep -l processname to see which processes will be matched before you kill anything."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Kill by name with pkill",
+        "text": "Run: pkill processname — this terminates all processes matching that name instantly."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Use -x for exact match",
+        "text": "Run: pkill -x processname to match only the exact process name, not partial matches."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Verify it's gone",
+        "text": "Run: pgrep -l processname again — if it returns nothing, the process is terminated."
+      }
+    ]
+  }
+  </script>
+
+  <!-- Schema: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between kill and pkill in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "kill requires a PID (process ID number). To use it you first have to find the PID with ps aux or pidof. pkill works on the process name directly — no PID lookup needed. pkill processname replaces the entire ps aux | grep | kill workflow in one command."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I kill a process by name in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use pkill followed by the process name: pkill nginx or pkill python3. Always run pgrep -l processname first to preview which processes will be matched before you kill them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does pgrep do in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "pgrep searches running processes by name and returns their PIDs. Adding -l also shows the process name alongside the PID. It is the safe preview step before using pkill — run pgrep -l processname to confirm what you are about to kill."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I force kill a process in Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add the -9 flag: pkill -9 processname. This sends SIGKILL, which cannot be caught or ignored by the process. Use it only when a normal pkill does not work, as it skips the graceful shutdown sequence."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6B01TGE8XS');
+  </script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0d1117;
+      --bg2:         #161b22;
+      --bg3:         #1c2128;
+      --border:      #30363d;
+      --green:       #39d353;
+      --green-dim:   #1a4a2e;
+      --amber:       #e3b341;
+      --amber-dim:   #3d2f0d;
+      --blue:        #58a6ff;
+      --blue-dim:    #0d2a4a;
+      --red:         #f78166;
+      --text:        #e6edf3;
+      --muted:       #8b949e;
+      --heading-font: 'Syne', sans-serif;
+      --mono-font:    'IBM Plex Mono', monospace;
+      --radius:       8px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--mono-font); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav-logo { font-family: var(--heading-font); font-weight: 800; font-size: 18px; color: var(--green); letter-spacing: -0.5px; text-decoration: none; }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    .breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 32px; }
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--text); text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; }
+
+    .page-header { margin-bottom: 40px; }
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+    .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+    .tag-blue  { background: var(--blue-dim);  color: var(--blue);  border: 1px solid var(--blue); }
+    .tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
+
+    h1 { font-family: var(--heading-font); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .page-intro { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 680px; }
+
+    h2 { font-family: var(--heading-font); font-size: 1.3rem; font-weight: 700; margin: 48px 0 16px; color: var(--text); }
+    h2::before { content: '// '; color: var(--green); }
+    h3 { font-family: var(--heading-font); font-size: 1rem; font-weight: 700; margin: 28px 0 10px; color: var(--green); }
+
+    p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    ul, ol { padding-left: 24px; color: var(--muted); line-height: 1.9; margin-bottom: 16px; }
+    li { margin-bottom: 4px; }
+    strong { color: var(--text); font-weight: 600; }
+
+    .code-block { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+    .code-header .filename { color: var(--green); font-weight: 600; }
+    .copy-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono-font); font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { border-color: var(--green); color: var(--green); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    pre { padding: 24px; overflow-x: auto; font-family: var(--mono-font); font-size: 14px; line-height: 1.7; color: var(--text); }
+    .comment { color: var(--muted); }
+    .kw  { color: var(--green); }
+    .var { color: var(--blue); }
+    .str { color: var(--amber); }
+    .num { color: #f78166; }
+
+    code { background: var(--bg3); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; font-family: var(--mono-font); font-size: 13px; color: var(--green); }
+
+    .callout { border-left: 3px solid var(--green); background: var(--bg2); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 24px 0; }
+    .callout.amber { border-left-color: var(--amber); }
+    .callout.blue  { border-left-color: var(--blue); }
+    .callout.red   { border-left-color: var(--red); }
+    .callout-title { font-weight: 600; color: var(--text); font-size: 13px; margin-bottom: 6px; }
+    .callout p { margin-bottom: 0; font-size: 13px; }
+
+    .var-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    .var-table th { text-align: left; padding: 10px 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .var-table td { padding: 10px 12px; border-bottom: 1px solid var(--bg3); color: var(--muted); vertical-align: top; }
+    .var-table td:first-child { color: var(--green); font-weight: 600; white-space: nowrap; }
+    .var-table tr:last-child td { border-bottom: none; }
+
+    .ad-slot { border: 1px dashed var(--border); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--muted); font-size: 12px; background: var(--bg2); margin: 40px 0; }
+
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
+    .related-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s; display: block; text-decoration: none; }
+    .related-card:hover { border-color: var(--green); text-decoration: none; }
+    .related-card-title { font-size: 13px; color: var(--text); font-weight: 600; margin-bottom: 4px; }
+    .related-card-tag { font-size: 11px; color: var(--muted); }
+
+    .affiliate-box { background: var(--bg2); border: 1px solid var(--amber); border-radius: var(--radius); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 40px 0; flex-wrap: wrap; }
+    .affiliate-box-text { font-size: 13px; color: var(--muted); }
+    .affiliate-box-text strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 14px; }
+    .btn-affiliate { background: var(--amber); color: #0d1117; font-family: var(--mono-font); font-weight: 600; font-size: 13px; padding: 10px 20px; border-radius: var(--radius); border: none; cursor: pointer; white-space: nowrap; display: inline-block; transition: opacity 0.2s; text-decoration: none; }
+    .btn-affiliate:hover { opacity: 0.85; text-decoration: none; }
+
+    /* comparison block */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .compare-box { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .compare-header { padding: 10px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .compare-header.wrong { background: #3d0f0f; color: var(--red); border-bottom: 1px solid var(--red); }
+    .compare-header.right { background: var(--green-dim); color: var(--green); border-bottom: 1px solid var(--green); }
+    .compare-body { padding: 16px; background: var(--bg2); }
+    .compare-body pre { padding: 0; font-size: 13px; line-height: 1.8; }
+    @media(max-width:580px){ .compare-grid { grid-template-columns: 1fr; } }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; font-size: 12px; color: var(--muted); display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .affiliate-box { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">bash<span>/</span>snippets</a>
+  <ul class="nav-links">
+    <li><a href="/#snippets">Snippets</a></li>
+    <li><a href="/#builder">Builder</a></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/snippets/">Snippets</a><span>›</span>
+    Kill a Process (pkill / pgrep)
+  </div>
+
+  <div class="page-header">
+    <div class="tag-row">
+      <span class="tag tag-amber">intermediate</span>
+      <span class="tag tag-blue">process management</span>
+      <span class="tag tag-green">one-liner</span>
+    </div>
+    <h1>Kill a Linux Process by Name</h1>
+    <p class="page-intro">
+      Most people kill processes the hard way: <code>ps aux</code>, scroll, grep, copy the PID, then <code>kill</code> the PID.
+      Four commands. Every single time. <code>pkill</code> and <code>pgrep</code> replace that entire workflow
+      with one command — and a safe preview step so you never kill the wrong thing.
+    </p>
+  </div>
+
+  <!-- AD SLOT TOP -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+
+  <h2>The Wrong Way vs The Right Way</h2>
+
+  <div class="compare-grid">
+    <div class="compare-box">
+      <div class="compare-header wrong">✗ The hard way (4 commands)</div>
+      <div class="compare-body">
+        <pre><span class="comment"># Step 1: list all processes</span>
+<span class="kw">ps</span> aux
+
+<span class="comment"># Step 2: search output manually</span>
+<span class="kw">ps</span> aux | <span class="kw">grep</span> sleep
+
+<span class="comment"># Step 3: copy the PID from output</span>
+<span class="comment"># (e.g. 379231)</span>
+
+<span class="comment"># Step 4: kill by PID</span>
+<span class="kw">kill</span> 379231</pre>
+      </div>
+    </div>
+    <div class="compare-box">
+      <div class="compare-header right">✓ The right way (1 command)</div>
+      <div class="compare-body">
+        <pre><span class="comment"># Preview first (safe)</span>
+<span class="kw">pgrep</span> -l sleep
+
+<span class="comment"># Kill all matching by name</span>
+<span class="kw">pkill</span> sleep
+
+<span class="comment"># Done.</span>
+<span class="comment"># All sleep processes terminated.</span>
+<span class="comment"># No PID hunting required.</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <h2>The Commands</h2>
+
+  <h3>pgrep — find processes by name (always run this first)</h3>
+  <p>Before you kill anything, run <code>pgrep</code> to preview what will be matched. This is your safety check.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="filename">terminal</span>
+      <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    </div>
+    <pre><span class="comment"># List matching processes with their PIDs and names</span>
+<span class="kw">pgrep</span> -l sleep
+
+<span class="comment"># Output:</span>
+<span class="comment"># 383050 sleep</span>
+<span class="comment"># 383051 sleep</span>
+<span class="comment"># 383052 sleep</span></pre>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">✓ Always pgrep before pkill</div>
+    <p>The <code>-l</code> flag shows both the PID and the process name. If the list looks right — nothing unexpected — then you're safe to run <code>pkill</code>. If you see something you didn't expect, stop and investigate before killing.</p>
+  </div>
+
+  <h3>pkill — kill by name</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="filename">terminal</span>
+      <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    </div>
+    <pre><span class="comment"># Kill all processes named "sleep"</span>
+<span class="kw">pkill</span> sleep
+
+<span class="comment"># Output:</span>
+<span class="comment"># [1]   Terminated   sleep 9999</span>
+<span class="comment"># [2]-  Terminated   sleep 9999</span>
+<span class="comment"># [3]+  Terminated   sleep 9999</span></pre>
+  </div>
+
+  <p>One command. All three processes gone. The terminal confirms each termination.</p>
+
+  <h3>Verify it worked</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="filename">terminal</span>
+      <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    </div>
+    <pre><span class="comment"># Run pgrep again — empty output = nothing running</span>
+<span class="kw">pgrep</span> -l sleep
+
+<span class="comment"># No output = all matching processes are gone</span>
+$</pre>
+  </div>
+
+  <!-- AD SLOT MID -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+
+  <h2>pkill Flags You'll Actually Use</h2>
+
+  <table class="var-table">
+    <tr><th>Command</th><th>What it does</th><th>When to use it</th></tr>
+    <tr><td>pkill sleep</td><td>Kills all processes whose name contains "sleep"</td><td>Most cases — fast and simple</td></tr>
+    <tr><td>pkill -x sleep</td><td>Kills only processes with the exact name "sleep" — no partial matches</td><td>When you have processes with similar names (e.g. sleepd, sleepy)</td></tr>
+    <tr><td>pkill -9 sleep</td><td>Force kills — sends SIGKILL, cannot be caught or ignored</td><td>When a normal pkill does nothing — the process is frozen or stuck</td></tr>
+    <tr><td>pkill -u username</td><td>Kill all processes owned by a specific user</td><td>Multi-user servers — clean up a user's runaway processes</td></tr>
+    <tr><td>pkill -f "python script.py"</td><td>Match against the full command string, not just the process name</td><td>When you have multiple python processes and need a specific one</td></tr>
+  </table>
+
+  <h2>Step-by-Step: The Safe Kill Workflow</h2>
+
+  <h3>Step 1 — Find your process with pgrep</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">pgrep</span> -l <span class="var">processname</span></pre>
+  </div>
+  <p>Replace <code>processname</code> with whatever you're looking for — <code>nginx</code>, <code>python3</code>, <code>node</code>, <code>sleep</code>, etc. The output shows each matching PID and name.</p>
+
+  <h3>Step 2 — Review the output</h3>
+  <p>Look at the list. Does it show what you expected? If yes, proceed. If you see something unexpected — a process you didn't know was running — investigate before killing. A rogue process is a story worth knowing.</p>
+
+  <h3>Step 3 — Kill by name</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">pkill</span> <span class="var">processname</span></pre>
+  </div>
+
+  <h3>Step 4 — Confirm it's gone</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">pgrep</span> -l <span class="var">processname</span>
+<span class="comment"># No output = terminated successfully</span></pre>
+  </div>
+
+  <h2>Real-World Examples</h2>
+
+  <h3>Kill a stuck web server</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">pgrep</span> -l nginx    <span class="comment"># check first</span>
+<span class="kw">pkill</span> nginx       <span class="comment"># kill it</span></pre>
+  </div>
+
+  <h3>Kill a specific Python script (not all Python)</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># -f matches the full command, not just the binary name</span>
+<span class="kw">pgrep</span> -f <span class="str">"myscript.py"</span>
+<span class="kw">pkill</span> -f <span class="str">"myscript.py"</span></pre>
+  </div>
+
+  <h3>Force kill a frozen process</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Normal kill first</span>
+<span class="kw">pkill</span> processname
+
+<span class="comment"># Still running? Force it with SIGKILL (-9)</span>
+<span class="kw">pkill</span> -<span class="num">9</span> processname</pre>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Use -9 as a last resort</div>
+    <p>SIGKILL (<code>-9</code>) forces the kernel to terminate the process immediately — no cleanup, no graceful shutdown, no flushing buffers. For databases, web servers, or anything writing to disk, always try a normal <code>pkill</code> first and only escalate to <code>-9</code> if the process won't respond.</p>
+  </div>
+
+  <!-- AFFILIATE BOX — angle: runaway processes on a VPS -->
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Runaway processes eating your VPS resources?</strong>
+      DigitalOcean Droplets include built-in CPU and memory monitoring with alerts. Catch runaway processes before they take down your server — starting at $4/month with $200 free credit for new accounts.
+    </div>
+    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+  </div>
+  <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+
+  <h2>Common Mistakes</h2>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ pkill matches partial names by default</div>
+    <p>Running <code>pkill python</code> will also kill <code>python3</code>, <code>python3.11</code>, and anything else with "python" in the name. Use <code>pkill -x python</code> for an exact match, or use <code>pkill -f "script.py"</code> to target a specific script.</p>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ pkill returns exit code 1 if nothing matched</div>
+    <p>If <code>pkill processname</code> finds nothing to kill, it exits with code 1 — which looks like an error in scripts. This is normal. Use <code>pgrep processname &amp;&amp; pkill processname</code> in scripts to only kill if something was found.</p>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-title">🛑 Never run pkill -9 on system processes</div>
+    <p>Avoid force-killing processes named <code>init</code>, <code>systemd</code>, <code>kernel</code>, or anything you don't recognize. When in doubt, <code>pgrep -l</code> first and Google the process name before pulling the trigger.</p>
+  </div>
+
+  <!-- AD SLOT BOTTOM -->
+  <div class="ad-slot">
+    Advertisement
+  </div>
+
+  <h2>Understanding the Commands</h2>
+
+  <table class="var-table">
+    <tr><th>Command / Flag</th><th>What it does</th></tr>
+    <tr><td>pgrep name</td><td>Lists PIDs of all running processes that match the name</td></tr>
+    <tr><td>pgrep -l name</td><td>Same as above but also shows the process name next to each PID</td></tr>
+    <tr><td>pkill name</td><td>Sends SIGTERM (graceful stop) to all processes matching the name</td></tr>
+    <tr><td>pkill -x name</td><td>Exact match only — won't kill partial name matches</td></tr>
+    <tr><td>pkill -9 name</td><td>Sends SIGKILL (force terminate) — skips graceful shutdown</td></tr>
+    <tr><td>pkill -f string</td><td>Matches against the full command line string, not just the binary name</td></tr>
+    <tr><td>pkill -u user</td><td>Kills all processes owned by the specified user</td></tr>
+  </table>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>What is the difference between kill and pkill in Linux?</h3>
+  <p><code>kill</code> requires a PID — you have to find it first with <code>ps aux</code> or <code>pidof</code>. <code>pkill</code> works on the process name directly. <code>pkill nginx</code> does what used to take four commands in one.</p>
+
+  <h3>How do I kill a process by name in Linux?</h3>
+  <p>Run <code>pgrep -l processname</code> to preview, then <code>pkill processname</code> to terminate. Both commands are pre-installed on every modern Linux distribution — no package manager needed.</p>
+
+  <h3>What does pgrep do in Linux?</h3>
+  <p><code>pgrep</code> searches running processes by name and returns their PIDs. The <code>-l</code> flag adds the process name to the output. It's the safe preview step you should always run before <code>pkill</code>.</p>
+
+  <h3>How do I force kill a process in Linux?</h3>
+  <p>Add the <code>-9</code> flag: <code>pkill -9 processname</code>. This sends SIGKILL, which the kernel enforces directly and the process cannot ignore. Use it only after a normal <code>pkill</code> has failed.</p>
+
+  <h2>Related Snippets</h2>
+  <div class="related-grid">
+    <a class="related-card" href="/snippets/disk-space-warning.html">
+      <div class="related-card-title">Disk Space Warning</div>
+      <div class="related-card-tag">beginner · monitor · cron-ready</div>
+    </a>
+    <a class="related-card" href="/snippets/delete-old-log-files.html">
+      <div class="related-card-title">Delete Old Log Files</div>
+      <div class="related-card-tag">intermediate · automation</div>
+    </a>
+    <a class="related-card" href="/snippets/check-if-website-is-up.html">
+      <div class="related-card-title">Check If Website Is Up</div>
+      <div class="related-card-tag">beginner · monitor</div>
+    </a>
+    <a class="related-card" href="/snippets/">
+      <div class="related-card-title">← All Snippets</div>
+      <div class="related-card-tag">Browse the full library</div>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <a href="/">← Back to Bash Snippets</a>
+  <a href="/snippets/">All Snippets</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy Policy</a>
+</footer>
+
+<script>
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
