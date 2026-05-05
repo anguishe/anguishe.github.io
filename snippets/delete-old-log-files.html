@@ -25,6 +25,12 @@
     "@type": "HowTo",
     "name": "How to Automatically Delete Old Log Files with Bash",
     "description": "A bash script using the find command to delete log files older than a set number of days, with safe preview mode.",
+   "author": {
+      "@type": "Person",
+      "@id": "https://bashsnippets.xyz/#author",
+      "name": "Anguishe"
+    },
+    "datePublished": "2026-05-01",
     "step": [
       { "@type": "HowToStep", "name": "Create the script", "text": "Run nano cleanlog.sh in your terminal and paste the script." },
       { "@type": "HowToStep", "name": "Set your log directory", "text": "Change LOG_DIR to the folder containing your log files." },
@@ -78,6 +84,45 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+   <!-- Schema: Author / Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://bashsnippets.xyz/#author",
+    "name": "Anguishe",
+    "url": "https://bashsnippets.xyz",
+    "sameAs": [
+      "https://youtube.com/@BashSnippets",
+      "https://tiktok.com/@BashSnippets",
+      "https://dev.to/bashsnippets",
+      "https://coderlegion.com/user/BashSnippets"
+    ],
+    "knowsAbout": [
+      "bash scripting",
+      "Linux system administration",
+      "shell automation",
+      "DevOps",
+      "cron jobs"
+    ]
+  }
+  </script>
+
+    <!-- Schema: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BashSnippets",
+    "url": "https://bashsnippets.xyz",
+    "description": "Free copy-paste bash scripts for Linux users and developers. Plain-English explanations. New scripts weekly.",
+    "author": {
+      "@type": "Person",
+      "@id": "https://bashsnippets.xyz/#author"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
