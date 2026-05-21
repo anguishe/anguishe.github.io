@@ -201,6 +201,27 @@ crossorigin="anonymous"></script>
   }
   </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://bashsnippets.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Script Builder",
+      "item": "https://bashsnippets.xyz/builder.html"
+    }
+  ]
+}
+</script>
+
   <!-- ============================================================
     FONTS — Loaded from Google Fonts CDN.
     Syne = headings, IBM Plex Mono = body/code
@@ -936,6 +957,19 @@ crossorigin="anonymous"></script>
        Links to all pages. Internal anchor links use #id format.
        External pages use full relative paths (/about.html etc.)
        ============================================================ -->
+  <nav id="site-nav">
+    <a href="/" class="nav-logo">bash<span>/</span>snippets</a>
+    <ul class="nav-links">
+      <li><a href="/snippets/">Snippets</a></li>
+      <li><a href="/#builder">Builder</a></li>
+      <li><a href="/#resources">Resources</a></li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-mobile-menu" id="nav-toggle" aria-label="Open menu">☰</button>
+  </nav>
       <!-- Browse All Snippets CTA -->
     <div style="margin-top:32px;padding:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
       <div>
