@@ -10,7 +10,7 @@
   <title>Bash Script Examples Draft Homepage – BashSnippets.xyz</title>
   <meta name="description" content="Preview the BashSnippets draft homepage for bash script examples, tools, and Linux automation guides. Review working snippets and plan your next script." />
 <meta name="author" content="BashSnippets" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="index, follow" />
   <meta name="keywords" content="bash script examples, bash for beginners, linux shell scripts, bash cheat sheet, bash automation scripts, linux command examples, bash scripting tutorial, cron job examples, bash one liners" />
 
   <!-- ============================================================

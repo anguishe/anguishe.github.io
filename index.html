@@ -1321,6 +1321,109 @@ crossorigin="anonymous"></script>
         </div>
       </div>
 
+      <!-- SNIPPET 13 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Monitor CPU & RAM Usage</span>
+          <span class="snippet-tag tag-amber">intermediate · monitoring</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Checks CPU and RAM against a threshold.</span>
+<span class="comment"># Schedule hourly with cron on any Linux server.</span>
+
+<span class="var">THRESHOLD</span>=<span class="num">80</span>
+<span class="var">CPU</span>=$(<span class="kw">top</span> -bn1 | <span class="kw">grep</span> <span class="str">"Cpu(s)"</span> | <span class="kw">awk</span> <span class="str">'{print $2}'</span> | <span class="kw">cut</span> -d<span class="str">'%'</span> -f1)
+<span class="var">RAM</span>=$(<span class="kw">free</span> | <span class="kw">awk</span> <span class="str">'/Mem:/ {printf "%.0f", $3/$2*100}'</span>)
+
+<span class="kw">if</span> [ <span class="str">"$CPU"</span> -gt <span class="str">"$THRESHOLD"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"⚠ CPU at ${CPU}% — threshold ${THRESHOLD}%"</span>
+<span class="kw">fi</span>
+<span class="kw">if</span> [ <span class="str">"$RAM"</span> -gt <span class="str">"$THRESHOLD"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"⚠ RAM at ${RAM}% — threshold ${THRESHOLD}%"</span>
+<span class="kw">fi</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Logs warnings when CPU or RAM spikes past your limit.<em>Uses top and free — no extra packages required.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <a href="/snippets/monitor-cpu-ram-usage.html" style="font-size:12px; color:var(--blue);">full guide →</a>
+        </div>
+      </div>
+
+      <!-- SNIPPET 14 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Auto-Restart a Stopped Service</span>
+          <span class="snippet-tag tag-amber">intermediate · reliability</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Watchdog: restarts a systemd service if it stops.</span>
+<span class="comment"># Run every minute via cron.</span>
+
+<span class="var">SERVICE</span>=<span class="str">"nginx"</span>
+
+<span class="kw">if</span> <span class="kw">systemctl</span> is-active --quiet <span class="str">"$SERVICE"</span>; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"✓ $SERVICE is running"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"✗ $SERVICE down — restarting..."</span>
+  <span class="kw">sudo systemctl start</span> <span class="str">"$SERVICE"</span>
+<span class="kw">fi</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Brings nginx, MySQL, or any systemd unit back up automatically.<em>Change SERVICE to your unit name.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <a href="/snippets/restart-service-if-stopped.html" style="font-size:12px; color:var(--blue);">full guide →</a>
+        </div>
+      </div>
+
+      <!-- SNIPPET 15 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">MySQL Database Backup</span>
+          <span class="snippet-tag tag-amber">intermediate · databases</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Dumps a MySQL database to a timestamped .sql.gz file.</span>
+<span class="comment"># Deletes backups older than 7 days automatically.</span>
+
+<span class="var">DB_NAME</span>=<span class="str">"your_database"</span>
+<span class="var">BACKUP_DIR</span>=<span class="str">"/var/backups/mysql"</span>
+<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d_%H-%M-%S)
+
+<span class="kw">mkdir</span> -p <span class="str">"$BACKUP_DIR"</span>
+<span class="kw">mysqldump</span> -u<span class="str">"root"</span> -p<span class="str">"password"</span> <span class="str">"$DB_NAME"</span> \
+  | <span class="kw">gzip</span> &gt; <span class="str">"${BACKUP_DIR}/${DB_NAME}_${DATE}.sql.gz"</span>
+<span class="kw">find</span> <span class="str">"$BACKUP_DIR"</span> -name <span class="str">"*.sql.gz"</span> -mtime +<span class="num">7</span> -delete</pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Nightly mysqldump with gzip compression and retention cleanup.<em>Use ~/.my.cnf instead of hardcoding passwords.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <a href="/snippets/mysql-database-backup.html" style="font-size:12px; color:var(--blue);">full guide →</a>
+        </div>
+      </div>
+
+      <!-- SNIPPET 16 -->
+      <div class="snippet-card">
+        <div class="snippet-header">
+          <span class="snippet-title">Kill a Process</span>
+          <span class="snippet-tag tag-green">beginner · process management</span>
+        </div>
+        <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Preview with pgrep, then kill by name with pkill.</span>
+<span class="comment"># No PID hunting — one command does it.</span>
+
+<span class="var">PROCESS</span>=<span class="str">"sleep"</span>
+
+<span class="kw">echo</span> <span class="str">"Matching processes:"</span>
+<span class="kw">pgrep</span> -l <span class="str">"$PROCESS"</span>
+
+<span class="kw">read</span> -p <span class="str">"Kill all '$PROCESS' processes? [y/N] "</span> <span class="var">confirm</span>
+<span class="kw">if</span> [[ <span class="str">"$confirm"</span> =~ ^[Yy]$ ]]; <span class="kw">then</span>
+  <span class="kw">pkill</span> <span class="str">"$PROCESS"</span> &amp;&amp; <span class="kw">echo</span> <span class="str">"Done."</span>
+<span class="kw">fi</span></pre>
+        <div class="snippet-footer">
+          <span class="snippet-desc">Stops runaway processes by name with a safe preview step.<em>Always pgrep before pkill.</em></span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <a href="/snippets/kill-a-process.html" style="font-size:12px; color:var(--blue);">full guide →</a>
+        </div>
+      </div>
+
       <!-- ============================================================
            ADD NEW SNIPPETS HERE
            Copy any .snippet-card block above, paste it here,

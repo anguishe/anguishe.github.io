@@ -37,7 +37,9 @@
 {"@type":"Question","name":"What does exit code 127 mean in bash?","acceptedAnswer":{"@type":"Answer","text":"Exit code 127 means 'command not found.' The script tried to run a command that doesn't exist or isn't in your PATH."}},
 {"@type":"Question","name":"What does exit code 0 mean?","acceptedAnswer":{"@type":"Answer","text":"Exit code 0 means success. The command or script completed without any errors."}},
 {"@type":"Question","name":"What does exit code 1 mean in bash?","acceptedAnswer":{"@type":"Answer","text":"Exit code 1 is a generic error. It means something went wrong, but the exact cause depends on the command that failed."}},
-{"@type":"Question","name":"How do I check the exit code of the last command?","acceptedAnswer":{"@type":"Answer","text":"Use echo $? immediately after running the command. The special variable $? holds the exit code of the last executed command."}}
+{"@type":"Question","name":"How do I check the exit code of the last command?","acceptedAnswer":{"@type":"Answer","text":"Use echo $? immediately after running the command. The special variable $? holds the exit code of the last executed command."}},
+{"@type":"Question","name":"How do I check the exit code of a command in bash?","acceptedAnswer":{"@type":"Answer","text":"Run the command, then immediately check echo $?. Capture it in a variable if you need it later: status=$?; if [ $status -ne 0 ]; then echo \"failed with $status\"; fi. $? resets after every command, so read it before running anything else."}},
+{"@type":"Question","name":"What is exit code 127 in Linux?","acceptedAnswer":{"@type":"Answer","text":"Exit code 127 means command not found. Bash searched every directory in PATH and could not locate the binary. Check for typos, missing packages, or a PATH that does not include the install location."}}
 ]}
   </script>
   <script type="application/ld+json">
@@ -411,6 +413,70 @@ crossorigin="anonymous"></script>
         position: static !important;
       }
     }
+
+    /* ============================================================
+       TOOL BODY — educational content below the interactive UI
+       ============================================================ */
+    .tool-body {
+      max-width: 960px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .tool-body h2 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--green);
+      margin: 40px 0 16px;
+      letter-spacing: -0.5px;
+    }
+    .tool-body h2:first-child { margin-top: 0; }
+    .tool-body h3 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin: 28px 0 8px;
+    }
+    .tool-body p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 32px;
+      font-size: 13px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .ref-table th {
+      text-align: left;
+      padding: 12px 16px;
+      color: var(--muted);
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ref-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--bg3);
+      color: var(--muted);
+      vertical-align: top;
+    }
+    .ref-table td:first-child {
+      color: var(--green);
+      font-weight: 600;
+      font-family: var(--mono-font);
+    }
+    .ref-table tr:last-child td { border-bottom: none; }
   </style>
   <script type="application/ld+json">
 {
@@ -558,6 +624,87 @@ crossorigin="anonymous"></script>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="tool-body">
+
+      <h2>Common Bash Exit Codes Reference</h2>
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Meaning</th>
+            <th>Common Cause</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0</td>
+            <td>Success</td>
+            <td>Command completed without errors</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>General error</td>
+            <td>Catchall for unspecified failures — permission denied, missing file, validation error</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Misuse of shell builtin</td>
+            <td>Missing keyword, wrong argument type, or syntax error in a builtin</td>
+          </tr>
+          <tr>
+            <td>126</td>
+            <td>Command cannot execute</td>
+            <td>File exists but lacks execute permission or is not a valid binary</td>
+          </tr>
+          <tr>
+            <td>127</td>
+            <td>Command not found</td>
+            <td>Typo in command name, binary not installed, or not in PATH</td>
+          </tr>
+          <tr>
+            <td>128</td>
+            <td>Invalid argument to exit</td>
+            <td><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">exit</code> called with a non-integer or out-of-range value</td>
+          </tr>
+          <tr>
+            <td>130</td>
+            <td>Script terminated by Ctrl-C</td>
+            <td>User sent SIGINT — manual interrupt during execution</td>
+          </tr>
+          <tr>
+            <td>137</td>
+            <td>Script terminated by SIGKILL</td>
+            <td><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">kill -9</code> or OOM killer — process cannot be caught or cleaned up gracefully</td>
+          </tr>
+          <tr>
+            <td>139</td>
+            <td>Segmentation fault</td>
+            <td>Invalid memory access — usually a crash in a compiled binary</td>
+          </tr>
+          <tr>
+            <td>255</td>
+            <td>Exit status out of range</td>
+            <td><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">exit</code> called with a value above 255 or negative — wraps to 255</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Every command sets <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">$?</code> when it finishes. Test it in conditionals: <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">if mycommand; then echo ok; else echo "failed with $?"; fi</code>. With <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">set -e</code>, any non-zero exit stops the script immediately — which is what you want in production until you explicitly handle a known failure. Capture the code right after the command; the next line overwrites <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">$?</code>.</p>
+      <p><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap</code> runs cleanup when a script exits for any reason — success, error, or signal. Register <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap cleanup EXIT</code> to remove temp files and release locks even after a non-zero exit. Combine with <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap 'echo "failed at line $LINENO with exit $?"' ERR</code> under <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">set -e</code> to log exactly where the script broke before cleanup runs.</p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What does exit code 1 mean in bash?</h3>
+      <p>Exit code 1 is a generic failure — the command did not succeed, but the exact reason depends on what ran. <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">grep</code> returns 1 when nothing matches; most other tools use it for any unhandled error. Treat it as "something went wrong" and check stderr or re-run with verbose flags.</p>
+
+      <h3>How do I check the exit code of a command in bash?</h3>
+      <p>Run the command, then immediately check <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">echo $?</code>. Capture it in a variable if you need it later: <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">status=$?; if [ $status -ne 0 ]; then echo "failed with $status"; fi</code>. <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">$?</code> resets after every command, so read it before running anything else.</p>
+
+      <h3>What is exit code 127 in Linux?</h3>
+      <p>Exit code 127 means command not found. Bash searched every directory in PATH and could not locate the binary. Check for typos, missing packages, or a PATH that does not include the install location.</p>
+
     </div>
 
     <!-- BLOCK 1 — AdSense ad slot -->

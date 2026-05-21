@@ -632,6 +632,53 @@ crossorigin="anonymous"></script>
         padding: 12px 16px;
       }
     }
+
+    /* ============================================================
+       TOOL BODY — educational content below the interactive UI
+       ============================================================ */
+    .tool-body {
+      max-width: 900px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .tool-body h2 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--green);
+      margin: 40px 0 16px;
+      letter-spacing: -0.5px;
+    }
+    .tool-body h2:first-child { margin-top: 0; }
+    .tool-body h3 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin: 28px 0 8px;
+    }
+    .tool-body p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .code-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 20px 0 32px;
+    }
+    .code-block pre {
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-family: var(--mono-font);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0;
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -643,7 +690,7 @@ crossorigin="anonymous"></script>
       "name": "What does chmod 755 mean?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "chmod 755 gives the owner read, write, and execute permissions, while group and others get read and execute permissions."
+        "text": "Owner gets read, write, and execute. Group and others get read and execute — no write. That is the standard for shell scripts, binaries, and directories that need to be listed and entered but not modified by other users."
       }
     },
     {
@@ -668,6 +715,30 @@ crossorigin="anonymous"></script>
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Yes. The tool shows octal and symbolic chmod formats so you can copy the style you prefer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between chmod 644 and 755?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "644 is for regular files: owner read/write, everyone else read-only. 755 adds execute for all three groups — required for scripts and directories. Using 644 on a deploy script means it will not run."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I give execute permission in bash?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Run chmod +x filename to add execute for all users, or chmod u+x filename for owner only. Without the x bit, bash returns 'Permission denied' when you try to run the file directly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does chmod +x do in Linux?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "chmod +x adds execute permission for owner, group, and others. It does not change read or write bits. Use it when a script has the right content but fails with 'Permission denied' on ./script.sh."
       }
     }
   ]
@@ -880,6 +951,38 @@ crossorigin="anonymous"></script>
         </div>
         <p style="font:400 14px var(--mono-font);color:var(--text);margin:0;line-height:1.55;">chmod 644 is the standard permission for regular files. Owner can read/write, everyone else can only read. This is secure for most use cases.</p>
       </div>
+
+    </div>
+
+    <div class="tool-body">
+
+      <h2>Understanding chmod Permission Notation</h2>
+      <p>Octal chmod uses three digits — owner, group, others — each built from read (4), write (2), and execute (1). A 755 means 7 for the owner (4+2+1: full control), 5 for group (4+1: read and execute), and 5 for others. Common values: 644 for config files (owner writes, everyone reads), 600 for secrets (only owner reads/writes), 700 for private scripts (only owner can run), and 755 for executables and directories the web server or other users need to traverse.</p>
+      <p>Symbolic notation changes specific bits without recalculating the whole number: <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">chmod +x script.sh</code> adds execute, <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">u+rw</code> gives the owner read and write, <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">go-w</code> strips write from group and others. Use octal when you know the final state; use symbolic when you are toggling one bit on an existing file. Set 777 on a script and anyone on the box can overwrite it — a common path to backdoors. Leave SSH private keys at 600 or ssh refuses to connect. Default deploy scripts and web roots to 755 unless you have a reason not to.</p>
+
+      <h2>Common chmod Examples</h2>
+      <div class="code-block">
+        <pre>chmod 755 deploy.sh
+chmod 600 ~/.ssh/id_rsa
+chmod 644 config.txt
+chmod +x myscript.sh
+chmod -R 755 /var/www/html
+chmod 700 ~/private/</pre>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What does chmod 755 mean?</h3>
+      <p>Owner gets read, write, and execute. Group and others get read and execute — no write. That is the standard for shell scripts, binaries, and directories that need to be listed and entered but not modified by other users.</p>
+
+      <h3>What is the difference between chmod 644 and 755?</h3>
+      <p>644 is for regular files: owner read/write, everyone else read-only. 755 adds execute for all three groups — required for scripts and directories. Using 644 on a deploy script means it will not run.</p>
+
+      <h3>How do I give execute permission in bash?</h3>
+      <p>Run <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">chmod +x filename</code> to add execute for all users, or <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">chmod u+x filename</code> for owner only. Without the x bit, bash returns "Permission denied" when you try to run the file directly.</p>
+
+      <h3>What does chmod +x do in Linux?</h3>
+      <p><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">chmod +x</code> adds execute permission for owner, group, and others. It does not change read or write bits. Use it when a script has the right content but fails with "Permission denied" on <code style="background:var(--bg3);color:var(--text);padding:2px 6px;border-radius:4px;">./script.sh</code>.</p>
 
     </div>
 
