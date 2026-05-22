@@ -36,18 +36,6 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
 
-  <meta name="google-site-verification" content="google1cbf4fa57c5805dd.html" />
-
-
-  <!-- ============================================================
-    ██████████████████████████████████████████████████████████
-    GOOGLE ANALYTICS (GA4)
-    ██████████████████████████████████████████████████████████
-    1. Go to https://analytics.google.com
-    2. Admin → Create Property → Web → get your G-XXXXXXXXXX ID
-    3. Copy the full gtag script block Google provides
-    4. PASTE IT HERE, replacing the block below:
-
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
 <script>
@@ -60,112 +48,81 @@ gtag('config', 'G-6B01TGE8XS');
 crossorigin="anonymous"></script>
 
 
-  <!-- ============================================================
-    SCHEMA.ORG — WEBSITE
-    Tells Google the site name, URL, and author.
-    Update "name" field below if you ever rename the site.
-    ============================================================ -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "BashSnippets",
   "url": "https://bashsnippets.xyz",
-  "description": "Free bash script library for Linux users, sysadmins, and developers.",
+  "description": "Free bash script examples for backups, monitoring, cron, grep, and Linux automation. Copy-paste ready scripts with plain-English explanations. Tested on Ubuntu 22.04 and macOS.",
+  "author": {
+    "@type": "Person",
+    "name": "Anguishe",
+    "email": "Anguisheh1@gmail.com",
+    "url": "https://bashsnippets.xyz/about.html"
+  },
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://bashsnippets.xyz/snippets/?q={search_term_string}",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://bashsnippets.xyz/snippets/?q={search_term_string}"
+    },
     "query-input": "required name=search_term_string"
   }
 }
   </script>
 
-  <!-- ============================================================
-    SCHEMA.ORG — FAQ PAGE
-    These entries appear as Google rich results / featured snippets.
-    Every question you add here should ALSO exist in the FAQ
-    section further down the page. Keep them in sync.
-    Add new Q&A pairs in the same format as the existing ones.
-    ============================================================ -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is a bash script?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A bash script is a text file of Linux commands that run automatically when executed. Like a recipe — write the steps once, the computer follows them every time. Files end in .sh and the first line is always #!/bin/bash."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I run a bash script?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Two steps: make it executable with chmod +x yourscript.sh, then run it with ./yourscript.sh. Or skip chmod and just type: bash yourscript.sh. Both work the same way."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need to install anything to use bash?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Bash is pre-installed on Linux and macOS. On Windows, install Git Bash (free, 2 minutes) or enable WSL from Windows Settings."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I schedule a bash script to run automatically?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use cron — Linux's built-in scheduler. Run crontab -e and add a line like: 0 2 * * * /home/you/script.sh to run daily at 2am. Use crontab.guru to build cron schedules visually for free."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I debug a bash script that isn't working?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Add set -x right after #!/bin/bash. This enables debug mode and prints every command before it runs so you can see exactly where it breaks. Remove set -x once the script is fixed."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does set -euo pipefail do in bash?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "set -e stops the script immediately on any error. set -u treats undefined variables as errors. set -o pipefail catches errors inside pipes. Together as set -euo pipefail they make scripts much safer and easier to debug."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between sh and bash?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "sh is the old minimal POSIX shell that works everywhere but has fewer features. bash is the modern version with arrays, better string handling, and more. For scripts on your own machine always use #!/bin/bash."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I pass arguments to a bash script?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Add values after the filename when you run it: ./script.sh hello world. Inside the script $1 is hello, $2 is world, and so on. $# gives the total number of arguments passed."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "My bash script ran but nothing happened. What went wrong?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Common causes: missing #!/bin/bash on the first line, wrong file path, Windows line endings if edited on Windows (fix with sed -i 's/\\r//' script.sh), or a silent error. Add set -x after the shebang to see every command as it runs."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Anguishe",
+  "email": "Anguisheh1@gmail.com",
+  "url": "https://bashsnippets.xyz/about.html",
+  "description": "Linux user and bash scripter. Taught myself bash after spinal fusion surgery. Runs BashSnippets.xyz.",
+  "knowsAbout": ["Bash scripting", "Linux automation", "Shell scripting", "Ubuntu", "Cron jobs"]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What actually is a bash script? Like in plain English.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's just a text file full of commands. The same commands you'd type in a terminal one by one — but saved in a file so the computer runs them automatically in sequence. The file usually ends in .sh and the very first line is always #!/bin/bash."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I actually run a bash script?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two steps: first make it executable with chmod +x yourscript.sh, then run it with ./yourscript.sh. You can also skip chmod and type bash yourscript.sh — same result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I schedule a bash script to run automatically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use cron — Linux's built-in scheduler. Run crontab -e to open the editor, add a line like 0 2 * * * /home/you/myscript.sh to run daily at 2am. Use crontab.guru for a free visual cron builder."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I make my script stop immediately if something fails?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add set -euo pipefail near the top of your script. set -e exits on any error, set -u catches undefined variables, set -o pipefail catches errors inside pipes."
+      }
+    }
+  ]
+}
   </script>
 
   <!-- ============================================================
@@ -176,44 +133,6 @@ crossorigin="anonymous"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-   <!-- Schema: Author / Person -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://bashsnippets.xyz/#author",
-    "name": "BashSnippets",
-    "url": "https://bashsnippets.xyz",
-    "sameAs": [
-      "https://youtube.com/@BashSnippets",
-      "https://tiktok.com/@BashSnippets",
-      "https://dev.to/bashsnippets",
-      "https://coderlegion.com/user/BashSnippets"
-    ],
-    "knowsAbout": [
-      "bash scripting",
-      "Linux system administration",
-      "shell automation",
-      "DevOps",
-      "cron jobs"
-    ]
-  }
-  </script>
-
-    <!-- Schema: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "BashSnippets",
-    "url": "https://bashsnippets.xyz",
-    "description": "Free copy-paste bash scripts for Linux users and developers. Plain-English explanations. New scripts weekly.",
-    "author": {
-      "@type": "Person",
-      "@id": "https://bashsnippets.xyz/#author"
-    }
-  }
-  </script>
   <meta http-equiv="x-dns-prefetch-control" content="on" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
   <link rel="dns-prefetch" href="//www.googletagmanager.com" />

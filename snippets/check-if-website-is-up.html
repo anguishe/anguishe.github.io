@@ -24,7 +24,70 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
 
+  
+  <!-- Schema: TechArticle + BreadcrumbList -->
   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Check If Your Website Is Up",
+  "description": "Copy a check website uptime bash script using curl status codes, cron, logs, and email alerts. Monitor sites and catch outages before users do.",
+  "url": "https://bashsnippets.xyz/snippets/check-if-website-is-up.html",
+  "datePublished": "2026-05-01",
+  "dateModified": "2026-05-22",
+  "author": {
+    "@type": "Person",
+    "name": "Anguishe",
+    "url": "https://bashsnippets.xyz/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BashSnippets",
+    "url": "https://bashsnippets.xyz"
+  },
+  "keywords": [
+    "bash",
+    "shell script",
+    "linux",
+    "check website uptime",
+    "monitor"
+  ],
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Bash"
+  },
+  "operatingSystem": "Linux, macOS",
+  "proficiencyLevel": "beginner"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "BashSnippets",
+      "item": "https://bashsnippets.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Snippets",
+      "item": "https://bashsnippets.xyz/snippets/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Check If Your Website Is Up",
+      "item": "https://bashsnippets.xyz/snippets/check-if-website-is-up.html"
+    }
+  ]
+}
+  </script>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
@@ -192,6 +255,15 @@
     .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
 
     h1 { font-family:var(--heading-font); font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:16px; }
+    .byline {
+      font-size: 0.82em;
+      color: #888;
+      margin: 6px 0 0 0;
+    }
+    .byline a {
+      color: #aaa;
+      text-decoration: underline;
+    }
     .page-intro { font-size:16px; color:var(--muted); line-height:1.8; max-width:680px; }
     h2 { font-family:var(--heading-font); font-size:1.3rem; font-weight:700; margin:48px 0 16px; color:var(--text); }
     h2::before { content:'// '; color:var(--green); }
@@ -252,6 +324,23 @@
     footer a { color:var(--muted); }
     footer a:hover { color:var(--text); text-decoration:none; }
     @media(max-width:640px) { .nav-links { display:none; } .nav-mobile-menu { display:block; } .affiliate-box { flex-direction:column; align-items:flex-start; } }
+
+    .quick-answer {
+      background: #1a1a2e;
+      border-left: 3px solid #4ade80;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+    .quick-answer .tested-on {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.8em;
+      color: #888;
+      font-style: italic;
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -277,27 +366,6 @@
       "item": "https://bashsnippets.xyz/snippets/check-if-website-is-up.html"
     }
   ]
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Check Website Uptime Bash Script \u2013 BashSnippets.xyz",
-  "description": "Copy a check website uptime bash script using curl status codes, cron, logs, and email alerts. Monitor sites and catch outages before users do.",
-  "url": "https://bashsnippets.xyz/snippets/check-if-website-is-up.html",
-  "author": {
-    "@type": "Organization",
-    "name": "BashSnippets",
-    "url": "https://bashsnippets.xyz"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "BashSnippets",
-    "url": "https://bashsnippets.xyz"
-  },
-  "inLanguage": "en-US",
-  "isAccessibleForFree": true
 }
   </script>
 </head>
@@ -341,6 +409,11 @@
       <span class="tag tag-blue">cron-ready</span>
     </div>
     <h1>Check If Your Website Is Up</h1>
+  <p class="byline">By <a href="/about.html">Anguishe</a> · Tested on Ubuntu 22.04 LTS &amp; macOS Ventura</p>
+    <div class="quick-answer">
+      <strong>Quick answer:</strong> Use <code>curl -o /dev/null -s -w "%{http_code}" --max-time 10 "$URL"</code> to fetch the HTTP status code, alert when it is not 200, then schedule with <code>crontab -e</code> every 5 minutes.
+      <span class="tested-on">Tested on: Ubuntu 22.04 LTS · macOS Ventura</span>
+    </div>
     <p class="page-intro">
       Your site goes down. Your host doesn't tell you. Your users hit a 500 error and leave.
       This bash script uses <code>curl</code> to check your HTTP status code and alerts you

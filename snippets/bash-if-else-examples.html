@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<!-- NAV AUDIT 2026-05-07: Normalized nav, breadcrumb, related-card, footer, and affiliate links; added Explore More Tools CTA above Related Snippets; added required Back to All Snippets link. -->
+<!-- NAV AUDIT 2026-05-22: New snippet; mirrors automated-file-backup structure, GA4/AdSense/affiliates per CURSOR_CONTEXT. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Automated File Backup Bash Script – BashSnippets.xyz</title>
-  <meta name="description" content="Copy an automated file backup bash script for Linux or macOS folders with timestamps, rsync options, and cron scheduling. Build safer backups today." />
+  <title>Bash If Else — Complete Examples for Beginners – BashSnippets.xyz</title>
+  <meta name="description" content="Learn bash if else syntax with copy-paste examples: disk space thresholds, string checks, file tests, and common beginner mistakes explained plainly." />
   <meta name="author" content="Anguishe, BashSnippets" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://bashsnippets.xyz/snippets/automated-file-backup.html" />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/bash-if-else-examples.html" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Automated File Backup Script – Bash Snippets" />
-  <meta property="og:description" content="Copy-paste bash script that backs up any folder with a datestamp. Beginner friendly. Cron compatible." />
+  <meta property="og:title" content="Bash If Else — Complete Examples for Beginners" />
+  <meta property="og:description" content="Copy-paste if/elif/else examples for disk checks, strings, and files. Beginner friendly with plain-English explanations." />
   <meta property="og:type" content="article" />
   <meta property="article:section" content="Bash Scripts" />
-  <meta property="article:tag" content="automated file backup bash script" />
-  <meta property="og:url" content="https://bashsnippets.xyz/snippets/automated-file-backup.html" />
+  <meta property="article:tag" content="bash if else" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/bash-if-else-examples.html" />
   <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -31,10 +31,10 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Automated File Backup Script",
-  "description": "Copy an automated file backup bash script for Linux or macOS folders with timestamps, rsync options, and cron scheduling. Build safer backups today.",
-  "url": "https://bashsnippets.xyz/snippets/automated-file-backup.html",
-  "datePublished": "2026-05-01",
+  "headline": "Bash If Else — Complete Examples for Beginners",
+  "description": "Learn bash if else syntax with copy-paste examples: disk space thresholds, string checks, file tests, and common beginner mistakes explained plainly.",
+  "url": "https://bashsnippets.xyz/snippets/bash-if-else-examples.html",
+  "datePublished": "2026-05-22",
   "dateModified": "2026-05-22",
   "author": {
     "@type": "Person",
@@ -50,8 +50,8 @@
     "bash",
     "shell script",
     "linux",
-    "automated file backup",
-    "automation"
+    "bash if else",
+    "conditionals"
   ],
   "programmingLanguage": {
     "@type": "ComputerLanguage",
@@ -82,8 +82,8 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "Automated File Backup Script",
-      "item": "https://bashsnippets.xyz/snippets/automated-file-backup.html"
+      "name": "Bash If Else — Complete Examples for Beginners",
+      "item": "https://bashsnippets.xyz/snippets/bash-if-else-examples.html"
     }
   ]
 }
@@ -93,34 +93,34 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Automatically Back Up Files with a Bash Script",
-    "description": "A beginner-friendly bash script that copies any folder to a backup location with a date-and-time timestamp.",
+    "name": "How to Use Bash If Else Statements",
+    "description": "A beginner-friendly guide to if, elif, and else in bash with a practical disk space threshold example.",
    "author": {
       "@type": "Person",
       "@id": "https://bashsnippets.xyz/#author",
       "name": "BashSnippets"
     },
-    "datePublished": "2026-05-01",
+    "datePublished": "2026-05-22",
     "step": [
       {
         "@type": "HowToStep",
         "name": "Create the script file",
-        "text": "Open a terminal and run: nano backup.sh — then paste the script."
+        "text": "Open a terminal and run: nano disk-if-else.sh — then paste the script."
       },
       {
         "@type": "HowToStep",
-        "name": "Set your source folder",
-        "text": "Change the SOURCE variable to the folder you want to back up, e.g. /home/user/documents."
+        "name": "Set your thresholds",
+        "text": "Change THRESHOLD and CRITICAL to the disk usage percentages you want to warn at."
       },
       {
         "@type": "HowToStep",
         "name": "Make it executable",
-        "text": "Run chmod +x backup.sh to give the script permission to execute."
+        "text": "Run chmod +x disk-if-else.sh to give the script permission to execute."
       },
       {
         "@type": "HowToStep",
         "name": "Run it",
-        "text": "Type ./backup.sh to run it manually, or add it to cron for automatic scheduling."
+        "text": "Type ./disk-if-else.sh to test the if/elif/else branches, or add it to cron for scheduled checks."
       }
     ]
   }
@@ -134,34 +134,34 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do I automatically back up files in Linux?",
+        "name": "What is the syntax for if else in bash?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use a bash script with cp -r to copy your folder to a backup location. Add a date variable like DATE=$(date +%Y-%m-%d_%H-%M) to the destination path so each backup gets a unique timestamped name. Then schedule it with cron to run automatically."
+          "text": "Use if [ condition ]; then commands elif [ condition ]; then commands else commands fi. Every test needs spaces inside the brackets, and the block must end with fi."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I schedule a backup script to run every day?",
+        "name": "Why does my bash if statement always fail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open cron with crontab -e and add a line like: 0 2 * * * /home/user/backup.sh — this runs the script every day at 2am. Use crontab.guru to build and test cron time expressions for free."
+          "text": "The most common cause is missing spaces around the brackets. Write if [ \"$x\" -eq 5 ]; then not if [\"$x\"-eq 5]; then. Bash treats the brackets as the test command [ and requires spaces as separate arguments."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the difference between cp and rsync for backups?",
+        "name": "When should I use elif instead of else in bash?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "cp copies everything every time. rsync only copies files that changed, making it much faster for large folders. For small folders or quick setups, cp works fine. For daily backups of large directories, rsync is the better choice."
+          "text": "Use elif when you have more than two outcomes to check in order — for example, disk at 95% (critical), above 80% (warning), or otherwise OK. elif runs only if the previous conditions were false."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I make sure my backup script is working?",
+        "name": "Should I use = or -eq in bash if statements?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Add set -x right after #!/bin/bash. This prints every command as it runs so you can see exactly what happened. Remove it once the script is confirmed working."
+          "text": "Use -eq, -ne, -gt, -lt for integer comparisons inside [ ]. Use = or != for string comparisons. Using = to compare numbers can work in some cases but -eq is correct and predictable for numeric tests."
         }
       }
     ]
@@ -457,32 +457,6 @@
       font-style: italic;
     }
   </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "BashSnippets",
-      "item": "https://bashsnippets.xyz/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Snippets",
-      "item": "https://bashsnippets.xyz/snippets/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Automated File Backup Script",
-      "item": "https://bashsnippets.xyz/snippets/automated-file-backup.html"
-    }
-  ]
-}
-  </script>
 </head>
 <body>
 
@@ -514,26 +488,26 @@
   <div class="breadcrumb">
     <a href="/">BashSnippets</a><span>›</span>
     <a href="/snippets/">Snippets</a><span>›</span>
-    Automated File Backup
+    Bash If Else
   </div>
 
   <div class="page-header">
     <div class="tag-row">
       <span class="tag tag-green">beginner</span>
-      <span class="tag tag-blue">automation</span>
+      <span class="tag tag-blue">fundamentals</span>
       <span class="tag tag-blue">cron-ready</span>
     </div>
-    <h1>Automated File Backup Script</h1>
+    <h1>Bash If Else — Complete Examples for Beginners</h1>
   <p class="byline">By <a href="/about.html">Anguishe</a> · Tested on Ubuntu 22.04 LTS &amp; macOS Ventura</p>
     <div class="quick-answer">
-      <strong>Quick answer:</strong> Use <code>cp -r "$SOURCE" "$DEST/backup_$(date +%Y-%m-%d)"</code>
-      to copy any folder with a timestamp, then schedule it with <code>crontab -e</code> to run automatically.
+      <strong>Quick answer:</strong> Use <code>if [ condition ]; then ... elif [ condition ]; then ... else ... fi</code> syntax.
+      Conditions use <code>-eq</code> for numbers, <code>=</code> for strings, and <code>-f</code> for files.
       <span class="tested-on">Tested on: Ubuntu 22.04 LTS · macOS Ventura</span>
     </div>
     <p class="page-intro">
-      <code>cp -r "$SOURCE" "$DEST/backup_$(date +%Y-%m-%d_%H-%M)"</code> copies any folder to a backup location
-      and stamps it with the current date and time. Schedule it with cron to run every night at 2am
-      and you have automatic versioned backups with zero ongoing effort.
+      Every useful bash script branches on conditions — disk full or not, file exists or not, user said yes or no.
+      This page walks through <code>if</code>, <code>elif</code>, and <code>else</code> with a real disk-space checker you can run today,
+      then shows the three comparison types beginners need most.
     </p>
 
 <div class="author-box" style="display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:24px 0 32px 0;max-width:520px;">
@@ -556,33 +530,38 @@
   </div>
 
   <h2>The Script</h2>
-  <p>Copy this, paste it into a file called <code>backup.sh</code>, and you're 90% done.</p>
+  <p>Copy this into <code>disk-if-else.sh</code>. It uses <code>if</code>, <code>elif</code>, and <code>else</code> to classify disk usage into three levels — the same pattern as our <a href="/snippets/disk-space-warning.html">disk space warning</a> snippet, with an extra critical branch.</p>
 
   <div class="code-block">
     <div class="code-header">
-      <span class="filename">backup.sh</span>
+      <span class="filename">disk-if-else.sh</span>
       <button class="copy-btn" onclick="copyCode(this)">copy</button>
     </div>
     <pre id="script-main"><span class="comment">#!/bin/bash</span>
-<span class="comment"># Automated File Backup</span>
-<span class="comment"># Copies a folder to /backup with today's timestamp.</span>
-<span class="comment"># Run manually or schedule with cron — works either way.</span>
+<span class="comment"># Bash If / Elif / Else — disk space example</span>
+<span class="comment"># Three branches: critical, warning, or OK.</span>
 <span class="comment">#</span>
-<span class="comment"># USAGE: ./backup.sh</span>
-<span class="comment"># REQUIRES: bash, cp (pre-installed on all Linux/macOS)</span>
+<span class="comment"># USAGE: ./disk-if-else.sh</span>
+<span class="comment"># REQUIRES: bash, df, awk, tr (pre-installed on Linux/macOS)</span>
 
-<span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>   <span class="comment"># ← change this to your folder</span>
-<span class="var">DEST</span>=<span class="str">"/backup"</span>                   <span class="comment"># ← change this to your backup location</span>
-<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d_%H-%M)
+<span class="var">THRESHOLD</span>=<span class="num">80</span>   <span class="comment"># ← warn at this %</span>
+<span class="var">CRITICAL</span>=<span class="num">90</span>      <span class="comment"># ← critical alert at this %</span>
+<span class="var">PARTITION</span>=<span class="str">"/"</span>  <span class="comment"># ← partition to check</span>
 
-<span class="kw">mkdir</span> -p <span class="str">"$DEST"</span>
-<span class="kw">cp</span> -r <span class="str">"$SOURCE"</span> <span class="str">"$DEST/backup_$DATE"</span>
-<span class="kw">echo</span> <span class="str">"✓ Done. Saved to: $DEST/backup_$DATE"</span></pre>
+<span class="var">USAGE</span>=$(<span class="kw">df</span> <span class="str">"$PARTITION"</span> | <span class="kw">awk</span> <span class="str">'NR==2{print $5}'</span> | <span class="kw">tr</span> -d <span class="str">'%'</span>)
+
+<span class="kw">if</span> [ <span class="str">"$USAGE"</span> -gt <span class="str">"$CRITICAL"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"🔴 CRITICAL: Disk at ${USAGE}% — free space immediately"</span>
+<span class="kw">elif</span> [ <span class="str">"$USAGE"</span> -gt <span class="str">"$THRESHOLD"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"⚠ WARNING: Disk at ${USAGE}% — above ${THRESHOLD}% threshold"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"✓ Disk OK: ${USAGE}% used (warn: ${THRESHOLD}%, critical: ${CRITICAL}%)"</span>
+<span class="kw">fi</span></pre>
   </div>
 
   <div class="callout">
     <div class="callout-title">✓ What this does, line by line</div>
-    <p><strong>SOURCE</strong> is the folder you want to back up. <strong>DEST</strong> is where backups are saved. <strong>DATE</strong> grabs the current timestamp. <code>mkdir -p</code> creates the destination folder if it doesn't exist. <code>cp -r</code> copies everything recursively. The last line confirms it worked.</p>
+    <p><strong>THRESHOLD</strong> and <strong>CRITICAL</strong> set the two cutoffs. <code>USAGE</code> reads the current disk percent from <code>df</code>. The first <code>if</code> handles the worst case. <code>elif</code> runs only when the first test failed — still high, but not critical. <code>else</code> covers everything else. <code>fi</code> closes the block — always required.</p>
   </div>
 
   <h2>Step-by-Step Setup</h2>
@@ -591,33 +570,33 @@
   <p>Open a terminal and run:</p>
   <div class="code-block">
     <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="kw">nano</span> backup.sh</pre>
+    <pre><span class="kw">nano</span> disk-if-else.sh</pre>
   </div>
   <p>Paste the script above, then press <strong>Ctrl+X → Y → Enter</strong> to save.</p>
 
-  <h3>Step 2 — Edit your paths</h3>
-  <p>Change <code>SOURCE</code> to the folder you want to back up and <code>DEST</code> to where you want backups saved. Examples:</p>
+  <h3>Step 2 — Understand the if/elif/else shape</h3>
+  <p>Every branch follows the same pattern — spaces matter:</p>
   <table class="var-table">
-    <tr><th>Variable</th><th>Example value</th><th>What it means</th></tr>
-    <tr><td>SOURCE</td><td>/home/alice/projects</td><td>The folder being backed up</td></tr>
-    <tr><td>SOURCE</td><td>/var/www/html</td><td>A web server's files</td></tr>
-    <tr><td>DEST</td><td>/backup</td><td>A local backup directory</td></tr>
-    <tr><td>DEST</td><td>/mnt/external-drive</td><td>An external drive mount point</td></tr>
+    <tr><th>Part</th><th>Syntax</th><th>Purpose</th></tr>
+    <tr><td>if</td><td>if [ condition ]; then</td><td>First test — runs when true</td></tr>
+    <tr><td>elif</td><td>elif [ condition ]; then</td><td>Second test — only if previous tests failed</td></tr>
+    <tr><td>else</td><td>else</td><td>Fallback — runs when no test matched</td></tr>
+    <tr><td>fi</td><td>fi</td><td>Closes the entire block — do not forget this</td></tr>
   </table>
 
   <h3>Step 3 — Make it executable</h3>
   <div class="code-block">
     <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="kw">chmod</span> +x backup.sh</pre>
+    <pre><span class="kw">chmod</span> +x disk-if-else.sh</pre>
   </div>
   <p>You only need to do this once. It gives the script permission to run.</p>
 
   <h3>Step 4 — Run it</h3>
   <div class="code-block">
     <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre>./<span class="kw">backup.sh</span></pre>
+    <pre>./<span class="kw">disk-if-else.sh</span></pre>
   </div>
-  <p>You should see: <code>✓ Done. Saved to: /backup/backup_2026-05-02_14-30</code></p>
+  <p>You should see one of three messages depending on how full your disk is right now.</p>
 
   <!-- AD SLOT MID -->
   <div class="ad-slot">
@@ -630,7 +609,7 @@
   </div>
 
   <h2>Schedule It with Cron</h2>
-  <p>Running this manually defeats the purpose. Here's how to make it run automatically every day.</p>
+  <p>Disk checks only help if they run automatically. Add the script to cron so you catch problems before the drive fills.</p>
 
   <h3>Open your crontab</h3>
   <div class="code-block">
@@ -641,14 +620,14 @@
   <h3>Add one of these lines</h3>
   <div class="code-block">
     <div class="code-header"><span class="filename">crontab</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
-    <pre><span class="comment"># Run every day at 2am</span>
-<span class="num">0 2 * * *</span> /home/user/backup.sh
+    <pre><span class="comment"># Check every day at 8am</span>
+<span class="num">0 8 * * *</span> /home/user/disk-if-else.sh
 
-<span class="comment"># Run every Sunday at midnight</span>
-<span class="num">0 0 * * 0</span> /home/user/backup.sh
+<span class="comment"># Check every hour</span>
+<span class="num">0 * * * *</span> /home/user/disk-if-else.sh
 
-<span class="comment"># Run every hour</span>
-<span class="num">0 * * * *</span> /home/user/backup.sh</pre>
+<span class="comment"># Log output to a file</span>
+<span class="num">0 8 * * *</span> /home/user/disk-if-else.sh >> /var/log/diskcheck.log 2>&1</pre>
   </div>
 
   <div class="callout blue">
@@ -658,50 +637,51 @@
 
   <h2>Variations</h2>
 
-  <h3>Faster backups with rsync (recommended for large folders)</h3>
-  <p>Swap <code>cp -r</code> for <code>rsync</code> to only copy files that have changed. Much faster on big directories:</p>
+  <h3>String comparison (= and !=)</h3>
+  <p>Use <code>=</code> and <code>!=</code> inside <code>[ ]</code> for text. Quote variables so empty values do not break the test:</p>
   <div class="code-block">
-    <div class="code-header"><span class="filename">backup-rsync.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <div class="code-header"><span class="filename">string-compare.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
     <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>
-<span class="var">DEST</span>=<span class="str">"/backup/latest"</span>
+<span class="var">ENV</span>=<span class="str">"production"</span>
 
-<span class="kw">rsync</span> -av --delete <span class="str">"$SOURCE/"</span> <span class="str">"$DEST/"</span>
-<span class="kw">echo</span> <span class="str">"✓ Sync complete: $(date)"</span></pre>
+<span class="kw">if</span> [ <span class="str">"$ENV"</span> = <span class="str">"production"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"Running production config"</span>
+<span class="kw">elif</span> [ <span class="str">"$ENV"</span> = <span class="str">"staging"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"Running staging config"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"Unknown environment: $ENV"</span>
+<span class="kw">fi</span></pre>
   </div>
 
-  <h3>Log every backup to a file</h3>
-  <p>Know exactly when each backup ran and whether it succeeded:</p>
+  <h3>Check if a file exists (-f)</h3>
+  <p><code>-f</code> returns true only for regular files. Use <code>-d</code> for directories and <code>-e</code> for either:</p>
   <div class="code-block">
-    <div class="code-header"><span class="filename">backup-with-log.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <div class="code-header"><span class="filename">file-exists.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
     <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>
-<span class="var">DEST</span>=<span class="str">"/backup"</span>
-<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d_%H-%M)
-<span class="var">LOG</span>=<span class="str">"/var/log/mybackup.log"</span>
+<span class="var">CONFIG</span>=<span class="str">"/etc/myapp/config.yml"</span>
 
-<span class="kw">mkdir</span> -p <span class="str">"$DEST"</span>
-<span class="kw">cp</span> -r <span class="str">"$SOURCE"</span> <span class="str">"$DEST/backup_$DATE"</span> && \
-  <span class="kw">echo</span> <span class="str">"[$DATE] SUCCESS: backup_$DATE"</span> >> <span class="str">"$LOG"</span> || \
-  <span class="kw">echo</span> <span class="str">"[$DATE] FAILED"</span> >> <span class="str">"$LOG"</span></pre>
+<span class="kw">if</span> [ -f <span class="str">"$CONFIG"</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"Config found — loading $CONFIG"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"Config missing — creating default at $CONFIG"</span>
+  <span class="kw">touch</span> <span class="str">"$CONFIG"</span>
+<span class="kw">fi</span></pre>
   </div>
 
-  <h3>Keep only the last 7 backups</h3>
-  <p>Prevent your backup folder from filling up your disk:</p>
+  <h3>Integer comparison (-eq, -gt, -lt)</h3>
+  <p>Numbers inside <code>[ ]</code> need numeric operators, not <code>=</code>:</p>
   <div class="code-block">
-    <div class="code-header"><span class="filename">backup-with-cleanup.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <div class="code-header"><span class="filename">integer-compare.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
     <pre><span class="comment">#!/bin/bash</span>
-<span class="var">SOURCE</span>=<span class="str">"/home/user/documents"</span>
-<span class="var">DEST</span>=<span class="str">"/backup"</span>
-<span class="var">DATE</span>=$(<span class="kw">date</span> +%Y-%m-%d_%H-%M)
-<span class="var">KEEP</span>=<span class="num">7</span>
+<span class="var">COUNT</span>=<span class="num">42</span>
 
-<span class="kw">mkdir</span> -p <span class="str">"$DEST"</span>
-<span class="kw">cp</span> -r <span class="str">"$SOURCE"</span> <span class="str">"$DEST/backup_$DATE"</span>
-
-<span class="comment"># Delete oldest backups, keep only the last $KEEP</span>
-<span class="kw">ls</span> -dt <span class="str">"$DEST"/backup_*</span> | <span class="kw">tail</span> -n +$(( KEEP + 1 )) | <span class="kw">xargs</span> rm -rf
-<span class="kw">echo</span> <span class="str">"✓ Backed up. Keeping last $KEEP snapshots."</span></pre>
+<span class="kw">if</span> [ <span class="str">"$COUNT"</span> -eq <span class="num">0</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"No items"</span>
+<span class="kw">elif</span> [ <span class="str">"$COUNT"</span> -lt <span class="num">10</span> ]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"Low count: $COUNT"</span>
+<span class="kw">else</span>
+  <span class="kw">echo</span> <span class="str">"Count is $COUNT"</span>
+<span class="kw">fi</span></pre>
   </div>
 
   <!-- AFFILIATE BOX -->
@@ -722,8 +702,8 @@
   </div>
   <div class="affiliate-box">
     <div class="affiliate-box-text">
-      <strong>Run your backup scripts in the cloud</strong>
-      DigitalOcean droplets start at $4/month. Spin one up to run your bash scripts 24/7 — includes $200 free credit for new accounts.
+      <strong>Run your if/else checks on a server 24/7</strong>
+      DigitalOcean droplets start at $4/month. Spin one up to run disk and health scripts around the clock — includes $200 free credit for new accounts.
     </div>
     <a class="btn-affiliate" href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
   </div>
@@ -732,18 +712,18 @@
   <h2>Common Mistakes</h2>
 
   <div class="callout amber">
-    <div class="callout-title">⚠ Missing trailing slash on rsync SOURCE</div>
-    <p>With rsync, <code>rsync -av /source /dest/</code> copies the folder itself. <code>rsync -av /source/ /dest/</code> copies the folder's <em>contents</em>. That trailing slash matters. When in doubt, test with <code>--dry-run</code> first.</p>
+    <div class="callout-title">⚠ Forgetting spaces inside [ ]</div>
+    <p>Bash requires spaces around brackets and operators. <code>if [ "$x" -eq 5 ]</code> works. <code>if ["$x"-eq 5]</code> fails with a syntax error. The <code>[</code> command needs each piece as a separate argument.</p>
   </div>
 
   <div class="callout amber">
-    <div class="callout-title">⚠ Cron uses a different PATH</div>
-    <p>Cron doesn't load your shell's PATH. If the script works manually but not via cron, add <code>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</code> as the first line of your crontab.</p>
+    <div class="callout-title">⚠ Using = instead of -eq for numbers</div>
+    <p><code>=</code> compares strings. For integers use <code>-eq</code>, <code>-ne</code>, <code>-gt</code>, <code>-lt</code>. Writing <code>if [ "$USAGE" = 80 ]</code> can behave unexpectedly — use <code>-gt</code> for greater-than checks like disk percentages.</p>
   </div>
 
   <div class="callout amber">
-    <div class="callout-title">⚠ Backing up to the same disk</div>
-    <p>A backup on the same physical disk as your source files won't save you from a drive failure. For real protection, back up to an external drive, a second machine, or a cloud location.</p>
+    <div class="callout-title">⚠ Missing fi at the end</div>
+    <p>Every <code>if</code> block must end with <code>fi</code> (if spelled backwards). Without it, bash reports <code>syntax error: unexpected end of file</code>. Nested ifs need a <code>fi</code> for each level.</p>
   </div>
 
   <!-- AD SLOT BOTTOM -->
@@ -758,23 +738,23 @@
 
   <h2>Frequently Asked Questions</h2>
 
-  <h3>How do I automatically back up files in Linux?</h3>
-  <p>Use a bash script with <code>cp -r</code> or <code>rsync</code> to copy your folder to a backup location. Append a date variable like <code>DATE=$(date +%Y-%m-%d_%H-%M)</code> to the destination path so each backup gets a unique name. Then add the script to cron to run it automatically on a schedule.</p>
+  <h3>What is the syntax for if else in bash?</h3>
+  <p>Write <code>if [ condition ]; then</code> commands, optionally <code>elif [ condition ]; then</code> for more branches, then <code>else</code> for the default, and close with <code>fi</code>. Example: <code>if [ "$x" -gt 10 ]; then echo big; else echo small; fi</code>.</p>
 
-  <h3>How do I schedule a backup to run every day?</h3>
-  <p>Open cron with <code>crontab -e</code> and add: <code>0 2 * * * /home/user/backup.sh</code> — this runs at 2am daily. Use <a href="https://crontab.guru" target="_blank" rel="noopener">crontab.guru</a> to build any cron expression you need.</p>
+  <h3>Why does my bash if statement always fail?</h3>
+  <p>Almost always missing spaces inside the brackets, or an unquoted empty variable. Always quote variables: <code>[ "$FILE" -f ]</code> not <code>[ $FILE -f ]</code>. Run <code>bash -n script.sh</code> to check syntax without executing.</p>
 
-  <h3>What's the difference between cp and rsync for backups?</h3>
-  <p><code>cp</code> copies everything every time — simple but slow on large folders. <code>rsync</code> only transfers files that have changed, making it significantly faster for repeated backups. For daily backups of large directories, rsync is the right choice. For small folders or one-time copies, <code>cp</code> is fine.</p>
+  <h3>When should I use elif instead of else?</h3>
+  <p>Use <code>elif</code> when you have three or more distinct outcomes checked in order — like critical vs warning vs OK disk levels. Use plain <code>else</code> only for the final catch-all when no earlier condition matched.</p>
 
-  <h3>How do I verify my backup script is working?</h3>
-  <p>Add <code>set -x</code> right after <code>#!/bin/bash</code>. This enables debug mode and prints every command as it runs, so you can see exactly what happened. Remove it once you're satisfied the script works correctly.</p>
+  <h3>Should I use single brackets [ ] or double brackets [[ ]]?</h3>
+  <p>Beginners should stick with <code>[ ]</code> — it works everywhere and matches most tutorials. <code>[[ ]]</code> is a bash extension with slightly nicer string rules; both need spaces. Either way, always end with <code>fi</code>.</p>
 
   <div style="background:var(--bg2);border:1px solid var(--green-dim);border-left:3px solid var(--green);border-radius:8px;padding:18px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
     <div style="flex:1;min-width:200px;">
       <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Free Tool</div>
       <div style="font-family:var(--heading-font);font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px;">Build this into a full script template</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Use the Bash Boilerplate Generator to wrap this snippet in a production-ready script with error handling, logging, and more.</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Use the Bash Boilerplate Generator to wrap conditionals in a production-ready script with error handling, logging, and more.</div>
     </div>
     <a href="/tools/bash-boilerplate-generator.html" style="background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:12px;padding:9px 16px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Try the Generator →</a>
     <a href="/tools/" style="background:var(--blue);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 20px;border-radius:var(--radius);text-decoration:none;white-space:nowrap;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Browse All Tools</a>
@@ -786,7 +766,7 @@
     </p>
     <p style="color:var(--text);font-size:14px;margin:0 0 12px;line-height:1.5;">
       Pair with the <a href="/tools/cron-job-builder.html">Cron Job Builder</a>
-      to automate nightly backups — set it and forget it.
+      to schedule your disk if/else checks automatically.
     </p>
     <a href="/tools/" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-size:13px;font-weight:600;padding:8px 16px;border-radius:6px;text-decoration:none;">
       Browse All Tools →
@@ -799,9 +779,13 @@
       <div class="related-card-title">Disk Space Warning</div>
       <div class="related-card-tag">beginner · monitor</div>
     </a>
-    <a class="related-card" href="/snippets/delete-old-log-files.html">
-      <div class="related-card-title">Delete Old Log Files</div>
-      <div class="related-card-tag">intermediate · automation</div>
+    <a class="related-card" href="/snippets/bash-error-handling.html">
+      <div class="related-card-title">Bash Error Handling</div>
+      <div class="related-card-tag">intermediate · best practice</div>
+    </a>
+    <a class="related-card" href="/snippets/monitor-cpu-ram-usage.html">
+      <div class="related-card-title">Monitor CPU &amp; RAM Usage</div>
+      <div class="related-card-tag">intermediate · monitor</div>
     </a>
     <a class="related-card" href="/snippets/">
       <div class="related-card-title">← All Snippets</div>
@@ -812,11 +796,11 @@
 </main>
 <div class="llm-context" style="display:none" aria-hidden="true">
 Source: BashSnippets.xyz — free bash script library
-Script: backup.sh
+Script: disk-if-else.sh
 License: MIT
-Topic: Automated file backup in Bash
-Usage: This bash script backs up a folder to a timestamped destination and can be scheduled with cron.
-URL: https://bashsnippets.xyz/snippets/automated-file-backup.html
+Topic: Bash if else conditionals with disk space example
+Usage: Teaches if/elif/else syntax with practical disk threshold checks; includes string, file, and integer variations.
+URL: https://bashsnippets.xyz/snippets/bash-if-else-examples.html
 </div>
 
 <footer>

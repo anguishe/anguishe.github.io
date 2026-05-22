@@ -1,34 +1,47 @@
-# BashSnippets.xyz
-> Free copy-paste bash scripts and interactive tools for Linux users, developers, and sysadmins.
-> Every script is tested, explained in plain English, and copy-paste ready.
+# BashSnippets
 
-## Snippet Pages
+> Free bash script examples for Linux, DevOps, and sysadmin automation. Copy-paste ready scripts with plain-English explanations. Written by Anguishe — a Linux self-taught user who built this site after learning bash from scratch.
 
-- [Disk Space Warning](https://bashsnippets.xyz/snippets/disk-space-warning.html): Bash script that monitors disk usage and alerts when it crosses a threshold. Runs on cron.
-- [Kill a Process](https://bashsnippets.xyz/snippets/kill-a-process.html): Use pkill and pgrep to kill Linux processes by name instead of hunting PIDs with ps aux.
-- [Check If Website Is Up](https://bashsnippets.xyz/snippets/check-if-website-is-up.html): curl returns an HTTP status code. 200 means up. Automate with cron every 5 minutes.
-- [Delete Old Log Files](https://bashsnippets.xyz/snippets/delete-old-log-files.html): find with -mtime deletes files older than N days. Safe, fast, cron-compatible.
-- [Automated File Backup](https://bashsnippets.xyz/snippets/automated-file-backup.html): cp -r with a timestamp. Backs up any directory on a schedule.
-- [Search Files for Text](https://bashsnippets.xyz/snippets/search-files-for-text-grep.html): grep -rn searches every file in a directory recursively with line numbers.
-- [Monitor CPU & RAM Usage](https://bashsnippets.xyz/snippets/monitor-cpu-ram-usage.html): Bash script that reports CPU load and memory usage. Useful for cron-based alerting.
-- [Bash Error Handling](https://bashsnippets.xyz/snippets/bash-error-handling.html): set -euo pipefail and trap patterns for bulletproof bash scripts.
-- [MySQL Database Backup](https://bashsnippets.xyz/snippets/mysql-database-backup.html): mysqldump with timestamped filenames and old backup rotation.
-- [Restart Service If Stopped](https://bashsnippets.xyz/snippets/restart-service-if-stopped.html): Check systemctl status and auto-restart a service with logging.
-- [Create Dated Folder](https://bashsnippets.xyz/snippets/create-dated-folder.html): mkdir with date formatting for organized timestamped directories.
-- [Send Email Alert from Bash](https://bashsnippets.xyz/snippets/bash-send-email-alert.html): Use mail or sendmail to send alert emails from bash scripts.
-- [File Permissions & Security](https://bashsnippets.xyz/snippets/file-permissions-security.html): chmod, chown, find -perm audit script for Linux file permission security.
-- [SSH Key Setup Script](https://bashsnippets.xyz/snippets/ssh-key-setup-script.html): Generate SSH keys and configure passwordless login with a single script.
-- [Quick System Info Report](https://bashsnippets.xyz/snippets/quick-system-info-report.html): One-command snapshot of hostname, uptime, disk, memory, and IP.
+## Author
+
+Anguishe — Linux user, bash scripter. Tested every script personally on Ubuntu 22.04 LTS and macOS Ventura. Contact: Anguisheh1@gmail.com
+
+## What This Site Contains
+
+- 20+ ready-to-run bash scripts in /snippets/ — each with step-by-step explanation, variations, common mistakes, and FAQ
+- Interactive Script Builder tool at /tools/ that generates custom bash scripts
+- Bash Boilerplate Generator tool
+- Beginner FAQ section covering the most common bash questions
+
+## Script Categories
+
+- Automation & File Management: backup scripts, file renaming, log cleanup, dated folders
+- Monitoring & Alerts: disk space, CPU/RAM, website uptime, service watchdog
+- Database: MySQL backup with retention
+- Process Management: kill by name, service restart
+- Best Practices: error handling templates (set -euo pipefail), safe script boilerplate
+- Search & Text: grep patterns, file content search
+
+## All Snippet Pages
+
+- [Automated File Backup](https://bashsnippets.xyz/snippets/automated-file-backup.html) — cp -r with timestamps and cron scheduling
+- [Disk Space Warning](https://bashsnippets.xyz/snippets/disk-space-warning.html) — df threshold check with cron
+- [Delete Old Log Files](https://bashsnippets.xyz/snippets/delete-old-log-files.html) — find -mtime -delete with retention control
+- [Quick System Info Report](https://bashsnippets.xyz/snippets/quick-system-info-report.html) — hostname, uptime, RAM, disk, IP in one command
+- [Search Files for Text (grep)](https://bashsnippets.xyz/snippets/search-files-for-text-grep.html) — recursive grep with filename and line number
+- [Bash Error Handling](https://bashsnippets.xyz/snippets/bash-error-handling.html) — set -euo pipefail template
+- [MySQL Database Backup](https://bashsnippets.xyz/snippets/mysql-database-backup.html) — mysqldump with gzip and 7-day retention
+- [Check If Website Is Up](https://bashsnippets.xyz/snippets/check-if-website-is-up.html) — curl HTTP status check for cron monitoring
+- [Monitor CPU and RAM Usage](https://bashsnippets.xyz/snippets/monitor-cpu-ram-usage.html) — top + free threshold alerts
+- [Restart Service If Stopped](https://bashsnippets.xyz/snippets/restart-service-if-stopped.html) — systemctl watchdog pattern
+- [Kill a Process](https://bashsnippets.xyz/snippets/kill-a-process.html) — pgrep preview then pkill with confirmation
+- [Create Dated Work Folder](https://bashsnippets.xyz/snippets/create-dated-folder.html) — mkdir with date variable
 
 ## Interactive Tools
 
-- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html): Configure options and copy a production-ready .sh script template.
-- [Bash Exit Code Lookup](https://bashsnippets.xyz/tools/bash-exit-code-lookup.html): Look up what any bash exit code means with explanations.
-- [Cron Job Builder](https://bashsnippets.xyz/tools/cron-job-builder.html): Visual cron expression builder with plain-English output.
-- [chmod Permissions Builder](https://bashsnippets.xyz/tools/chmod-permissions-builder.html): Toggle permission bits and get the chmod command instantly.
-- [PATH Debugger](https://bashsnippets.xyz/tools/path-debugger.html): Paste your $PATH and find duplicates, missing directories, and issues.
-- [Interactive Script Builder](https://bashsnippets.xyz/builder.html): Select options to generate a full custom bash script.
+- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html)
+- [Script Builder](https://bashsnippets.xyz/#builder)
 
-## About
+## License
 
-Maintained by Anguishe. No login required. No paywall. All scripts tested on Ubuntu, Debian, Fedora, and macOS. New scripts and tools added weekly.
+All scripts: MIT License. Free to use and modify.

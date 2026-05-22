@@ -25,7 +25,70 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
 
-  <!-- Schema: HowTo -->
+  
+  <!-- Schema: TechArticle + BreadcrumbList -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Restart a Service If It's Stopped",
+  "description": "A bash script that checks if a Linux service is running with systemctl and restarts it automatically if it has stopped. Schedule every minute with cron.",
+  "url": "https://bashsnippets.xyz/snippets/restart-service-if-stopped.html",
+  "datePublished": "2026-05-01",
+  "dateModified": "2026-05-22",
+  "author": {
+    "@type": "Person",
+    "name": "Anguishe",
+    "url": "https://bashsnippets.xyz/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BashSnippets",
+    "url": "https://bashsnippets.xyz"
+  },
+  "keywords": [
+    "bash",
+    "shell script",
+    "linux",
+    "restart service systemd",
+    "systemd"
+  ],
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "Bash"
+  },
+  "operatingSystem": "Linux, macOS",
+  "proficiencyLevel": "beginner"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "BashSnippets",
+      "item": "https://bashsnippets.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Snippets",
+      "item": "https://bashsnippets.xyz/snippets/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Restart a Service If It's Stopped",
+      "item": "https://bashsnippets.xyz/snippets/restart-service-if-stopped.html"
+    }
+  ]
+}
+  </script>
+<!-- Schema: HowTo -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -237,6 +300,15 @@
     .tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
 
     h1 { font-family: var(--heading-font); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .byline {
+      font-size: 0.82em;
+      color: #888;
+      margin: 6px 0 0 0;
+    }
+    .byline a {
+      color: #aaa;
+      text-decoration: underline;
+    }
     .tagline-lead { font-size: 16px; color: var(--text); line-height: 1.6; max-width: 680px; margin-bottom: 16px; font-style: italic; }
     .page-intro { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 680px; margin-bottom: 16px; }
     .page-intro:last-of-type { margin-bottom: 0; }
@@ -300,6 +372,23 @@
       .nav-links { display: none; }
       .nav-mobile-menu { display: block; }
       .affiliate-box { flex-direction: column; align-items: flex-start; }
+    }
+
+    .quick-answer {
+      background: #1a1a2e;
+      border-left: 3px solid #4ade80;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+    .quick-answer .tested-on {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.8em;
+      color: #888;
+      font-style: italic;
     }
   </style>
   <script type="application/ld+json">
@@ -390,6 +479,11 @@
       <span class="tag tag-blue">cron-ready</span>
     </div>
     <h1>Restart a Service If It's Stopped</h1>
+  <p class="byline">By <a href="/about.html">Anguishe</a> · Tested on Ubuntu 22.04 LTS &amp; macOS Ventura</p>
+    <div class="quick-answer">
+      <strong>Quick answer:</strong> Use <code>systemctl is-active --quiet "$SERVICE"</code> to check if a service is running, run <code>systemctl start "$SERVICE"</code> when it is not, then schedule the script every minute with cron.
+      <span class="tested-on">Tested on: Ubuntu 22.04 LTS · macOS Ventura</span>
+    </div>
     <p class="tagline-lead">nginx goes down at 3am. This script brings it back up before anyone notices.</p>
     <p class="page-intro">Services crash. nginx, MySQL, Redis — they all have bad moments. The difference between a 2-minute outage and a 2-hour outage is whether something is watching. This script runs every minute via cron, silently checks your service, and restarts it the moment it stops.</p>
     <p class="page-intro">Uses <code>systemctl</code>, which is available on Ubuntu 16.04+, Debian 9+, CentOS 7+, and every other modern Linux distro. No dependencies needed.</p>
