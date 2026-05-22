@@ -36,11 +36,15 @@ Anguishe — Linux user, bash scripter. Tested every script personally on Ubuntu
 - [Restart Service If Stopped](https://bashsnippets.xyz/snippets/restart-service-if-stopped.html) — systemctl watchdog pattern
 - [Kill a Process](https://bashsnippets.xyz/snippets/kill-a-process.html) — pgrep preview then pkill with confirmation
 - [Create Dated Work Folder](https://bashsnippets.xyz/snippets/create-dated-folder.html) — mkdir with date variable
+- [Bash If Else — Complete Examples for Beginners](https://bashsnippets.xyz/snippets/bash-if-else-examples.html) — if / elif / else syntax with practical examples — number comparison, string check, file exists
+- [Send Email Alerts from Bash](https://bashsnippets.xyz/snippets/bash-send-email-alert.html) — sends an email notification from a bash script using sendmail or msmtp
+- [Linux File Permissions & Security](https://bashsnippets.xyz/snippets/file-permissions-security.html) — chmod and chown patterns for setting correct file permissions on Linux
+- [SSH Key Setup Script](https://bashsnippets.xyz/snippets/ssh-key-setup-script.html) — generates an SSH key pair and appends the public key to authorized_keys
 
 ## Interactive Tools
 
-- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html)
-- [Script Builder](https://bashsnippets.xyz/#builder)
+- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html) — generates production-ready .sh templates with error handling and logging
+- [Script Builder](https://bashsnippets.xyz/tools/) — pick a task and generate a working starter script
 
 ## License
 

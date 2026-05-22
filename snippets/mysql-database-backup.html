@@ -11,6 +11,7 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://bashsnippets.xyz/snippets/mysql-database-backup.html" />
 
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <!-- Open Graph -->
   <meta property="og:title" content="MySQL Database Backup Script – Bash Snippets" />
   <meta property="og:description" content="Automated mysqldump backups with timestamps, gzip compression, and retention cleanup. Cron-ready bash script." />
@@ -98,7 +99,8 @@
     "author": {
       "@type": "Person",
       "@id": "https://bashsnippets.xyz/#author",
-      "name": "BashSnippets"
+      "name": "Anguishe",
+      "url": "https://bashsnippets.xyz/about.html"
     },
     "datePublished": "2026-05-08",
     "step": [
@@ -189,13 +191,11 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": "https://bashsnippets.xyz/#author",
-    "name": "BashSnippets",
-    "url": "https://bashsnippets.xyz",
+    "name": "Anguishe",
+    "url": "https://bashsnippets.xyz/about.html",
+    "email": "Anguisheh1@gmail.com",
     "sameAs": [
-      "https://youtube.com/@BashSnippets",
-      "https://tiktok.com/@BashSnippets",
-      "https://dev.to/bashsnippets",
-      "https://coderlegion.com/user/BashSnippets"
+      "https://dev.to/bashsnippets"
     ],
     "knowsAbout": [
       "bash scripting",
@@ -704,6 +704,15 @@ password=yourpassword</pre>
     <tr><td>Backup to a remote server</td><td>After a successful local dump, copy the file with <code>scp</code> or <code>rsync</code> to another host or object storage. Keeps data off the machine you are backing up.</td></tr>
     <tr><td>MariaDB</td><td>The flow is the same. Use the MariaDB client tools: often <code>mariadb-dump</code> instead of <code>mysqldump</code>, and <code>mariadb</code> for restores — options align closely with MySQL.</td></tr>
   </table>
+
+  <div class="affiliate-box">
+    <div class="affiliate-box-text">
+      <strong>Run your database backups on a dedicated cloud server.</strong>
+      DigitalOcean droplets start at $4/month — includes $200 free credit for new accounts.
+    </div>
+    <a class="btn-affiliate" href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
+  </div>
+  <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
 
   <h2>Frequently Asked Questions</h2>
 
