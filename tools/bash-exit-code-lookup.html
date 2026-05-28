@@ -26,10 +26,12 @@
   <meta property="og:description" content="Look up bash exit codes instantly. Get the meaning, common causes, and copy-paste error handlers for codes 0-255." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bashsnippets.xyz/tools/bash-exit-code-lookup.html" />
-  <meta property="og:image" content="https://bashsnippets.xyz/ogimage.png" />
+  <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta name="twitter:image" content="https://bashsnippets.xyz/ogimage.png" />
+  <meta property="og:image:alt" content="BashSnippets — copy-paste bash scripts for Linux and DevOps" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
 
   <!-- ============================================================
     STRUCTURED DATA (JSON-LD)
@@ -698,6 +700,15 @@ crossorigin="anonymous"></script>
 
       <p>Every command sets <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">$?</code> when it finishes. Test it in conditionals: <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">if mycommand; then echo ok; else echo "failed with $?"; fi</code>. With <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">set -e</code>, any non-zero exit stops the script immediately — which is what you want in production until you explicitly handle a known failure. Capture the code right after the command; the next line overwrites <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">$?</code>.</p>
       <p><code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap</code> runs cleanup when a script exits for any reason — success, error, or signal. Register <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap cleanup EXIT</code> to remove temp files and release locks even after a non-zero exit. Combine with <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">trap 'echo "failed at line $LINENO with exit $?"' ERR</code> under <code style="background:var(--bg3);color:var(--green);padding:2px 6px;border-radius:4px;">set -e</code> to log exactly where the script broke before cleanup runs.</p>
+
+    <!-- AdSense display unit -->
+    <ins class="adsbygoogle bs-ad"
+      style="display:block;min-height:0"
+      data-ad-client="ca-pub-5399156622542127"
+      data-ad-slot="AD_SLOT_PLACEHOLDER"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
       <h2>Frequently Asked Questions</h2>
 

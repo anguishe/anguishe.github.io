@@ -209,6 +209,7 @@
     .tag-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
     .tag-amber { background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber); }
     .tag-blue  { background:var(--blue-dim);  color:var(--blue);  border:1px solid var(--blue); }
+    .tag-purple { background:#2d1f4e; color:#bc8cff; border:1px solid #bc8cff; }
     .tag-red   { background:#3d0d0d; color:#f78166; border:1px solid #f78166; }
     .script-card-desc { font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:12px; }
     .script-card-footer { display:flex; align-items:center; justify-content:space-between; }
@@ -288,9 +289,10 @@
 <div class="snippets-grid-wrap">
 
   <div class="ad-slot">
-    <ins class="adsbygoogle"
-      style="display:block"
+    <ins class="adsbygoogle bs-ad"
+      style="display:block;min-height:0"
       data-ad-client="ca-pub-5399156622542127"
+      data-ad-slot="AD_SLOT_PLACEHOLDER"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -350,6 +352,18 @@
       <div class="script-card-desc">Find and delete log files older than 30 days automatically. Includes safe preview mode with -print.</div>
       <div class="script-card-footer">
         <span class="script-card-cmd">find -mtime -delete</span>
+        <span class="script-card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="script-card" href="/snippets/find-duplicate-files.html" data-tags="advanced automation">
+      <div class="script-card-header">
+        <div class="script-card-title">Find Duplicate Files</div>
+        <span class="script-card-tag tag-purple">advanced</span>
+      </div>
+      <div class="script-card-desc">MD5 hash scan lists byte-for-byte duplicate files under any folder. Read-only output — review before you delete anything.</div>
+      <div class="script-card-footer">
+        <span class="script-card-cmd">find + md5sum + awk</span>
         <span class="script-card-arrow">→</span>
       </div>
     </a>
@@ -528,9 +542,10 @@
   </div>
 
   <div class="ad-slot">
-    <ins class="adsbygoogle"
-      style="display:block"
+    <ins class="adsbygoogle bs-ad"
+      style="display:block;min-height:0"
       data-ad-client="ca-pub-5399156622542127"
+      data-ad-slot="AD_SLOT_PLACEHOLDER"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>

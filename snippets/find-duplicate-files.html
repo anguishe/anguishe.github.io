@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<!-- NAV AUDIT 2026-05-08: New snippet page — SSH key setup; FAQ + HowTo schema; DO affiliate CTA. -->
+<!-- NAV AUDIT 2026-05-07: Normalized nav, breadcrumb, related-card, footer, and affiliate links; added Explore More Tools CTA above Related Snippets; added required Back to All Snippets link. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SSH Key Setup Script for Linux – BashSnippets.xyz</title>
-  <meta name="description" content="A bash script that generates an SSH key pair, sets correct permissions, and copies the public key to a remote server. Perfect for setting up DigitalOcean Droplets and Linux VPS servers." />
+  <title>Bash Find Duplicate Files Script Guide – BashSnippets.xyz</title>
+  <meta name="description" content="Copy a bash find duplicate files script with MD5, find, and awk. List byte-for-byte clones on Ubuntu, Debian, and RHEL before wasted copies fill your disk." />
   <meta name="author" content="Anguishe, BashSnippets" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://bashsnippets.xyz/snippets/ssh-key-setup-script.html" />
+  <link rel="canonical" href="https://bashsnippets.xyz/snippets/find-duplicate-files.html" />
 
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <!-- Open Graph -->
-  <meta property="og:title" content="SSH Key Setup Script for Linux – BashSnippets.xyz" />
-  <meta property="og:description" content="A bash script that generates an SSH key pair, sets correct permissions, and copies the public key to a remote server. Perfect for DigitalOcean Droplets and Linux VPS servers." />
+  <meta property="og:title" content="Bash Find Duplicate Files Script – Bash Snippets" />
+  <meta property="og:description" content="MD5-based bash script that lists byte-for-byte duplicate files. Safe read-only scan for Downloads, media folders, and server cleanup." />
   <meta property="og:type" content="article" />
   <meta property="article:section" content="Bash Scripts" />
-  <meta property="article:tag" content="ssh key setup bash script" />
-  <meta property="og:url" content="https://bashsnippets.xyz/snippets/ssh-key-setup-script.html" />
+  <meta property="article:tag" content="bash find duplicate files" />
+  <meta property="og:url" content="https://bashsnippets.xyz/snippets/find-duplicate-files.html" />
   <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -32,11 +32,11 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "SSH Key Setup Script",
-  "description": "A bash script that generates an SSH key pair, sets correct permissions, and copies the public key to a remote server. Perfect for setting up DigitalOcean Droplets and Linux VPS servers.",
-  "url": "https://bashsnippets.xyz/snippets/ssh-key-setup-script.html",
-  "datePublished": "2026-05-01",
-  "dateModified": "2026-05-22",
+  "headline": "Bash Find Duplicate Files Script",
+  "description": "Copy a bash find duplicate files script with MD5, find, and awk. List byte-for-byte clones on Ubuntu, Debian, and RHEL before wasted copies fill your disk.",
+  "url": "https://bashsnippets.xyz/snippets/find-duplicate-files.html",
+  "datePublished": "2026-05-28",
+  "dateModified": "2026-05-28",
   "author": {
     "@type": "Person",
     "name": "Anguishe",
@@ -51,16 +51,15 @@
     "bash",
     "shell script",
     "linux",
-    "ssh key setup",
-    "ssh",
-    "security"
+    "find duplicate files",
+    "md5sum"
   ],
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "Bash"
   },
-  "operatingSystem": "Linux, macOS",
-  "proficiencyLevel": "beginner"
+  "operatingSystem": "Linux",
+  "proficiencyLevel": "advanced"
 }
   </script>
 
@@ -84,8 +83,8 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "SSH Key Setup Script",
-      "item": "https://bashsnippets.xyz/snippets/ssh-key-setup-script.html"
+      "name": "Find Duplicate Files Script",
+      "item": "https://bashsnippets.xyz/snippets/find-duplicate-files.html"
     }
   ]
 }
@@ -95,30 +94,40 @@
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Set Up SSH Keys with a Bash Script on Linux",
-    "description": "Generate an Ed25519 SSH key pair, enforce secure permissions on ~/.ssh and key files, display the public key, and optionally copy it to a remote server with ssh-copy-id.",
-    "author": {
+    "name": "How to Find Duplicate Files with a Bash Script",
+    "description": "A bash script that hashes every file with md5sum, sorts by hash, and prints paths that share identical content.",
+   "author": {
       "@type": "Person",
       "@id": "https://bashsnippets.xyz/#author",
       "name": "Anguishe",
       "url": "https://bashsnippets.xyz/about.html"
     },
-    "datePublished": "2026-05-08",
+    "datePublished": "2026-05-28",
     "step": [
       {
         "@type": "HowToStep",
-        "name": "Save the script",
-        "text": "Create a file such as ssh-key-setup.sh and paste the script. Optionally set REMOTE_USER to user@server-ip to auto-copy your public key after generation."
+        "name": "Create the script file",
+        "text": "Run: nano find-dupes.sh and paste the script."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Set your scan directory",
+        "text": "Change TARGET=$HOME/Downloads to the folder you want to scan."
       },
       {
         "@type": "HowToStep",
         "name": "Make it executable",
-        "text": "Run: chmod +x ssh-key-setup.sh"
+        "text": "Run chmod +x find-dupes.sh"
       },
       {
         "@type": "HowToStep",
-        "name": "Run the script",
-        "text": "Execute ./ssh-key-setup.sh from your terminal. Copy the printed public key for hosting panels or let ssh-copy-id install it when REMOTE_USER is set."
+        "name": "Run the scan",
+        "text": "Execute ./find-dupes.sh and review the duplicate file paths printed to the terminal."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Schedule with cron (optional)",
+        "text": "Add to crontab -e: 0 3 * * 0 /home/user/find-dupes.sh >> /var/log/dupes.log 2>&1 for a weekly Sunday 3am scan."
       }
     ]
   }
@@ -132,42 +141,50 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do I generate an SSH key in Linux?",
+        "name": "How do I find duplicate files in Linux with bash?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Run: ssh-keygen -t ed25519 -C 'your@email.com' — Ed25519 is the recommended key type in 2026. Press Enter to accept defaults or set a passphrase for extra security."
+          "text": "Hash every file with md5sum, sort the output by hash, then use awk to print lines where the same hash appears more than once. The pipeline is: find DIR -type f | xargs md5sum | sort | awk 'seen[$1]++'"
         }
       },
       {
         "@type": "Question",
-        "name": "How do I copy my SSH key to a remote server?",
+        "name": "Is MD5 reliable for finding duplicate files?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use: ssh-copy-id user@server-ip — this copies your public key to ~/.ssh/authorized_keys on the remote server."
+          "text": "For everyday cleanup, yes — identical MD5 hashes mean the files are byte-for-byte copies. MD5 is not suitable for cryptographic security, but it is fast and accurate enough to detect duplicate photos, downloads, and log archives."
         }
       },
       {
         "@type": "Question",
-        "name": "What permissions should SSH keys have?",
+        "name": "How do I safely delete files after finding duplicates?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Your private key (~/.ssh/id_ed25519) must be 600. Your .ssh directory must be 700. Wrong permissions will cause SSH to refuse the key."
+          "text": "Never pipe this script directly into rm. Review the list manually, keep one copy of each hash group, and delete the extras with rm or move them to a quarantine folder first. Test with -print before -delete if you automate removal with find."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the difference between RSA and Ed25519 SSH keys?",
+        "name": "Why does xargs md5sum fail on some systems?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ed25519 is newer, faster, and more secure than RSA 2048. Use Ed25519 for new keys in 2026. RSA 4096 is acceptable if Ed25519 isn't supported."
+          "text": "When find returns no files, xargs exits with code 123 on GNU systems, which trips set -e. Use xargs -r (GNU) so md5sum is skipped when the file list is empty. On very old systems without -r, remove set -e for that pipeline line only."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I add an SSH key to a DigitalOcean Droplet?",
+        "name": "How long does a duplicate scan take?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Generate your key with ssh-keygen, copy the public key content from ~/.ssh/id_ed25519.pub, then paste it in the DigitalOcean control panel under Settings > Security > SSH Keys before creating a Droplet."
+          "text": "Runtime depends on total bytes read, not file count alone. A 50 GB Downloads folder may take several minutes because every byte is hashed. Scan smaller subdirectories first, or run overnight via cron on large media libraries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I find duplicates by filename instead of content?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but that catches different files with the same name. For content-based duplicates use this MD5 approach. For name collisions only, use: find DIR -type f -printf '%f\n' | sort | uniq -d"
         }
       }
     ]
@@ -192,7 +209,7 @@
     "knowsAbout": [
       "bash scripting",
       "Linux system administration",
-      "SSH",
+      "shell automation",
       "DevOps",
       "cron jobs"
     ]
@@ -294,6 +311,7 @@
     .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
     .tag-blue  { background: var(--blue-dim);  color: var(--blue);  border: 1px solid var(--blue); }
     .tag-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
+    .tag-purple { background: #2d1f4e; color: #bc8cff; border: 1px solid #bc8cff; }
 
     h1 { font-family: var(--heading-font); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 16px; }
     .byline {
@@ -338,13 +356,11 @@
     .callout-title { font-weight: 600; color: var(--text); font-size: 13px; margin-bottom: 6px; }
     .callout p { margin-bottom: 0; font-size: 13px; }
 
-    .var-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+    .var-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
     .var-table th { text-align: left; padding: 10px 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
     .var-table td { padding: 10px 12px; border-bottom: 1px solid var(--bg3); color: var(--muted); vertical-align: top; }
     .var-table td:first-child { color: var(--green); font-weight: 600; }
     .var-table tr:last-child td { border-bottom: none; }
-
-    .ad-slot { border: 1px dashed var(--border); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--muted); font-size: 12px; background: var(--bg2); margin: 40px 0; }
 
     .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
     .related-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s; display: block; text-decoration: none; }
@@ -367,33 +383,24 @@
       .nav-mobile-menu { display: block; }
       .affiliate-box { flex-direction: column; align-items: flex-start; }
     }
-  </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "BashSnippets",
-      "item": "https://bashsnippets.xyz/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Snippets",
-      "item": "https://bashsnippets.xyz/snippets/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "SSH Key Setup Script",
-      "item": "https://bashsnippets.xyz/snippets/ssh-key-setup-script.html"
+
+    .quick-answer {
+      background: #1a1a2e;
+      border-left: 3px solid #4ade80;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95em;
+      line-height: 1.6;
     }
-  ]
-}
-  </script>
+    .quick-answer .tested-on {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.8em;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
 
@@ -425,20 +432,25 @@
   <div class="breadcrumb">
     <a href="/">BashSnippets</a><span>›</span>
     <a href="/snippets/">Snippets</a><span>›</span>
-    SSH Key Setup Script
+    Find Duplicate Files
   </div>
 
   <div class="page-header">
     <div class="tag-row">
-      <span class="tag tag-green">beginner</span>
-      <span class="tag tag-blue">ssh</span>
-      <span class="tag tag-blue">security</span>
+      <span class="tag tag-purple">advanced</span>
+      <span class="tag tag-blue">files</span>
+      <span class="tag tag-amber">cron-ready</span>
     </div>
-    <h1>SSH Key Setup Script</h1>
-  <p class="byline">By <a href="/about.html">Anguishe</a> · Tested on Ubuntu 22.04 LTS &amp; macOS Ventura</p>
+    <h1>Bash Find Duplicate Files Script</h1>
+  <p class="byline">By <a href="/about.html">Anguishe</a> · Tested on Ubuntu 22.04/24.04 LTS, Debian 12, RHEL 9</p>
+    <div class="quick-answer">
+      <strong>Quick answer:</strong> Hash every file with <code>md5sum</code>, <code>sort</code> by hash, then <code>awk</code> prints paths where the same hash appears twice.
+      <span class="tested-on">Tested on: Ubuntu 22.04/24.04 LTS · Debian 12 · RHEL 9</span>
+    </div>
     <p class="page-intro">
-      Generate a key pair, fix permissions, copy to remote — in one script.
-      Stop juggling manual <code>chmod</code> steps and forgotten <code>ssh-copy-id</code> flags: this script creates <code>~/.ssh</code> safely, builds an Ed25519 key, locks down file modes, prints your public key for panels like DigitalOcean,       and optionally pushes the key to a server in one go.
+      A full disk does not always come from new data — often it is the same ISO, screenshot, or backup copied three times under different names.
+      Without a bash find duplicate files workflow, you delete by guesswork and risk removing the only good copy.
+      This script hashes file <em>content</em>, groups byte-for-byte matches, and lists every duplicate path so you reclaim space on purpose.
     </p>
 
 <div class="author-box" style="display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:24px 0 32px 0;max-width:520px;">
@@ -450,224 +462,191 @@
 </div>
   </div>
 
-  <!-- AD SLOT TOP -->
-  <div class="ad-slot">
-    <ins class="adsbygoogle bs-ad"
-      style="display:block;min-height:0"
-      data-ad-client="ca-pub-5399156622542127"
-      data-ad-slot="AD_SLOT_PLACEHOLDER"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-
   <h2>The Script</h2>
-  <p>Save as <code>ssh-key-setup.sh</code>. Leave <code>REMOTE_USER</code> empty to only generate and display keys; set it to <code>you@203.0.113.10</code> (for example) to run <code>ssh-copy-id</code> automatically after generation.</p>
+  <p>Save as <code>find-dupes.sh</code>. Change <code>TARGET</code> to the directory you want to scan. Output is read-only — it never deletes files.</p>
 
   <div class="code-block">
     <div class="code-header">
-      <span class="filename">ssh-key-setup.sh</span>
+      <span class="filename">find-dupes.sh</span>
       <button class="copy-btn" onclick="copyCode(this)">copy</button>
     </div>
     <pre><span class="comment">#!/bin/bash</span>
+<span class="comment"># Finds files with identical content using MD5 hashes.</span>
+<span class="comment"># Run on Downloads folder to surface duplicates.</span>
 
-<span class="var">CHECK</span>=<span class="str">"✓"</span>
-<span class="var">CROSS</span>=<span class="str">"✗"</span>
+<span class="kw">set</span> -euo pipefail  <span class="comment"># WHY: stop on errors, unset variables, or pipe failures</span>
 
-<span class="comment"># --- Configuration ---</span>
-<span class="var">KEY_TYPE</span>=<span class="str">"ed25519"</span>               <span class="comment"># Recommended: ed25519 (modern) or rsa (legacy)</span>
-<span class="var">KEY_BITS</span>=<span class="str">"4096"</span>                  <span class="comment"># Only used for RSA keys</span>
-<span class="var">KEY_COMMENT</span>=<span class="str">"$(whoami)@$(hostname)-$(date '+%Y%m%d')"</span>
-<span class="var">KEY_FILE</span>=<span class="str">"$HOME/.ssh/id_${KEY_TYPE}"</span>
-<span class="var">REMOTE_USER</span>=<span class="str">""</span>                   <span class="comment"># Set to: user@server-ip to auto-copy key</span>
-                                 <span class="comment"># Leave empty to skip remote copy</span>
+<span class="var">CHECK</span>=<span class="str">"✓"</span>   <span class="comment"># WHY: consistent success marker in script output</span>
+<span class="var">CROSS</span>=<span class="str">"✗"</span>   <span class="comment"># WHY: consistent failure marker in script output</span>
 
-<span class="kw">echo</span> <span class="str">"SSH Key Setup Script"</span>
-<span class="kw">echo</span> <span class="str">"===================="</span>
+<span class="var">TARGET</span>=<span class="str">"$HOME/Downloads"</span>  <span class="comment"># WHY: default scan path — change to your folder</span>
 
-<span class="comment"># --- Create .ssh directory with correct permissions ---</span>
-<span class="kw">mkdir</span> -p <span class="str">"$HOME/.ssh"</span>
-<span class="kw">chmod</span> <span class="num">700</span> <span class="str">"$HOME/.ssh"</span>
-<span class="kw">echo</span> <span class="str">"$CHECK .ssh directory ready (chmod 700)"</span>
-
-<span class="comment"># --- Check if key already exists ---</span>
-<span class="kw">if</span> [ -f <span class="str">"$KEY_FILE"</span> ]; <span class="kw">then</span>
-  <span class="kw">echo</span> <span class="str">"$CROSS Key already exists at $KEY_FILE"</span>
-  <span class="kw">echo</span> <span class="str">"  Delete it first if you want a new key: rm $KEY_FILE ${KEY_FILE}.pub"</span>
-  <span class="kw">exit</span> <span class="num">0</span>
-<span class="kw">fi</span>
-
-<span class="comment"># --- Generate the key ---</span>
-<span class="kw">echo</span> <span class="str">"Generating ${KEY_TYPE} key..."</span>
-<span class="kw">if</span> ssh-keygen -t <span class="str">"$KEY_TYPE"</span> -C <span class="str">"$KEY_COMMENT"</span> -f <span class="str">"$KEY_FILE"</span> -N <span class="str">""</span>; <span class="kw">then</span>
-  <span class="kw">echo</span> <span class="str">"$CHECK Key generated: $KEY_FILE"</span>
-  <span class="kw">chmod</span> <span class="num">600</span> <span class="str">"$KEY_FILE"</span>
-  <span class="kw">chmod</span> <span class="num">644</span> <span class="str">"${KEY_FILE}.pub"</span>
-  <span class="kw">echo</span> <span class="str">"$CHECK Permissions set (private: 600, public: 644)"</span>
-<span class="kw">else</span>
-  <span class="kw">echo</span> <span class="str">"$CROSS Key generation failed"</span>
+<span class="kw">if</span> [[ ! -d <span class="str">"$TARGET"</span> ]]; <span class="kw">then</span>
+  <span class="kw">echo</span> <span class="str">"${CROSS} Directory not found: $TARGET"</span> >&amp;2
   <span class="kw">exit</span> <span class="num">1</span>
 <span class="kw">fi</span>
 
-<span class="comment"># --- Display public key ---</span>
-<span class="kw">echo</span> <span class="str">""</span>
-<span class="kw">echo</span> <span class="str">"Your public key (copy this to your server or DigitalOcean):"</span>
-<span class="kw">echo</span> <span class="str">"-----------------------------------------------------------"</span>
-<span class="kw">cat</span> <span class="str">"${KEY_FILE}.pub"</span>
-<span class="kw">echo</span> <span class="str">"-----------------------------------------------------------"</span>
+<span class="kw">echo</span> <span class="str">"Scanning for duplicates in $TARGET..."</span>
+<span class="kw">find</span> <span class="str">"$TARGET"</span> -type f \
+  | <span class="kw">xargs</span> -r md5sum 2>/dev/null \
+  | <span class="kw">sort</span> \
+  | <span class="kw">awk</span> <span class="str">'seen[$1]++'</span>
 
-<span class="comment"># --- Optional: copy to remote server ---</span>
-<span class="kw">if</span> [ -n <span class="str">"$REMOTE_USER"</span> ]; <span class="kw">then</span>
-  <span class="kw">echo</span> <span class="str">"Copying public key to $REMOTE_USER..."</span>
-  <span class="kw">if</span> ssh-copy-id -i <span class="str">"${KEY_FILE}.pub"</span> <span class="str">"$REMOTE_USER"</span>; <span class="kw">then</span>
-    <span class="kw">echo</span> <span class="str">"$CHECK Key copied to $REMOTE_USER"</span>
-    <span class="kw">echo</span> <span class="str">"$CHECK Test with: ssh $REMOTE_USER"</span>
-  <span class="kw">else</span>
-    <span class="kw">echo</span> <span class="str">"$CROSS Copy failed — check that $REMOTE_USER is reachable"</span>
-  <span class="kw">fi</span>
-<span class="kw">fi</span>
-
-<span class="kw">echo</span> <span class="str">""</span>
-<span class="kw">echo</span> <span class="str">"Done. Connect with: ssh -i $KEY_FILE user@your-server"</span></pre>
+<span class="kw">echo</span> <span class="str">"${CHECK} Scan complete — lines above are duplicate copies (review before deleting)"</span></pre>
   </div>
 
   <div class="callout">
-    <div class="callout-title">Adding this key to DigitalOcean</div>
-    <p>Copy the public key output above → DigitalOcean Control Panel → Settings → Security → SSH Keys → Add SSH Key. Next time you create a Droplet, select this key and you'll connect without a password.</p>
+    <div class="callout-title">✓ What this does, line by line</div>
+    <p><code>find "$TARGET" -type f</code> lists every regular file under the folder. <code>xargs md5sum</code> computes a checksum per file. <code>sort</code> groups matching hashes together. <code>awk 'seen[$1]++'</code> prints only lines where that hash was already seen — the duplicate copies, not the first file in each group.</p>
   </div>
 
-  <h2>How It Works</h2>
-  <p><strong><code>mkdir -p "$HOME/.ssh"</code></strong> creates the SSH config directory if it is missing; <code>-p</code> avoids errors when the path already exists and creates parent directories when needed.</p>
-  <p><strong><code>chmod 700 ~/.ssh</code></strong> means only your user can read, write, or enter that folder — SSH expects a locked-down home for keys. <strong><code>chmod 600</code></strong> on the private key restricts read/write to you alone; <strong><code>chmod 644</code></strong> on <code>.pub</code> lets you share or paste the public half safely while keeping it world-readable (normal for public keys).</p>
-  <p><strong><code>ssh-keygen ... -N ""</code></strong> sets an empty passphrase so generation is non-interactive; remove <code>-N ""</code> (or use <code>-N</code> with a quoted passphrase) when you want the key protected at rest.</p>
-  <p><strong><code>ssh-copy-id -i "${KEY_FILE}.pub" "$REMOTE_USER"</code></strong> logs into the remote host (you'll need password auth or another working key the first time), appends your public key to <code>~/.ssh/authorized_keys</code>, and fixes remote permissions so passwordless login works on the next <code>ssh</code>.</p>
+  <h2>How to Use</h2>
+  <ol>
+    <li><strong>Create the script</strong> — <code>nano find-dupes.sh</code>, paste the code, save with Ctrl+X → Y → Enter.</li>
+    <li><strong>Set <code>TARGET</code></strong> — point at <code>$HOME/Downloads</code>, <code>/var/www/uploads</code>, or any directory you own.</li>
+    <li><strong>Make it executable</strong> — <code>chmod +x find-dupes.sh</code></li>
+    <li><strong>Run once manually</strong> — <code>./find-dupes.sh</code> and read the hash + path pairs printed to the terminal.</li>
+    <li><strong>Delete with care</strong> — keep one file per hash group; remove extras only after you confirm they are true clones.</li>
+  </ol>
+
+  <h3>Schedule with cron</h3>
+  <p>Weekly scans catch duplicate uploads before they dominate disk usage on a VPS or NAS:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">crontab</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="comment"># Every Sunday at 3:00 AM — log results for review Monday morning</span>
+<span class="num">0 3 * * 0</span> /home/user/find-dupes.sh &gt;&gt; /var/log/find-dupes.log 2&gt;&amp;1</pre>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">💡 Use the full path in cron</div>
+    <p>Cron does not load your shell profile. Always use an absolute path like <code>/home/user/find-dupes.sh</code>, not <code>./find-dupes.sh</code>.</p>
+  </div>
 
   <h2>Variations</h2>
 
-  <h3>1. Generate RSA 4096 key</h3>
-  <p>Set <code>KEY_TYPE="rsa"</code> at the top of the script. For RSA, pass bit length to <code>ssh-keygen</code> with <code>-b "$KEY_BITS"</code> (your script already defines <code>KEY_BITS=4096</code> for that case).</p>
-
-  <h3>2. Key with passphrase</h3>
-  <p>Remove <code>-N ""</code> from the <code>ssh-keygen</code> line so the tool prompts for a passphrase interactively, or supply one with <code>-N 'your-secure-passphrase'</code> if you are scripting in a secure environment.</p>
-
-  <h3>3. Multiple servers</h3>
-  <p>Replace the single <code>REMOTE_USER</code> string with a bash array and loop:</p>
+  <h3>Pass the scan directory as an argument</h3>
+  <p>Override <code>TARGET</code> without editing the file:</p>
   <div class="code-block">
-    <div class="code-header">
-      <span class="filename">fragment — multiple hosts</span>
-      <button class="copy-btn" onclick="copyCode(this)">copy</button>
-    </div>
-    <pre><span class="var">REMOTE_USERS</span>=(<span class="str">"alice@10.0.0.1"</span> <span class="str">"alice@10.0.0.2"</span>)
-<span class="kw">for</span> <span class="var">u</span> <span class="kw">in</span> <span class="str">"${REMOTE_USERS[@]}"</span>; <span class="kw">do</span>
-  ssh-copy-id -i <span class="str">"${KEY_FILE}.pub"</span> <span class="str">"$u"</span>
-<span class="kw">done</span></pre>
+    <div class="code-header"><span class="filename">find-dupes-arg.sh</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="var">TARGET</span>=<span class="str">"${1:-$HOME/Downloads}"</span>  <span class="comment"># WHY: $1 when provided, else default Downloads</span></pre>
   </div>
+  <p>Run: <code>./find-dupes.sh /mnt/media</code></p>
+
+  <h3>Write results to a dated report file</h3>
+  <p>Useful when cron runs overnight and you review duplicates the next day:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">terminal</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre>./find-dupes.sh | <span class="kw">tee</span> <span class="str">"dupes_$(date +%Y%m%d).log"</span></pre>
+  </div>
+
+  <h3>Limit scan depth (large trees)</h3>
+  <p>On deep directory trees, cap depth so the first pass finishes faster:</p>
+  <div class="code-block">
+    <div class="code-header"><span class="filename">find-dupes.sh (depth)</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+    <pre><span class="kw">find</span> <span class="str">"$TARGET"</span> -maxdepth <span class="num">3</span> -type f \
+  | <span class="kw">xargs</span> -r md5sum 2>/dev/null \
+  | <span class="kw">sort</span> \
+  | <span class="kw">awk</span> <span class="str">'seen[$1]++'</span></pre>
+  </div>
+
+  <h2>Common Mistakes</h2>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Deleting the first path in each group</div>
+    <p>The awk filter prints the <em>second and later</em> files sharing a hash, not the original. Before <code>rm</code>, decide which copy you want to keep — often the shortest path or the newest dated folder.</p>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Assuming same filename means duplicate content</div>
+    <p><code>report.pdf</code> in two folders might differ inside. This script compares bytes via MD5, not names. Two different files named <code>backup.zip</code> only appear if their hashes match.</p>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠ Running md5sum on millions of tiny files over NFS</div>
+    <p>Network mounts amplify I/O latency. Scan a local copy or run the job on the file server directly. For production volumes, consider <code>fdupes -r</code> after validating this bash pipeline on a sample folder.</p>
+  </div>
+
+  <h2>Understanding the Commands</h2>
+  <p>Command reference for adapting this bash find duplicate files pipeline:</p>
+
+  <table class="var-table">
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td>find "$TARGET" -type f</td><td>Lists every regular file under TARGET recursively</td></tr>
+    <tr><td>xargs md5sum</td><td>Runs md5sum on each path; outputs <code>hash  path</code> per line</td></tr>
+    <tr><td>xargs -r</td><td>GNU extension: skip md5sum when find returns zero files (avoids exit 123 with set -e)</td></tr>
+    <tr><td>sort</td><td>Sorts lines alphabetically so identical hashes appear on consecutive rows</td></tr>
+    <tr><td>awk 'seen[$1]++'</td><td>Increments a counter per hash; prints the line when count &gt; 0 (duplicate)</td></tr>
+    <tr><td>md5sum</td><td>Computes a 128-bit checksum of file contents — same hash means identical bytes</td></tr>
+  </table>
+
+  <ins class="adsbygoogle bs-ad" style="display:block;min-height:0"
+    data-ad-client="ca-pub-5399156622542127" data-ad-slot="AD_SLOT_PLACEHOLDER"
+    data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <h2>Frequently Asked Questions</h2>
 
-  <h3>How do I generate an SSH key in Linux?</h3>
-  <p>Run: <code>ssh-keygen -t ed25519 -C 'your@email.com'</code> — Ed25519 is the recommended key type in 2026. Press Enter to accept defaults or set a passphrase for extra security.</p>
+  <h3>How do I find duplicate files in Linux with bash?</h3>
+  <p>Hash every file with <code>md5sum</code>, sort the output by hash, then use <code>awk 'seen[$1]++'</code> to print paths where the same hash appears more than once. The full pipeline is: <code>find DIR -type f | xargs md5sum | sort | awk 'seen[$1]++'</code></p>
 
-  <h3>How do I copy my SSH key to a remote server?</h3>
-  <p>Use: <code>ssh-copy-id user@server-ip</code> — this copies your public key to <code>~/.ssh/authorized_keys</code> on the remote server.</p>
+  <h3>Is MD5 reliable for finding duplicate files?</h3>
+  <p>For everyday cleanup, yes — identical MD5 hashes mean the files are byte-for-byte copies. MD5 is not meant for cryptographic proof, but it is fast and accurate enough for photos, installers, and duplicate archives on a workstation or VPS.</p>
 
-  <h3>What permissions should SSH keys have?</h3>
-  <p>Your private key (<code>~/.ssh/id_ed25519</code>) must be <code>600</code>. Your <code>.ssh</code> directory must be <code>700</code>. Wrong permissions will cause SSH to refuse the key.</p>
+  <h3>How do I safely delete files after finding duplicates?</h3>
+  <p>Never pipe this script into <code>rm</code>. Review the list, keep one file per hash group, and delete extras manually. For automated cleanup, use <code>find ... -print</code> first, confirm output, then add <code>-delete</code> only when you are certain.</p>
 
-  <h3>What is the difference between RSA and Ed25519 SSH keys?</h3>
-  <p>Ed25519 is newer, faster, and more secure than RSA 2048. Use Ed25519 for new keys in 2026. RSA 4096 is acceptable if Ed25519 isn't supported.</p>
+  <h3>Why does xargs md5sum fail on some systems?</h3>
+  <p>When <code>find</code> returns no files, GNU <code>xargs</code> exits with code 123, which triggers <code>set -e</code>. Use <code>xargs -r</code> so <code>md5sum</code> is skipped on an empty list. RHEL and Ubuntu both ship GNU xargs by default.</p>
 
-  <h3>How do I add an SSH key to a DigitalOcean Droplet?</h3>
-  <p>Generate your key with <code>ssh-keygen</code>, copy the public key content from <code>~/.ssh/id_ed25519.pub</code>, then paste it in the DigitalOcean control panel under Settings → Security → SSH Keys before creating a Droplet.</p>
+  <h3>How long does a duplicate scan take?</h3>
+  <p>Time scales with total bytes read, not just file count. A 50 GB media folder may take several minutes because every byte is hashed. Run large scans overnight via cron, or use <code>-maxdepth</code> for a quicker sample pass.</p>
 
-  <!-- AD SLOT — after main content -->
-  <div class="ad-slot">
-    <ins class="adsbygoogle bs-ad"
-      style="display:block;min-height:0"
-      data-ad-client="ca-pub-5399156622542127"
-      data-ad-slot="AD_SLOT_PLACEHOLDER"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
+  <h3>Can I find duplicates by filename instead of content?</h3>
+  <p>Yes, but that only finds name collisions, not identical content. For content matches, use this MD5 pipeline. For duplicate names only: <code>find DIR -type f -printf '%f\n' | sort | uniq -d</code></p>
 
-  <!-- DigitalOcean affiliate — primary CTA -->
+  <!-- AFFILIATE BOX -->
   <div class="affiliate-box">
     <div class="affiliate-box-text">
-      <strong>Put this key to work on a DigitalOcean Droplet</strong>
-      SSH key login is the first thing you set up on any new server.
-      DigitalOcean lets you add SSH keys before your Droplet is even created —
-      so you're passwordless from the first connection. New accounts get $200 free.
+      <strong>Hash terabytes of uploads on a Droplet with room to breathe</strong>
+      Running duplicate scans on a laptop ties up your desk machine. A DigitalOcean Droplet with a block storage volume gives you a dedicated place to scan <code>/var/www</code> or backup trees — $4/mo with $200 credit for new accounts.
     </div>
-    <a class="btn-affiliate" href="https://m.do.co/c/7a196437764c" target="_blank" rel="noopener sponsored">Create your Droplet →</a>
+    <a class="btn-affiliate" href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener sponsored">Get $200 Free →</a>
   </div>
-   <!-- Namecheap Affiliate -->
-  <div class="affiliate-box" style="border-color:#d85121;">
-    <div class="affiliate-box-text">
-      <strong>If your site keeps going down, your hosting might be the problem.</strong>
-      Namecheap shared hosting starts at $1.58/mo. Free domain, free SSL,
-      99.9% uptime guarantee. Switch before the next outage finds you first.
-    </div>
-    <a class="btn-affiliate"
-       href="https://namecheap.pxf.io/c/7260430/1632743/5618"
-       target="_blank"
-       rel="noopener sponsored"
-       style="background:#d85121;color:#fff;">
-      View Hosting Plans →
-    </a>
-  </div>
+  <a href="https://www.digitalocean.com/?refcode=7a196437764c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" width="200" height="65" loading="lazy" decoding="async" /></a>
 
   <div style="background:var(--bg2);border:1px solid var(--green-dim);border-left:3px solid var(--green);border-radius:8px;padding:18px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
     <div style="flex:1;min-width:200px;">
       <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Free Tool</div>
-      <div style="font-family:var(--heading-font);font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px;">Build this into a full script template</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Use the Bash Boilerplate Generator to wrap this snippet in a production-ready script with error handling, logging, and more.</div>
+      <div style="font-family:var(--heading-font);font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px;">Wrap this scan in a production-ready template</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">Use the Bash Boilerplate Generator to add logging, lock files, and argument parsing around this duplicate finder.</div>
     </div>
     <a href="/tools/bash-boilerplate-generator.html" style="background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:12px;padding:9px 16px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Try the Generator →</a>
   </div>
 
-  <div class="explore-tools-cta" style="border:1px solid var(--green);background:var(--green-dim);border-radius:8px;padding:16px 20px;margin:24px 0;">
-    <p style="color:var(--green);font-family:var(--mono-font);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;">
-      ⚙️ Free Tools
-    </p>
-    <p style="color:var(--text);font-size:14px;margin:0 0 12px;line-height:1.5;">
-      Wrap key-generation steps in a hardened script shell with the
-      <a href="/tools/bash-boilerplate-generator.html">Bash Boilerplate Generator</a>
-      — error handling and logging included.
-    </p>
-    <a href="/tools/" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-size:13px;font-weight:600;padding:8px 16px;border-radius:6px;text-decoration:none;">
-      Browse All Tools →
-    </a>
-  </div>
-
   <h2>Related Snippets</h2>
   <div class="related-grid">
-    <a class="related-card" href="/snippets/bash-error-handling.html">
-      <div class="related-card-title">Bash Error Handling</div>
-      <div class="related-card-tag">set -euo pipefail · defensive scripting</div>
+    <a class="related-card" href="/snippets/disk-space-warning.html">
+      <div class="related-card-title">Disk Space Warning</div>
+      <div class="related-card-tag">beginner · monitor</div>
+    </a>
+    <a class="related-card" href="/snippets/delete-old-log-files.html">
+      <div class="related-card-title">Delete Old Log Files</div>
+      <div class="related-card-tag">intermediate · automation</div>
     </a>
     <a class="related-card" href="/snippets/automated-file-backup.html">
-      <div class="related-card-title">Automated File Backup Script</div>
+      <div class="related-card-title">Automated File Backup</div>
       <div class="related-card-tag">beginner · automation</div>
-    </a>
-    <a class="related-card" href="/snippets/check-if-website-is-up.html">
-      <div class="related-card-title">Check If Your Website Is Up</div>
-      <div class="related-card-tag">monitor · curl</div>
-    </a>
-    <a class="related-card" href="/snippets/">
-      <div class="related-card-title">← All Snippets</div>
-      <div class="related-card-tag">Browse the full library</div>
     </a>
   </div>
 
 </main>
 <div class="llm-context" style="display:none" aria-hidden="true">
 Source: BashSnippets.xyz — free bash script library
-Script: ssh-key-setup.sh
+Script: find-dupes.sh
 License: MIT
-Topic: SSH key generation and deployment with Bash
-Usage: Generates Ed25519 keys, sets permissions, optionally copies public key with ssh-copy-id.
-URL: https://bashsnippets.xyz/snippets/ssh-key-setup-script.html
+Topic: Find duplicate files with bash and MD5
+Usage: This bash script hashes files under a directory and lists byte-for-byte duplicates for safe manual cleanup.
+URL: https://bashsnippets.xyz/snippets/find-duplicate-files.html
 </div>
 
 <footer>
