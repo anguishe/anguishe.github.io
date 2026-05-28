@@ -1,53 +1,121 @@
 <!DOCTYPE html>
-<!-- NAV AUDIT 2026-05-07: Normalized nav, breadcrumb, footer, and affiliate links; added Explore More Snippets CTA. -->
+<!-- NAV AUDIT 2026-05-07: Tools hub — CollectionPage, FAQ, 6 tool cards, index.html footer. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================================================
-    PAGE TITLE & META
-    ============================================================ -->
-  <title>Free Bash Tools for Linux Scripts – BashSnippets.xyz</title>
-  <meta name="description" content="Explore free bash tools for boilerplates, chmod permissions, cron jobs, and exit codes. Build commands faster and copy safer Linux script helpers." />
+  <title>Free Bash Tools Online – BashSnippets.xyz</title>
+  <meta name="description" content="Free online bash tools for Linux developers. Build cron jobs, generate boilerplate, decode exit codes, check permissions, and debug PATH instantly." />
   <meta name="author" content="BashSnippets" />
   <meta name="robots" content="index, follow" />
 
-  <!-- ============================================================
-    CANONICAL URL
-    ============================================================ -->
   <link rel="canonical" href="https://bashsnippets.xyz/tools/" />
 
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <!-- ============================================================
-    OPEN GRAPH
-    ============================================================ -->
-  <meta property="og:title" content="Free Bash Tools – BashSnippets.xyz" />
-  <meta property="og:description" content="Free interactive tools for Linux users, developers, and sysadmins. No signup. No limits." />
+
+  <meta property="og:title" content="Free Bash Tools Online – BashSnippets.xyz" />
+  <meta property="og:description" content="Free online bash tools for Linux developers. Build cron jobs, generate boilerplate, decode exit codes, check permissions, and debug PATH instantly." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bashsnippets.xyz/tools/" />
   <meta property="og:image" content="https://bashsnippets.xyz/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Free Bash Tools — BashSnippets.xyz" />
+  <meta property="og:image:alt" content="BashSnippets — free bash tools for Linux and DevOps" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://bashsnippets.xyz/og-image.png" />
 
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"Free Bash Tools",
-"url":"https://bashsnippets.xyz/tools/",
-"description":"Free interactive tools for Linux users, developers, and sysadmins. No signup. No limits."}
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Free Bash Tools Online",
+  "description": "Free online tools for bash scripting and Linux development. Build cron jobs, generate script boilerplate, look up exit codes, check file permissions, and debug PATH entries.",
+  "url": "https://bashsnippets.xyz/tools/",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BashSnippets",
+    "url": "https://bashsnippets.xyz"
+  },
+  "hasPart": [
+    { "@type": "WebApplication", "name": "Bash Script Boilerplate Generator", "url": "https://bashsnippets.xyz/tools/bash-boilerplate-generator.html" },
+    { "@type": "WebApplication", "name": "Bash Exit Code Lookup", "url": "https://bashsnippets.xyz/tools/bash-exit-code-lookup.html" },
+    { "@type": "WebApplication", "name": "Cron Job Builder", "url": "https://bashsnippets.xyz/tools/cron-job-builder.html" },
+    { "@type": "WebApplication", "name": "chmod Permissions Builder", "url": "https://bashsnippets.xyz/tools/chmod-permissions-builder.html" },
+    { "@type": "WebApplication", "name": "Bash PATH Debugger", "url": "https://bashsnippets.xyz/tools/path-debugger.html" },
+    { "@type": "WebApplication", "name": "ShellCheck Error Decoder", "url": "https://bashsnippets.xyz/tools/shellcheck-error-decoder.html" }
+  ]
+}
   </script>
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"BashSnippets","item":"https://bashsnippets.xyz/"},
-{"@type":"ListItem","position":2,"name":"Tools","item":"https://bashsnippets.xyz/tools/"}
-]}
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "BashSnippets",
+      "item": "https://bashsnippets.xyz/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://bashsnippets.xyz/tools/"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What bash tools are available on BashSnippets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BashSnippets hosts six free browser tools for Linux developers: the Bash Script Boilerplate Generator, Bash Exit Code Lookup, Cron Job Builder, chmod Permissions Builder, Bash PATH Debugger, and ShellCheck Error Decoder. Each tool solves a specific terminal pain point — templates, exit codes, cron syntax, file permissions, PATH conflicts, and ShellCheck warnings — without installing software or creating an account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the bash boilerplate generator free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Bash Script Boilerplate Generator is completely free with no login, no trial period, and no usage limits. Open the page in any modern browser, choose options like error handling and logging, and copy a production-ready shell template instantly. It runs entirely client-side, so your script details never leave your machine unless you choose to share them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I decode a ShellCheck error code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste or type any ShellCheck code (for example SC2086) into the ShellCheck Error Decoder on BashSnippets. The tool explains what the warning means in plain English, shows a before-and-after code fix, and can generate a disable directive if you need one. Search by code or browse categories like quoting, variables, and portability to find related issues quickly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I build a cron job without memorizing cron syntax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Cron Job Builder lets you pick minute, hour, day, and month fields visually instead of memorizing five-field cron syntax. It outputs the correct crontab line plus a production-safe bash wrapper with logging and lock-file patterns, and it previews the next ten run times so you can confirm the schedule before deploying to a server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the chmod permissions builder do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The chmod Permissions Builder turns click selections for owner, group, and other read, write, and execute bits into exact chmod commands in both octal and symbolic form. It explains what each permission bit does before you run anything on production files, includes common presets like 755 and 600, and helps you avoid insecure defaults such as chmod 777."
+      }
+    }
+  ]
+}
   </script>
 
-  <!-- ============================================================
-    GOOGLE ANALYTICS (GA4)
-    ============================================================ -->
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B01TGE8XS"></script>
 <script>
@@ -59,17 +127,10 @@ gtag('config', 'G-6B01TGE8XS');
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5399156622542127"
 crossorigin="anonymous"></script>
 
-  <!-- ============================================================
-    FAVICON
-    ============================================================ -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-  <!-- ============================================================
-    FONTS — Loaded from Google Fonts CDN.
-    Syne = headings, IBM Plex Mono = body/code
-    ============================================================ -->
   <meta http-equiv="x-dns-prefetch-control" content="on" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
   <link rel="dns-prefetch" href="//www.googletagmanager.com" />
@@ -90,7 +151,7 @@ crossorigin="anonymous"></script>
       --green-dim:   #1a4a2e;
       --amber:       #e3b341;
       --blue:        #58a6ff;
-      --blue-dim:    #0d2a4a;
+      --blue-dim:    #0d2744;
       --muted:       #8b949e;
       --text:        #e6edf3;
       --radius:      8px;
@@ -151,6 +212,7 @@ crossorigin="anonymous"></script>
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--green); }
 
     .nav-mobile-menu {
       display: none;
@@ -203,124 +265,218 @@ crossorigin="anonymous"></script>
       font-family: var(--mono-font);
       font-size: 12px;
       color: var(--muted);
-      margin-bottom: 32px;
+      list-style: none;
       display: flex;
-      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .breadcrumb li { display: flex; align-items: center; gap: 8px; }
+    .breadcrumb li:not(:last-child)::after {
+      content: " / ";
+      color: var(--border);
     }
     .breadcrumb a { color: var(--muted); }
     .breadcrumb a:hover { color: var(--text); text-decoration: none; }
-    .breadcrumb-sep { color: var(--border); }
 
-    .tools-hub-title {
+    .page-hero { margin-bottom: 48px; }
+    .section-label {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: lowercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .page-hero h1 {
       font-family: var(--heading-font);
       font-weight: 800;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       line-height: 1.2;
       letter-spacing: -0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .hero-subhead {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .hero-pill {
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--muted);
+      font-family: var(--mono-font);
+      font-size: 12px;
+    }
+    .btn-blue {
+      display: inline-block;
+      background: var(--blue);
+      color: #0d1117;
+      font-family: var(--mono-font);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-blue:hover { opacity: 0.85; text-decoration: none; }
+
+    .tools-section { margin-bottom: 56px; }
+    .tools-section h2 {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
       color: var(--text);
     }
 
-    .tools-hub-subtitle {
-      font-size: 15px;
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 32px;
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
 
     .tool-card {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius);
       padding: 24px;
-      max-width: 400px;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
     }
-
-    .tool-card-label {
+    .tool-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transform: translateY(-2px);
+    }
+    .tool-card-category {
+      font-family: var(--mono-font);
       font-size: 11px;
       font-weight: 600;
-      color: var(--green);
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
+      color: var(--muted);
       margin-bottom: 12px;
     }
-
-    .tool-card-title {
+    .tool-card h3 {
       font-family: var(--heading-font);
+      font-size: 16px;
       font-weight: 700;
-      font-size: 18px;
       color: var(--text);
       margin-bottom: 10px;
+      line-height: 1.3;
     }
-
     .tool-card-desc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
       line-height: 1.65;
       margin-bottom: 16px;
     }
-
-    .tool-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .tool-card-tag {
-      background: var(--bg3);
-      border: 1px solid var(--border);
+    .tool-card-link {
       font-family: var(--mono-font);
-      font-size: 11px;
-      color: var(--muted);
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .tool-card-btn {
-      display: inline-block;
-      background: var(--green);
-      color: #0d1117;
-      font-family: var(--mono-font);
-      font-weight: 600;
-      font-size: 14px;
-      padding: 10px 18px;
-      border-radius: var(--radius);
+      font-size: 13px;
+      color: var(--green);
       text-decoration: none;
     }
-    .tool-card-btn:hover { text-decoration: none; filter: brightness(1.05); }
+    .tool-card-link:hover { text-decoration: underline; }
+
+    .cross-link-section { margin-bottom: 48px; }
+    .cross-link-section p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+    .cross-link-card {
+      display: block;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .cross-link-card:hover {
+      border-color: var(--blue);
+      text-decoration: none;
+    }
+    .cross-link-card span {
+      font-family: var(--mono-font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    .ad-wrap { margin: 40px 0; }
+
+    .faq-section { margin-bottom: 48px; }
+    .faq-section h2 {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .faq-section h3 {
+      font-family: var(--heading-font);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 24px 0 10px;
+    }
+    .faq-section h3:first-of-type { margin-top: 0; }
+    .faq-section p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
   </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "BashSnippets",
-  "url": "https://bashsnippets.xyz",
-  "description": "Free bash script library for Linux users, sysadmins, and developers.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://bashsnippets.xyz/snippets/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-  </script>
 </head>
 <body>
 
-  <!-- ============================================================
-       NAVIGATION
-       ============================================================ -->
   <nav id="site-nav">
-    <a href="/" class="nav-logo">bash<span>/</span>snippets</a>
-
+    <a class="nav-logo" href="/">Bash<span>Snippets</span></a>
     <ul class="nav-links">
       <li><a href="/snippets/">Snippets</a></li>
       <li><a href="/#builder">Builder</a></li>
       <li><a href="/#resources">Resources</a></li>
-      <li><a href="/tools/" style="color:var(--green);font-weight:600;">Tools</a></li>
+      <li><a href="/tools/" class="active">Tools</a></li>
       <li><a href="/about.html">About</a></li>
       <li><a href="/contact.html">Contact</a></li>
     </ul>
@@ -351,150 +507,150 @@ crossorigin="anonymous"></script>
     })();
   </script>
 
-
   <main>
 
-    <div class="breadcrumb" aria-label="Breadcrumb">
-      <a href="/">BashSnippets</a>
-      <span class="breadcrumb-sep">/</span>
-      <span>Tools</span>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li><a href="/">BashSnippets</a></li>
+        <li>Tools</li>
+      </ol>
+    </nav>
 
-    <h1 class="tools-hub-title">Free Bash Tools</h1>
-    <p class="tools-hub-subtitle">Interactive tools for Linux users and developers. No signup. No limits.</p>
-
-    <article class="tool-card">
-      <div class="tool-card-label">FREE TOOL</div>
-      <h2 class="tool-card-title">Bash Boilerplate Generator</h2>
-      <p class="tool-card-desc">Pick your options, inject a snippet from the library, and copy a production-ready .sh template. No blank files.</p>
-      <div class="tool-card-tags">
-        <span class="tool-card-tag">interactive</span>
-        <span class="tool-card-tag">free</span>
+    <section class="page-hero">
+      <p class="section-label">// bash tools</p>
+      <h1>Free Bash Tools for Linux Developers</h1>
+      <p class="hero-subhead">Interactive tools that save you time in the terminal. No install. No login. Open, use, copy.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">6 free tools</span>
+        <span class="hero-pill">works in browser</span>
       </div>
-      <a class="tool-card-btn" href="/tools/bash-boilerplate-generator.html">Open Tool →</a>
-    </article>
+      <a class="btn-blue" href="/snippets/">Browse Scripts →</a>
+    </section>
 
-<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:400px;">
-  <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Free Tool</div>
-  <h2 style="font-family:var(--heading-font);font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">Bash Exit Code Lookup</h2>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Look up exit codes 0-255. Get the meaning, causes, and a copy-paste error handler in if/else, case, or inline style.</p>
-  <div style="display:flex;gap:6px;margin-bottom:16px;">
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">interactive</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">free</span>
-  </div>
-  <a href="/tools/bash-exit-code-lookup.html" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:6px;text-decoration:none;">Open Tool →</a>
-</div>
+    <section class="tools-section" aria-labelledby="tools-heading">
+      <p class="section-label">// all tools</p>
+      <h2 id="tools-heading">Pick a Tool</h2>
+      <div class="tools-grid">
 
-<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:400px;">
-  <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Free Tool</div>
-  <h2 style="font-family:var(--heading-font);font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">Cron Job Builder</h2>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Build cron expressions visually and wrap them in production-safe bash with logging, PATH, and lock files. See the next 10 run times.</p>
-  <div style="display:flex;gap:6px;margin-bottom:16px;">
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">interactive</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">free</span>
-  </div>
-  <a href="/tools/cron-job-builder.html" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:6px;text-decoration:none;">Open Tool →</a>
-</div>
+        <article class="tool-card">
+          <div class="tool-card-category">boilerplate</div>
+          <h3>Bash Script Boilerplate Generator</h3>
+          <p class="tool-card-desc">Starting from a blank .sh file means no error handling, no logging, and a script that silently corrupts data. This generates a production-ready bash template in seconds.</p>
+          <a class="tool-card-link" href="/tools/bash-boilerplate-generator.html">Open tool →</a>
+        </article>
 
-<a class="tool-card" href="/tools/path-debugger.html" style="display:block;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;text-decoration:none;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
-  <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">FREE TOOL</div>
-  <div style="font-family:var(--heading-font);font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">Bash $PATH Debugger</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">Paste your $PATH and instantly see which directories exist, which are missing, and get a cleaned export line.</div>
-  <div style="font-size:11px;color:var(--muted);font-family:var(--mono-font);">debugging · PATH · command not found</div>
-</a>
+        <article class="tool-card">
+          <div class="tool-card-category">debugging</div>
+          <h3>Bash Exit Code Lookup</h3>
+          <p class="tool-card-desc">When a script fails with exit code 127 or 139, you waste 20 minutes Googling what it means. This tool decodes it instantly and generates the handler.</p>
+          <a class="tool-card-link" href="/tools/bash-exit-code-lookup.html">Open tool →</a>
+        </article>
 
-    <!-- ADD NEW TOOLS HERE -->
+        <article class="tool-card">
+          <div class="tool-card-category">scheduling</div>
+          <h3>Cron Job Builder</h3>
+          <p class="tool-card-desc">Cron syntax is backwards and cron jobs fail silently in production. This builds the expression visually, wraps it in a production-safe bash template, and shows the next 10 run times.</p>
+          <a class="tool-card-link" href="/tools/cron-job-builder.html">Open tool →</a>
+        </article>
 
-<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:400px;">
-  <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Free Tool</div>
-  <h2 style="font-family:var(--heading-font);font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">ShellCheck Error Decoder</h2>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Decode SC2086, SC2046, and 30+ ShellCheck error codes instantly. See before/after code fixes, severity levels, and copy corrected scripts.</p>
-  <div style="display:flex;gap:6px;margin-bottom:16px;">
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">interactive</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">free</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">debugging</span>
-  </div>
-  <a href="/tools/shellcheck-error-decoder.html" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:6px;text-decoration:none;">Open Tool →</a>
-</div>
+        <article class="tool-card">
+          <div class="tool-card-category">permissions</div>
+          <h3>chmod Permissions Builder</h3>
+          <p class="tool-card-desc">chmod 777 is a security hole. This builds the exact permission string you actually need and explains what each bit does before you run it.</p>
+          <a class="tool-card-link" href="/tools/chmod-permissions-builder.html">Open tool →</a>
+        </article>
 
-<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:400px;">
-  <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Free Tool</div>
-  <h3 style="font-family:var(--heading-font);font-weight:700;font-size:18px;color:var(--text);margin-bottom:8px;">chmod Permissions Builder</h3>
-  <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Click the permissions you want — read, write, execute — and get the exact chmod command in octal and symbolic mode instantly. Presets for 755, 644, 600, 700 and more.</p>
-  <div style="display:flex;gap:6px;margin-bottom:16px;">
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">interactive</span>
-    <span style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--mono-font);font-size:11px;padding:4px 8px;border-radius:4px;">free</span>
-  </div>
-  <a href="/tools/chmod-permissions-builder.html" style="display:inline-block;background:var(--green);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:6px;text-decoration:none;">Open Tool →</a>
-</div>
+        <article class="tool-card">
+          <div class="tool-card-category">debugging</div>
+          <h3>Bash PATH Debugger</h3>
+          <p class="tool-card-desc">A broken PATH means commands silently fail or resolve to the wrong binary. Paste your PATH and see every missing directory, duplicate, and conflict in one scan.</p>
+          <a class="tool-card-link" href="/tools/path-debugger.html">Open tool →</a>
+        </article>
 
-    <!-- BLOCK 1 — DigitalOcean affiliate box -->
-    <div style="max-width:960px;margin:40px auto 32px;padding:0 24px;">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <div style="flex:1;min-width:200px;">
-          <div style="font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Recommended Hosting</div>
-          <div style="font-family:var(--heading-font);font-weight:700;font-size:15px;color:var(--text);margin-bottom:4px;">Run these scripts on a $4/mo DigitalOcean Droplet</div>
-          <div style="font-size:13px;color:var(--muted);">Spin up a Linux VPS in 60 seconds. Perfect for cron jobs and running bash scripts 24/7.</div>
-        </div>
-        <a href="https://www.digitalocean.com/?refcode=7a196437764c" target="_blank" rel="noopener"
-          style="background:var(--blue);color:#0d1117;font-family:var(--mono-font);font-weight:600;font-size:13px;padding:10px 20px;border-radius:6px;text-decoration:none;white-space:nowrap;">Get $200 Free Credit →</a>
+        <article class="tool-card">
+          <div class="tool-card-category">linting</div>
+          <h3>ShellCheck Error Decoder</h3>
+          <p class="tool-card-desc">ShellCheck codes like SC2086 mean nothing without context. This decodes any SC code into plain English, shows the before/after fix, and generates the disable directive.</p>
+          <a class="tool-card-link" href="/tools/shellcheck-error-decoder.html">Open tool →</a>
+        </article>
+
       </div>
-    </div>
+    </section>
 
-    <div style="background:linear-gradient(135deg,#1a1f2e 0%,#161b27 100%);
-      border:1px solid #30363d; border-left:3px solid #e3b341;
-      border-radius:8px; padding:20px 24px; display:flex;
-      align-items:center; justify-content:space-between;
-      gap:16px; flex-wrap:wrap; margin:24px 0;">
-      <div>
-        <div style="font-size:11px;color:#e3b341;font-family:'IBM Plex Mono',monospace;
-          text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">
-          // domain registration
-        </div>
-        <strong style="color:#f0f6fc;font-size:15px;">
-          Ready to deploy your scripts? Grab a domain.
-        </strong>
-        <p style="color:#8b949e;font-size:13px;margin:6px 0 0;">
-          Namecheap domains from $1.98/yr. Free WhoisGuard privacy included.
-          Point it at your GitHub Pages or VPS in minutes.
-        </p>
-      </div>
-      <a href="https://namecheap.pxf.io/c/7260430/1632743/5618"
-        target="_blank" rel="noopener sponsored"
-        style="background:#e3b341;color:#0d1117;font-family:'IBM Plex Mono',monospace;
-          font-weight:600;font-size:13px;padding:10px 18px;border-radius:8px;
-          text-decoration:none;white-space:nowrap;transition:opacity .2s;"
-        onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-        Get a Domain →
+    <section class="cross-link-section" aria-labelledby="snippets-heading">
+      <p class="section-label">// also useful</p>
+      <h2 id="snippets-heading">Looking for Scripts Instead?</h2>
+      <p>When a server goes down at 2 a.m., you do not need another config panel — you need a script that already works. The BashSnippets library is production bash you copy, chmod, and run: backups, monitoring, grep recipes, and cron-ready automation — not interactive builders you tune in a browser.</p>
+      <a class="cross-link-card" href="/snippets/">
+        <span>Browse the Script Library →</span>
       </a>
+    </section>
+
+    <div class="ad-wrap">
+      <ins class="adsbygoogle bs-ad"
+        style="display:block;min-height:0"
+        data-ad-client="ca-pub-5399156622542127"
+        data-ad-slot="AD_SLOT_PLACEHOLDER"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <div class="explore-snippets-cta" style="border:1px solid var(--blue);background:var(--blue-dim);border-radius:8px;padding:16px 20px;margin:24px 0;">
-      <p style="color:var(--blue);font-family:var(--mono-font);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px;">
-        📋 Copy-Paste Snippets
-      </p>
-      <p style="color:var(--text);font-size:14px;margin:0 0 12px;line-height:1.5;">
-        All snippets are free, beginner-friendly, and production-tested.
-        Find a script for your exact use case.
-      </p>
-      <a href="/snippets/" style="display:inline-block;background:var(--blue);color:#0d1117;font-family:var(--mono-font);font-size:13px;font-weight:600;padding:8px 16px;border-radius:6px;text-decoration:none;">
-        Browse All Snippets →
-      </a>
-    </div>
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
 
-    <footer style="text-align:center;padding:32px 24px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);">
-      <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px;">
-        <a href="/" style="color:var(--muted);">← BashSnippets</a>
-        <a href="/tools/" style="color:var(--muted);">Tools</a>
-        <a href="/snippets/" style="color:var(--muted);">All Snippets</a>
-        <a href="/about.html" style="color:var(--muted);">About</a>
-        <a href="/privacy.html" style="color:var(--muted);">Privacy</a>
-      </div>
-      <p>© <span id="year"></span> BashSnippets · Built by a Linux user, for Linux users.</p>
-      <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-    </footer>
+      <h3>What bash tools are available on BashSnippets?</h3>
+      <p>BashSnippets hosts six free browser tools for Linux developers: the Bash Script Boilerplate Generator, Bash Exit Code Lookup, Cron Job Builder, chmod Permissions Builder, Bash PATH Debugger, and ShellCheck Error Decoder. Each tool solves a specific terminal pain point — templates, exit codes, cron syntax, file permissions, PATH conflicts, and ShellCheck warnings — without installing software or creating an account.</p>
+
+      <h3>Is the bash boilerplate generator free?</h3>
+      <p>Yes. The Bash Script Boilerplate Generator is completely free with no login, no trial period, and no usage limits. Open the page in any modern browser, choose options like error handling and logging, and copy a production-ready shell template instantly. It runs entirely client-side, so your script details never leave your machine unless you choose to share them.</p>
+
+      <h3>How do I decode a ShellCheck error code?</h3>
+      <p>Paste or type any ShellCheck code (for example SC2086) into the ShellCheck Error Decoder on BashSnippets. The tool explains what the warning means in plain English, shows a before-and-after code fix, and can generate a disable directive if you need one. Search by code or browse categories like quoting, variables, and portability to find related issues quickly.</p>
+
+      <h3>Can I build a cron job without memorizing cron syntax?</h3>
+      <p>Yes. The Cron Job Builder lets you pick minute, hour, day, and month fields visually instead of memorizing five-field cron syntax. It outputs the correct crontab line plus a production-safe bash wrapper with logging and lock-file patterns, and it previews the next ten run times so you can confirm the schedule before deploying to a server.</p>
+
+      <h3>What does the chmod permissions builder do?</h3>
+      <p>The chmod Permissions Builder turns click selections for owner, group, and other read, write, and execute bits into exact chmod commands in both octal and symbolic form. It explains what each permission bit does before you run anything on production files, includes common presets like 755 and 600, and helps you avoid insecure defaults such as chmod 777.</p>
+    </section>
 
   </main>
+
+  <footer>
+        <div class="footer-links">
+      <a href="/snippets/">Snippets</a>
+      <a href="/#builder">Builder</a>
+      <a href="/#resources">Resources</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/snippets/">All Scripts</a>
+      <a href="/snippets/">Script Library on GitHub →</a>
+      <a href="/snippets/automated-file-backup.html">File Backup</a>
+      <a href="/snippets/disk-space-warning.html">Disk Warning</a>
+      <a href="/snippets/delete-old-log-files.html">Log Cleanup</a>
+      <a href="/snippets/check-if-website-is-up.html">Uptime Check</a>
+      <a href="/snippets/bash-error-handling.html">Error Handling</a>
+      <a href="/tools/">All Tools</a>
+      <a href="/tools/bash-boilerplate-generator.html">Boilerplate Generator</a>
+      <a href="/tools/cron-job-builder.html">Cron Builder</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy Policy</a>
+
+      <!-- Add cluster page links here as they go live:
+      <a href="/tools/cron-job-builder.html">Cron Builder</a>
+      <a href="/snippets/">One-Liners</a>
+      <a href="/snippets/">Cheat Sheet</a>
+      -->
+    </div>
+    <p>Built by a Linux user, for Linux users. All scripts tested on Ubuntu 22.04 LTS and macOS Ventura.</p>
+    <p>Open source. No paywalls.</p>
+    <p style="margin-top:8px;">
+      © <span id="year"></span> BashSnippets
+      &nbsp;·&nbsp; <a href="mailto:Anguisheh1@gmail.com">Anguisheh1@gmail.com</a>
+      &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a>
+    </p>
+  </footer>
 
   <script>
     const navToggle = document.getElementById('nav-toggle');
@@ -505,6 +661,7 @@ crossorigin="anonymous"></script>
         navToggle.textContent = navDrawer.classList.contains('open') ? '✕' : '☰';
       });
     }
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
 </body>

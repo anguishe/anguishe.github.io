@@ -44,8 +44,8 @@ Anguishe — Linux user, bash scripter. Tested every script personally on Ubuntu
 
 ## Interactive Tools
 
-- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html) — generates production-ready .sh templates with error handling and logging
 - [Script Builder](https://bashsnippets.xyz/tools/) — pick a task and generate a working starter script
+- [Bash Boilerplate Generator](https://bashsnippets.xyz/tools/bash-boilerplate-generator.html) — generates production-ready .sh templates with error handling and logging
 
 ## License
 
