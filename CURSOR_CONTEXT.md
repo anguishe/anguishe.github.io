@@ -16,7 +16,7 @@
 
 ## Scripts That Must Survive Every Edit
 - GA4: G-6B01TGE8XS
-- AdSense: ca-pub-5399156622542127
+- AdSense: ca-pub-5399156622542127 | display slot: 7586966692
 - DigitalOcean affiliate: refcode 7a196437764c
 - NameCheap affiliate link: https://namecheap.pxf.io/c/7260430/1632743/5618
 
